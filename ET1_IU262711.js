@@ -1,19 +1,19 @@
 datosgenerales = 
               {
                   Lider:
-                    [ÁlvarezLópezAna,
-                    ET1,
+                    ['AlvarezLopezAna',
+                    'ET1',
                     0],
                   Participante1:
-                    [FreireSuárezEva,
-                    ET1,
+                    ['FreireSuarezEva',
+                    'ET1',
                     0],
                   Participante2:
-                    [CortiñasPérezManuel,
-                    ET1,
+                    ['CortiñasPerezManuel',
+                    'ET1',
                     0],
                   Participante3:
-                    [ElGhaliElGhaliHiba,
-                     ET1,
+                    ['ElGhaliElGhaliHiba',
+                     'ET1',
                      0]
               }
