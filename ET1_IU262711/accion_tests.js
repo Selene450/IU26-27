@@ -59,13 +59,13 @@ var accion_pruebas = [
     ['accion', 'nombre_accion', 22, 22, 'SEARCH', {'nombre_accion': 'AccionConÑ'}, 'true'],
     ['accion', 'descrip_accion', 23, 23, 'ADD', {'descrip_accion': 'abc'}, 'descrip_accion_min_size_KO'],
     ['accion', 'descrip_accion', 24, 24, 'ADD', {'descrip_accion': 'a'.repeat(201)}, 'descrip_accion_max_size_KO'],
-    ['accion', 'descrip_accion', 25, 25, 'ADD', {'descrip_accion': '@@@@'}, 'descrip_accion_format_KO'],
+    ['accion', 'descrip_accion', 25, 25, 'ADD', {'descrip_accion': '@@@@@@@@@@@@@@@@@@@@@'}, 'descrip_accion_format_KO'],
     ['accion', 'descrip_accion', 26, 26, 'ADD', {'descrip_accion': 'Descripción válida con acentos y signos de puntuación y ñ.'}, 'true'],
     ['accion', 'descrip_accion', 27, 27, 'EDIT', {'descrip_accion': 'abc'}, 'descrip_accion_min_size_KO'],
     ['accion', 'descrip_accion', 28, 28, 'EDIT', {'descrip_accion': 'a'.repeat(201)}, 'descrip_accion_max_size_KO'],
-    ['accion', 'descrip_accion', 29, 29, 'EDIT', {'descrip_accion': '@@@@'}, 'descrip_accion_format_KO'],
+    ['accion', 'descrip_accion', 29, 29, 'EDIT', {'descrip_accion': '@@@@@@@@@@@@@@@@@@@@@'}, 'descrip_accion_format_KO'],
     ['accion', 'descrip_accion', 30, 30, 'EDIT', {'descrip_accion': 'Descripción válida con acentos y signos de puntuación y ñ.'}, 'true'],
     ['accion', 'descrip_accion', 31, 31, 'SEARCH', {'descrip_accion': 'a'.repeat(201)}, 'descrip_accion_max_size_KO'],
-    ['accion', 'descrip_accion', 32, 32, 'SEARCH', {'descrip_accion': '@@@@'}, 'descrip_accion_format_KO'],
+    ['accion', 'descrip_accion', 32, 32, 'SEARCH', {'descrip_accion': '@@@@@@@@@@@@@@@@@@@@@'}, 'descrip_accion_format_KO'],
     ['accion', 'descrip_accion', 33, 33, 'SEARCH', {'descrip_accion': 'Descripción válida con acentos y signos de puntuación y ñ.'}, 'true']
 ];
