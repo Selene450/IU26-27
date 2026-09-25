@@ -1,9 +1,9 @@
 Nombre: Eva Freire Suárez
 
-Tareas                      | Horas
--------------------------- | -----
-                           | 
-                           | 
-                           | 
-                           | 
-                           | 
+Tareas                                             | Horas
+-------------------------------------------------- | -----
+ revision entidad accion                           |  0'5         
+ correccion tipo de dato true de string a boolean  | 0'5         
+ deinicion test persona                            | 1'5         
+ definicion pruebas entidad persona                | 1'5
+                                                   | 
