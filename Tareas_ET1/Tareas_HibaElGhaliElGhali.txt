@@ -1,8 +1,8 @@
 Nombre: Hiba El GHali El Ghali
 
-Tareas                      | Horas
--------------------------- | -----
-                           | 
+Tareas                                | Horas
+------------------------------------- | -----
+ Revisa y corregir la entidad persona | 2
                            | 
                            | 
                            | 
