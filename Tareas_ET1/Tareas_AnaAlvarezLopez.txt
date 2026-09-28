@@ -1,9 +1,9 @@
-Nombre: Ana Álvarez López
+Nombre: Ana Alvarez Lopez
 
-Tareas                                                      | Horas
------------------------------------------------------------ | -----
-Escritura de los tests y las pruebas de la entidad accion   | 2
-                                                            | 
+Tareas                                                                    | Horas
+------------------------------------------------------------------------  | -----
+Escritura de los tests y las pruebas de la entidad accion                 | 2
+Escritura de los tests y las pruebas de la entidad rolaccionfuncionalidad | 0'5
                                                             | 
                                                             | 
                                                             | 
