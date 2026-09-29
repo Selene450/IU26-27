@@ -25,4 +25,5 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Corección general de numeración como consecuencia de añadir nuevas pruebas y tests [28/09/2026]
 - Correccion de errores de los tests y pruebas de usuario [29/09/2026]
 - Correccion en nombre de variable en los tests de `rolaccionfuncionalidad` y `accion_funcionalidad` [29/09/2026]
+- Correccion en nombre de campo `contraena` en los tests de ` usuario` [29/09/2026]
 
