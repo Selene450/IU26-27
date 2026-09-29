@@ -31,18 +31,18 @@ var usuario_def_tests = [
     ['usuario', 'usuario', 'input', 22, "Validar usuario correcto en SEARCH", "valid", "SEARCH", true, "usuario correcto"],
     //campo contraseña
     //ADD
-    ['usuario', 'contrasena', 'input', 23, 'Validar min_size de contraseña en  ADD', 'min_size', 'ADD', 'contraseña_min_size_KO', 'El campo contrasena debe tener al menos 8 caracteres'],
-    ['usuario', 'contrasena', 'input', 24, 'Validar max_size de contraseña en  ADD', 'max_size', 'ADD', 'contraseña_max_size_KO', 'El campo contrasena debe tener como máximo 45 caracteres'],
+    ['usuario', 'contrasena', 'input', 23, 'Validar min_size de contraseña en  ADD', 'min_size', 'ADD', 'contrasena_min_size_KO', 'El campo contrasena debe tener al menos 8 caracteres'],
+    ['usuario', 'contrasena', 'input', 24, 'Validar max_size de contraseña en  ADD', 'max_size', 'ADD', 'contrasena_max_size_KO', 'El campo contrasena debe tener como máximo 45 caracteres'],
     ['usuario', 'contrasena', 'input', 25, 'Validar format de contraseña en  ADD', 'format', 'ADD', 'contraseña_format_KO', 'El campo contrasena debe ser alfabetico sin ñ, ni acentos'],
     ['usuario', 'contrasena', 'input', 26, 'Validar contraseña correcta en ADD', 'valid', 'ADD', true, 'contrasena correcta'],
     //EDIT
-    ['usuario', 'contrasena', 'input', 27, 'Validar min_size de contraseña en  EDIT', 'min_size', 'EDIT', 'contraseña_min_size_KO', 'El campo contrasena debe tener al menos 8 caracteres'],
-    ['usuario', 'contrasena', 'input', 28, 'Validar max_size de contraseña en  EDIT', 'max_size', 'EDIT', 'contraseña_max_size_KO', 'El campo contrasena debe tener como máximo 45 caracteres'],
-    ['usuario', 'contrasena', 'input', 29, 'Validar format de contraseña en  EDIT', 'format', 'EDIT', 'contraseña_format_KO', 'El campo contrasena debe ser alfabetico sin ñ, ni acentos'],
+    ['usuario', 'contrasena', 'input', 27, 'Validar min_size de contraseña en  EDIT', 'min_size', 'EDIT', 'contrasena_min_size_KO', 'El campo contrasena debe tener al menos 8 caracteres'],
+    ['usuario', 'contrasena', 'input', 28, 'Validar max_size de contraseña en  EDIT', 'max_size', 'EDIT', 'contrasena_max_size_KO', 'El campo contrasena debe tener como máximo 45 caracteres'],
+    ['usuario', 'contrasena', 'input', 29, 'Validar format de contraseña en  EDIT', 'format', 'EDIT', 'contrasena_format_KO', 'El campo contrasena debe ser alfabetico sin ñ, ni acentos'],
     ['usuario', 'contrasena', 'input', 30, 'Validar contraseña correcta en EDIT', 'valid', 'EDIT', true, 'contrasena correcta'],
     //SEARCH
-    ['usuario', 'contrasena', 'input', 31, 'Validar max_size de contraseña en  SEARCH', 'max_size', 'SEARCH', 'contraseña_max_size_KO', 'El campo contrasena tiene como máximo 45 caracteres'],
-    ['usuario', 'contrasena', 'input', 32, 'Validar format de contraseña en  SEARCH', 'format', 'SEARCH', 'contraseña_format_KO', 'El campo contrasena debe ser alfabetico sin ñ, ni acentos'],
+    ['usuario', 'contrasena', 'input', 31, 'Validar max_size de contraseña en  SEARCH', 'max_size', 'SEARCH', 'contrasena_max_size_KO', 'El campo contrasena tiene como máximo 45 caracteres'],
+    ['usuario', 'contrasena', 'input', 32, 'Validar format de contraseña en  SEARCH', 'format', 'SEARCH', 'contrasena_format_KO', 'El campo contrasena debe ser alfabetico sin ñ, ni acentos'],
     ['usuario', 'contrasena', 'input', 33, "Validar contraseña correcta en SEARCH", "valid", "SEARCH", true, "contrasena correcta"],
     //campo id_rol
     //ADD
