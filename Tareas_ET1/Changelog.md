@@ -24,5 +24,5 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Correccion de nuevo_foto_persona y foto_persona: nuevo_foto_persona es para las pruebas de ADD y EDIT ya que son sobre el fichero y foto_persona es para las de SEARCH ya que solo buscamos por el nombre (ref. definición de este año y dudas resueltas de año pasado) [28/09/2026]
 - Corección general de numeración como consecuencia de añadir nuevas pruebas y tests [28/09/2026]
 - Correccion de errores de los tests y pruebas de usuario [29/09/2026]
-- Correccion en nombre de variable en los tests de rol_accion_funcionalidad y accion_funcionalidad [29/09/2026]
+- Correccion en nombre de variable en los tests de rolaccionfuncionalidad y accion_funcionalidad [29/09/2026]
 
