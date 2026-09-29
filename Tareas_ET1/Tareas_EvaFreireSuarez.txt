@@ -6,4 +6,5 @@ Tareas                                             | Horas
  correccion tipo de dato true de string a boolean  | 0'5         
  deinicion test persona                            | 1'5         
  definicion pruebas entidad persona                | 1'5
-                                                   | 
+ revisión entidades nuevas                         | 0'5
+ correcció campo contrasena                        | 0'25
