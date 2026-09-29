@@ -4,6 +4,6 @@ Tareas                                          | Horas
 ------------------------------------------------| --
 Definición de los test de usuario               |0'5 
 Definición de las pruebas de los test de usuario|0'5
-                           | 
+Corrección de errores en los test de usuario    |0,5 
                            | 
                            | 
