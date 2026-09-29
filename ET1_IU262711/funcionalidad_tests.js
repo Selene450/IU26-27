@@ -29,21 +29,21 @@ var funcionalidad_def_tests = [
     ['funcionalidad', 'nombre_funcionalidad', 'input', 20, 'Validar max_size de nombre_funcionalidad en  SEARCH', 'max_size', 'SEARCH', 'nombre_funcionalidad_max_size_KO', 'El campo nombre_funcionalidad debe tener como máximo 48 caracteres'],
     ['funcionalidad', 'nombre_funcionalidad', 'input', 21, 'Validar format de nombre_funcionalidad en  SEARCH', 'format', 'SEARCH', 'nombre_funcionalidad_format_KO', 'El campo nombre_funcionalidad debe ser alfabetico con ñ'],
     ['funcionalidad', 'nombre_funcionalidad', 'input', 22, 'Validar nombre_funcionalidad correcto en SEARCH', 'valid', 'SEARCH', true, 'nombre_funcionalidad correcto'],
-    //descripc_funcionalidad
+    //descrip_funcionalidad
     //ADD
-    ['funcionalidad', 'descripc_funcionalidad', 'textarea', 23, 'Validar min_size de descripc_funcionalidad en  ADD', 'min_size', 'ADD', 'descripc_funcionalidad_min_size_KO', 'El campo descripc_funcionalidad debe tener al menos 5 caracteres'],
-    ['funcionalidad', 'descripc_funcionalidad', 'textarea', 24, 'Validar max_size de descripc_funcionalidad en  ADD', 'max_size', 'ADD', 'descripc_funcionalidad_max_size_KO', 'El campo descripc_funcionalidad debe tener como máximo 200 caracteres'],
-    ['funcionalidad', 'descripc_funcionalidad', 'textarea', 25, 'Validar format de descripc_funcionalidad en  ADD', 'format', 'ADD', 'descripc_funcionalidad_format_KO', 'El campo descripc_funcionalidad debe ser alfabetico con ñ y signos de puntuación'],
-    ['funcionalidad', 'descripc_funcionalidad', 'textarea', 26, 'Validar descripc_funcionalidad correcto en ADD', 'valid', 'ADD', true, 'descripc_funcionalidad correcto'],
+    ['funcionalidad', 'descrip_funcionalidad', 'textarea', 23, 'Validar min_size de descrip_funcionalidad en  ADD', 'min_size', 'ADD', 'descrip_funcionalidad_min_size_KO', 'El campo descrip_funcionalidad debe tener al menos 5 caracteres'],
+    ['funcionalidad', 'descrip_funcionalidad', 'textarea', 24, 'Validar max_size de descrip_funcionalidad en  ADD', 'max_size', 'ADD', 'descrip_funcionalidad_max_size_KO', 'El campo descrip_funcionalidad debe tener como máximo 200 caracteres'],
+    ['funcionalidad', 'descrip_funcionalidad', 'textarea', 25, 'Validar format de descrip_funcionalidad en  ADD', 'format', 'ADD', 'descripc_funcionalidad_format_KO', 'El campo descrip_funcionalidad debe ser alfabetico con ñ y signos de puntuación'],
+    ['funcionalidad', 'descrip_funcionalidad', 'textarea', 26, 'Validar descrip_funcionalidad correcto en ADD', 'valid', 'ADD', true, 'descrip_funcionalidad correcto'],
     //EDIT
-    ['funcionalidad', 'descripc_funcionalidad', 'textarea', 27, 'Validar min_size de descripc_funcionalidad en  EDIT', 'min_size', 'EDIT', 'descripc_funcionalidad_min_size_KO', 'El campo descripc_funcionalidad debe tener al menos 5 caracteres'],
-    ['funcionalidad', 'descripc_funcionalidad', 'textarea', 28, 'Validar max_size de descripc_funcionalidad en  EDIT', 'max_size', 'EDIT', 'descripc_funcionalidad_max_size_KO', 'El campo descripc_funcionalidad debe tener como máximo 200 caracteres'],
-    ['funcionalidad', 'descripc_funcionalidad', 'textarea', 29, 'Validar format de descripc_funcionalidad en  EDIT', 'format', 'EDIT', 'descripc_funcionalidad_format_KO', 'El campo descripc_funcionalidad debe ser alfabetico con ñ y signos de puntuación'],
-    ['funcionalidad', 'descripc_funcionalidad', 'textarea', 30, 'Validar descripc_funcionalidad correcto en EDIT', 'valid', 'EDIT', true, 'descripc_funcionalidad correcto'],
+    ['funcionalidad', 'descrip_funcionalidad', 'textarea', 27, 'Validar min_size de descrip_funcionalidad en  EDIT', 'min_size', 'EDIT', 'descrip_funcionalidad_min_size_KO', 'El campo descrip_funcionalidad debe tener al menos 5 caracteres'],
+    ['funcionalidad', 'descrip_funcionalidad', 'textarea', 28, 'Validar max_size de descrip_funcionalidad en  EDIT', 'max_size', 'EDIT', 'descrip_funcionalidad_max_size_KO', 'El campo descrip_funcionalidad debe tener como máximo 200 caracteres'],
+    ['funcionalidad', 'descrip_funcionalidad', 'textarea', 29, 'Validar format de descrip_funcionalidad en  EDIT', 'format', 'EDIT', 'descrip_funcionalidad_format_KO', 'El campo descrip_funcionalidad debe ser alfabetico con ñ y signos de puntuación'],
+    ['funcionalidad', 'descrip_funcionalidad', 'textarea', 30, 'Validar descrip_funcionalidad correcto en EDIT', 'valid', 'EDIT', true, 'descrip_funcionalidad correcto'],
     //SEARCH
-    ['funcionalidad', 'descripc_funcionalidad', 'textarea', 31, 'Validar max_size de descripc_funcionalidad en  SEARCH', 'max_size', 'SEARCH', 'descripc_funcionalidad_max_size_KO', 'El campo descripc_funcionalidad debe tener como máximo 200 caracteres'],
-    ['funcionalidad', 'descripc_funcionalidad', 'textarea', 32, 'Validar format de descripc_funcionalidad en  SEARCH', 'format', 'SEARCH', 'descripc_funcionalidad_format_KO', 'El campo descripc_funcionalidad debe ser alfabetico con ñ y signos de puntuación'],
-    ['funcionalidad', 'descripc_funcionalidad', 'textarea', 33, 'Validar descripc_funcionalidad correcto en SEARCH', 'valid', 'SEARCH', true, 'descripc_funcionalidad correcto'],
+    ['funcionalidad', 'descrip_funcionalidad', 'textarea', 31, 'Validar max_size de descrip_funcionalidad en  SEARCH', 'max_size', 'SEARCH', 'descrip_funcionalidad_max_size_KO', 'El campo descrip_funcionalidad debe tener como máximo 200 caracteres'],
+    ['funcionalidad', 'descrip_funcionalidad', 'textarea', 32, 'Validar format de descrip_funcionalidad en  SEARCH', 'format', 'SEARCH', 'descrip_funcionalidad_format_KO', 'El campo descrip_funcionalidad debe ser alfabetico con ñ y signos de puntuación'],
+    ['funcionalidad', 'descrip_funcionalidad', 'textarea', 33, 'Validar descrip_funcionalidad correcto en SEARCH', 'valid', 'SEARCH', true, 'descrip_funcionalidad correcto'],
 ]
 
 var funcionalidad_pruebas = [
@@ -74,19 +74,19 @@ var funcionalidad_pruebas = [
     ['funcionalidad', 'nombre_funcionalidad', 20, 23, 'SEARCH', { 'nombre_funcionalidad': 'a'.repeat(49) }, 'nombre_funcionalidad_max_size_KO'],
     ['funcionalidad', 'nombre_funcionalidad', 21, 24, 'SEARCH', { 'nombre_funcionalidad': 'abcñ123' }, 'nombre_funcionalidad_format_KO'],
     ['funcionalidad', 'nombre_funcionalidad', 22, 25, 'SEARCH', { 'nombre_funcionalidad': 'Funcionalidad' }, true],
-    //descripc_funcionalidad
-    ['funcionalidad', 'descripc_funcionalidad', 23, 26, 'ADD', { 'descripc_funcionalidad': 'abc' }, 'descripc_funcionalidad_min_size_KO'],
-    ['funcionalidad', 'descripc_funcionalidad', 24, 27, 'ADD', { 'descripc_funcionalidad': 'a'.repeat(201) }, 'descripc_funcionalidad_max_size_KO'],
-    ['funcionalidad', 'descripc_funcionalidad', 25, 28, 'ADD', { 'descripc_funcionalidad': 'a123,.' }, 'descripc_funcionalidad_format_KO'],
-    ['funcionalidad', 'descripc_funcionalidad', 25, 29, 'ADD', { 'descripc_funcionalidad': '@@@###' }, 'descripc_funcionalidad_format_KO'],
-    ['funcionalidad', 'descripc_funcionalidad', 26, 30, 'ADD', { 'descripc_funcionalidad': 'Descripción de la funcionalidad' }, true],
-    ['funcionalidad', 'descripc_funcionalidad', 27, 31, 'EDIT', { 'descripc_funcionalidad': 'abc' }, 'descripc_funcionalidad_min_size_KO'],
-    ['funcionalidad', 'descripc_funcionalidad', 28, 32, 'EDIT', { 'descripc_funcionalidad': 'a'.repeat(201) }, 'descripc_funcionalidad_max_size_KO'],
-    ['funcionalidad', 'descripc_funcionalidad', 29, 33, 'EDIT', { 'descripc_funcionalidad': '123,.' }, 'descripc_funcionalidad_format_KO'],
-    ['funcionalidad', 'descripc_funcionalidad', 29, 33, 'EDIT', { 'descripc_funcionalidad': '@@@###' }, 'descripc_funcionalidad_format_KO'],
-    ['funcionalidad', 'descripc_funcionalidad', 30, 34, 'EDIT', { 'descripc_funcionalidad': 'Descripción de la funcionalidad' }, true],
-    ['funcionalidad', 'descripc_funcionalidad', 31, 35, 'SEARCH', { 'descripc_funcionalidad': 'a'.repeat(201) }, 'descripc_funcionalidad_max_size_KO'],
-    ['funcionalidad', 'descripc_funcionalidad', 32, 36, 'SEARCH', { 'descripc_funcionalidad': 'a123,.' }, 'descripc_funcionalidad_format_KO'],
-    ['funcionalidad', 'descripc_funcionalidad', 32, 37, 'SEARCH', { 'descripc_funcionalidad': '@@@###' }, 'descripc_funcionalidad_format_KO'],
-    ['funcionalidad', 'descripc_funcionalidad', 33, 38, 'SEARCH', { 'descripc_funcionalidad': 'Descripción de la funcionalidad' }, true],
+    //descrip_funcionalidad
+    ['funcionalidad', 'descrip_funcionalidad', 23, 26, 'ADD', { 'descrip_funcionalidad': 'abc' }, 'descrip_funcionalidad_min_size_KO'],
+    ['funcionalidad', 'descrip_funcionalidad', 24, 27, 'ADD', { 'descrip_funcionalidad': 'a'.repeat(201) }, 'descrip_funcionalidad_max_size_KO'],
+    ['funcionalidad', 'descrip_funcionalidad', 25, 28, 'ADD', { 'descrip_funcionalidad': 'a123,.' }, 'descrip_funcionalidad_format_KO'],
+    ['funcionalidad', 'descrip_funcionalidad', 25, 29, 'ADD', { 'descrip_funcionalidad': '@@@###' }, 'descrip_funcionalidad_format_KO'],
+    ['funcionalidad', 'descrip_funcionalidad', 26, 30, 'ADD', { 'descrip_funcionalidad': 'Descripción de la funcionalidad' }, true],
+    ['funcionalidad', 'descrip_funcionalidad', 27, 31, 'EDIT', { 'descrip_funcionalidad': 'abc' }, 'descrip_funcionalidad_min_size_KO'],
+    ['funcionalidad', 'descrip_funcionalidad', 28, 32, 'EDIT', { 'descrip_funcionalidad': 'a'.repeat(201) }, 'descrip_funcionalidad_max_size_KO'],
+    ['funcionalidad', 'descrip_funcionalidad', 29, 33, 'EDIT', { 'descrip_funcionalidad': '123,.' }, 'descrip_funcionalidad_format_KO'],
+    ['funcionalidad', 'descrip_funcionalidad', 29, 33, 'EDIT', { 'descrip_funcionalidad': '@@@###' }, 'descrip_funcionalidad_format_KO'],
+    ['funcionalidad', 'descrip_funcionalidad', 30, 34, 'EDIT', { 'descrip_funcionalidad': 'Descripción de la funcionalidad' }, true],
+    ['funcionalidad', 'descrip_funcionalidad', 31, 35, 'SEARCH', { 'descrip_funcionalidad': 'a'.repeat(201) }, 'descrip_funcionalidad_max_size_KO'],
+    ['funcionalidad', 'descrip_funcionalidad', 32, 36, 'SEARCH', { 'descrip_funcionalidad': 'a123,.' }, 'descrip_funcionalidad_format_KO'],
+    ['funcionalidad', 'descrip_funcionalidad', 32, 37, 'SEARCH', { 'descrip_funcionalidad': '@@@###' }, 'descrip_funcionalidad_format_KO'],
+    ['funcionalidad', 'descrip_funcionalidad', 33, 38, 'SEARCH', { 'descrip_funcionalidad': 'Descripción de la funcionalidad' }, true],
 ]

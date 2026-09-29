@@ -5,5 +5,5 @@ Tareas                                                                    | Hora
 Escritura de los tests y las pruebas de la entidad accion                 | 2
 Escritura de los tests y las pruebas de la entidad rolaccionfuncionalidad | 0'5
 Revisión de la entidad persona                                            | 0'5
-                                                            | 
+Revisión de la entidad funcionalidad                                      | 0'5
                                                             | 

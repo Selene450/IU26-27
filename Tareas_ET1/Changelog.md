@@ -28,4 +28,5 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Correccion en nombre de campo `contraena` en los tests de ` usuario` [29/09/2026]
 -Corrección en los tests de tipo not_exists de `nueva_foto_persona` correspondiendo a la respuesta al correo de duda enviado esta mañana [29/09/2026] - queda pendiente corregir la numeración, ya que he detectado fallos en la numeración de los tests y pruebas de persona
 - Corrección de la numeración de la entidad `persona`, a partir del test 22 en la definición de tests se pasaba al 24, pero en el array de pruebas estaba bien numerada, también se modificó el error que saltaba en la definición de test de `foto_persona` ya que el error que dá sería sobre la longitud del nombre, no del archivo. [29/09/2026]
+-Corrección del nombre del atributo `descrip_funcionalidad` de la entidad `funcionalidad`, antes estaba como `descripc_funcionalidad` [29/09/2026]
 
