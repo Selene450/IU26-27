@@ -26,4 +26,5 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Correccion de errores de los tests y pruebas de usuario [29/09/2026]
 - Correccion en nombre de variable en los tests de `rolaccionfuncionalidad` y `accion_funcionalidad` [29/09/2026]
 - Correccion en nombre de campo `contraena` en los tests de ` usuario` [29/09/2026]
+-Corrección en los tests de tipo not_exists de 'nueva_foto_persona' correspondiendo a la respuesta al correo de duda enviado esta mañana [29/09/2026] - queda pendiente corregir la numeración, ya que he detectado fallos en la numeración de los tests y pruebas de persona
 
