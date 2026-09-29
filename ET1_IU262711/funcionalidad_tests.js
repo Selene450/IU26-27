@@ -1,4 +1,4 @@
-var funcionalidad_tests = [
+var funcionalidad_def_tests = [
     //id funcionalidad
     //ADD
     ['funcionalidad', 'id_funcionalidad', 'input', 1, 'Validar min_size de id_funcionalidad en  ADD', 'min_size', 'ADD', 'id_funcionalidad_min_size_KO', 'El campo id_funcionalidad debe tener al menos 1 caracter'],

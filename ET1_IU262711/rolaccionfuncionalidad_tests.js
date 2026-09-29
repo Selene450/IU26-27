@@ -1,4 +1,4 @@
-var rolaccionfuncionalidad_tests = [
+var rolaccionfuncionalidad_def_tests = [
     ['rolaccionfuncionalidad', 'id_rol', 'input', 1, 'Validar min_size de id_rol en  ADD', 'min_size', 'ADD', 'id_rol_min_size_KO', 'El campo id_rol debe tener al menos 1 caracter'],
     ['rolaccionfuncionalidad', 'id_rol', 'input', 2, 'Validar max_size de id_rol en  ADD', 'max_size', 'ADD', 'id_rol_max_size_KO', 'El campo id_rol debe tener como máximo 11 caracteres'],
     ['rolaccionfuncionalidad', 'id_rol', 'input', 3, 'Validar format de id_rol en  ADD', 'format', 'ADD', 'id_rol_format_KO', 'El campo id_rol debe ser un número entero'],
