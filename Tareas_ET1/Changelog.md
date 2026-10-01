@@ -33,4 +33,5 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Corrección de comas que sobraban y añadido de puntos y comas que faltaban al final de cada array en la mayoria de clases [1/10/2026]
 - Añadidos mas test de pruebas para los formatos en la entidad `accion` y la correcion de numeración en los test de prueba de la entidad `usuario` [1/10/2026]
 - Añadidos mas test de pruebas para los formatos en la entidad `funcionalidad_accion` [1/10/2026]
+- Añadidas más pruebas de la entidad `funcionalidad` y corregidas algunas existentes, también se corrigió la numeración a consecuencias de los cambios en el número de pruebas [1/10/2026]
 
