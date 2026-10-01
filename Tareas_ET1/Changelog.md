@@ -36,4 +36,7 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Añadidas más pruebas de la entidad `funcionalidad` y corregidas algunas existentes, también se corrigió la numeración a consecuencias de los cambios en el número de pruebas [1/10/2026]
 - Añadimos nuevas pruebas de formato para la entidad `rol` y se corrigió la numeración acorde con el nuevo número de pruebas [1/10/2026]
 - Añadimos nuevas pruebas de formato en la entidad `rolaccionfuncionalidad` y se corrigió la numeración con el nuevo número de pruebas [1/10/2026]
+- Corrregimos fallos de numeración y ortograficos en `usuario_test`
+- Corregimos un test `true` de formato de `dni` en la entidad `usuario`
+- Añadir pruebas de casos vacios y casos limite en la entidad `usuario`
 
