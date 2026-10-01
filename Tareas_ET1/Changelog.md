@@ -32,4 +32,5 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Correcciones en la entidad `rol`: `id_rol` debe ser un campo numérico, no alfabético, esto afecta a los mensajes de error y a los casos de prueba que tenían valores alfabéticos [29/09/2026]
 - Corrección de comas que sobraban y añadido de puntos y comas que faltaban al final de cada array en la mayoria de clases [1/10/2026]
 - Añadidos mas test de pruebas para los formatos en la entidad `accion` y la correcion de numeración en los test de prueba de la entidad `usuario` [1/10/2026]
+- Añadidos mas test de pruebas para los formatos en la entidad `funcionalidad_accion` [1/10/2026]
 
