@@ -177,7 +177,7 @@ var persona_pruebas = [
     ['persona', 'nuevo_foto_persona', 84, 84, 'EDIT', {nuevo_foto_persona: {format_name_file: 'foto.jpg', type_file: 'image/jpeg', max_size_file: 3000000}}, 'foto_persona_max_size_file_KO'],
 	['persona', 'nuevo_foto_persona', 85, 85, 'EDIT', {nuevo_foto_persona: {format_name_file: 'foto.jpg', type_file: 'image/png', max_size_file: 200000}}, 'foto_persona_format_KO'],
     ['persona', 'nuevo_foto_persona', 86, 86, 'EDIT', {nuevo_foto_persona: {format_name_file: 'foto.jpg', type_file: 'image/jpeg', max_size_file: 200000}}, true],
-    ['persona', 'foto_persona', 87, 88, 'SEARCH', {foto_persona: 'foto123.jpg'}, 'foto_persona_format_name_file_KO'],
-    ['persona', 'foto_persona', 88, 89, 'SEARCH', {foto_persona: 'f'.repeat(16) + '.jpg'}, 'foto_persona_max_name_file_KO'],
-    ['persona', 'foto_persona', 89, 90, 'SEARCH', {foto_persona: 'foto.jpg'}, true]
+    ['persona', 'foto_persona', 87, 87, 'SEARCH', {foto_persona: 'foto123.jpg'}, 'foto_persona_format_name_file_KO'],
+    ['persona', 'foto_persona', 88, 88, 'SEARCH', {foto_persona: 'f'.repeat(16) + '.jpg'}, 'foto_persona_max_name_file_KO'],
+    ['persona', 'foto_persona', 89, 89, 'SEARCH', {foto_persona: 'foto.jpg'}, true]
 ];
