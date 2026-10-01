@@ -1,19 +1,19 @@
     var usuario_def_tests = [
     //campo dni
     //ADD
-    ['persona', 'dni', 'input', 1, 'Validar min_size de dni en ADD', 'min_size', 'ADD', 'dni_min_size_KO', 'El campo dni debe tener al menos 9 caracteres'],
-    ['persona', 'dni', 'input', 2, 'Validar max_size de dni en ADD', 'max_size', 'ADD', 'dni_max_size_KO', 'El campo dni debe tener como maximo 9 caracteres'],
-    ['persona', 'dni', 'input', 3, 'Validar format de dni en ADD', 'format', 'ADD', 'dni_format_KO', 'El campo dni debe tener un formato DNI valido'],
-    ['persona', 'dni', 'input', 4, 'Validar dni correcto en ADD', 'valid', 'ADD', true, 'dni correcto'],
+    ['usuario', 'dni', 'input', 1, 'Validar min_size de dni en ADD', 'min_size', 'ADD', 'dni_min_size_KO', 'El campo dni debe tener al menos 9 caracteres'],
+    ['usuario', 'dni', 'input', 2, 'Validar max_size de dni en ADD', 'max_size', 'ADD', 'dni_max_size_KO', 'El campo dni debe tener como maximo 9 caracteres'],
+    ['usuario', 'dni', 'input', 3, 'Validar format de dni en ADD', 'format', 'ADD', 'dni_format_KO', 'El campo dni debe tener un formato DNI valido'],
+    ['usuario', 'dni', 'input', 4, 'Validar dni correcto en ADD', 'valid', 'ADD', true, 'dni correcto'],
     //EDIT
-    ['persona', 'dni', 'input', 5, 'Validar min_size de dni en EDIT', 'min_size', 'EDIT', 'dni_min_size_KO', 'El campo dni debe tener al menos 9 caracteres'],
-    ['persona', 'dni', 'input', 6, 'Validar max_size de dni en EDIT', 'max_size', 'EDIT', 'dni_max_size_KO', 'El campo dni debe tener como maximo 9 caracteres'],
-    ['persona', 'dni', 'input', 7, 'Validar format de dni en EDIT', 'format', 'EDIT', 'dni_format_KO', 'El campo dni debe tener un formato DNI valido'],
-    ['persona', 'dni', 'input', 8, 'Validar dni correcto en EDIT', 'valid', 'EDIT', true, 'dni correcto'],
+    ['usuario', 'dni', 'input', 5, 'Validar min_size de dni en EDIT', 'min_size', 'EDIT', 'dni_min_size_KO', 'El campo dni debe tener al menos 9 caracteres'],
+    ['usuario', 'dni', 'input', 6, 'Validar max_size de dni en EDIT', 'max_size', 'EDIT', 'dni_max_size_KO', 'El campo dni debe tener como maximo 9 caracteres'],
+    ['usuario', 'dni', 'input', 7, 'Validar format de dni en EDIT', 'format', 'EDIT', 'dni_format_KO', 'El campo dni debe tener un formato DNI valido'],
+    ['usuario', 'dni', 'input', 8, 'Validar dni correcto en EDIT', 'valid', 'EDIT', true, 'dni correcto'],
     //SEARCH
-    ['persona', 'dni', 'input', 9, 'Validar max_size de dni en SEARCH', 'max_size', 'SEARCH', 'dni_max_size_KO', 'El campo dni debe tener como maximo 9 caracteres'],
-    ['persona', 'dni', 'input', 10, 'Validar format de dni en SEARCH', 'format', 'SEARCH', 'dni_format_KO', 'El campo dni debe tener un formato DNI valido'],
-    ['persona', 'dni', 'input', 11, 'Validar dni correcto en SEARCH', 'valid', 'SEARCH', true, 'dni correcto'],
+    ['usuario', 'dni', 'input', 9, 'Validar max_size de dni en SEARCH', 'max_size', 'SEARCH', 'dni_max_size_KO', 'El campo dni debe tener como maximo 9 caracteres'],
+    ['usuario', 'dni', 'input', 10, 'Validar format de dni en SEARCH', 'format', 'SEARCH', 'dni_format_KO', 'El campo dni debe tener un formato DNI valido'],
+    ['usuario', 'dni', 'input', 11, 'Validar dni correcto en SEARCH', 'valid', 'SEARCH', true, 'dni correcto'],
     //campo usuario
     //ADD
     ['usuario', 'usuario', 'input', 12, 'Validar min_size de usuario en  ADD', 'min_size', 'ADD', 'usuario_min_size_KO', 'El campo usuario debe tener al menos 5 caracteres'],
@@ -26,7 +26,7 @@
     ['usuario', 'usuario', 'input', 18, 'Validar format de usuario en  EDIT', 'format', 'EDIT', 'usuario_format_KO', 'El campo usuario debe ser alfabético sin ñ, ni acentos'],
     ['usuario', 'usuario', 'input', 19, 'Validar usuario correcto en EDIT', 'valid', 'EDIT', true, 'usuario correcto'],
     //SEARCH
-    ['usuario', 'usuario', 'input', 20, 'Validar max_size de usuario en  SEARCH', 'max_size', 'SEARCH', 'usuario_max_size_KO', 'El campo usuario debe tener como máximo 45 caracteres''],
+    ['usuario', 'usuario', 'input', 20, 'Validar max_size de usuario en  SEARCH', 'max_size', 'SEARCH', 'usuario_max_size_KO', 'El campo usuario debe tener como máximo 45 caracteres'],
     ['usuario', 'usuario', 'input', 21, 'Validar format de usuario en  SEARCH', 'format', 'SEARCH', 'usuario_format_KO', 'El campo usuario debe ser alfabético sin ñ, ni acentos'],
     ['usuario', 'usuario', 'input', 22, "Validar usuario correcto en SEARCH", "valid", "SEARCH", true, "usuario correcto"],
     //campo contraseña
@@ -72,7 +72,7 @@ var usuario_pruebas = [ //pendiente de corregir los errores de validación de lo
     ['usuario', 'dni', 7, 7, 'EDIT', { 'dni': '12345678A' }, 'dni_format_KO'],
     ['usuario', 'dni', 8, 8, 'EDIT', { 'dni': '12345678Z'}, true],
     ['usuario', 'dni', 9, 9, 'SEARCH', { 'dni': '1234567890' }, 'dni_max_size_KO'],
-    ['usuario', 'dni', 10, 10, 'SEARCH', { 'dni': '12345678A' }, 'dni_format_KO'],
+    ['usuario', 'dni', 10, 10, 'SEARCH', { 'dni': 'ABCDEFGHZ' }, 'dni_format_KO'],
     ['usuario', 'dni', 11, 11, 'SEARCH', { 'dni': '12345678Z' }, true],
    
     //usuario
