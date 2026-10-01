@@ -1,4 +1,4 @@
-var usuario_def_tests = [
+    var usuario_def_tests = [
     //campo dni
     //ADD
     ['persona', 'dni', 'input', 1, 'Validar min_size de dni en ADD', 'min_size', 'ADD', 'dni_min_size_KO', 'El campo dni debe tener al menos 9 caracteres'],
@@ -59,7 +59,7 @@ var usuario_def_tests = [
     ['usuario', 'id_rol', 'input', 42, 'Validar max_size de id_rol en  SEARCH', 'max_size', 'SEARCH', 'id_rol_max_size_KO', 'El campo id_rol tiene como máximo 11 caracteres'],
     ['usuario', 'id_rol', 'input', 43, 'Validar formato de id_rol en  SEARCH', 'format', 'SEARCH', 'id_rol_format_KO', 'El campo id_rol debe ser un numero entero'],
     ['usuario', 'id_rol', 'input', 44, 'Validar id_rol correcto en SEARCH', 'valid', 'SEARCH', true, 'id_rol correcto']
-]
+];
 
 var usuario_pruebas = [ //pendiente de corregir los errores de validación de los campos de usuario
     //dni
@@ -126,4 +126,4 @@ var usuario_pruebas = [ //pendiente de corregir los errores de validación de lo
     ['usuario', 'id_rol', 43, 57, 'SEARCH', { 'id_rol': 'abc' }, 'id_rol_format_KO'],
     ['usuario', 'id_rol', 43, 58, 'SEARCH', { 'id_rol': '12,3' }, 'id_rol_format_KO'],
     ['usuario', 'id_rol', 44, 59, 'SEARCH', { 'id_rol': '1234' }, true]
-]
+];

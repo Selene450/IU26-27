@@ -29,7 +29,7 @@ var funcionalidad_accion_def_tests = [
     ['funcionalidad_accion', 'id_accion', 'input', 20, 'Validar max_size de id_accion en  SEARCH', 'max_size', 'SEARCH', 'id_accion_max_size_KO', 'El campo id_accion tiene como máximo 11 caracteres'],
     ['funcionalidad_accion', 'id_accion', 'input', 21, 'Validar formato de id_accion en  SEARCH', 'format', 'SEARCH', 'id_accion_format_KO', 'El campo id_accion debe ser un numero entero'],
     ['funcionalidad_accion', 'id_accion', 'input', 22, 'Validar id_accion correcto en SEARCH', 'valid', 'SEARCH', true, 'id_accion correcto']
-]
+];
 var funcionalidad_accion_pruebas = [
     //id_funcionalidad
     ['funcionalidad_accion', 'id_funcionalidad', 1, 1, 'ADD', {'id_funcionalidad': ''}, 'id_funcionalidad_min_size_KO'],
@@ -55,4 +55,4 @@ var funcionalidad_accion_pruebas = [
     ['funcionalidad_accion', 'id_accion', 20, 20, 'SEARCH', {'id_accion': '123456789012'}, 'id_accion_max_size_KO'],
     ['funcionalidad_accion', 'id_accion', 21, 21, 'SEARCH', {'id_accion': 'abc'}, 'id_accion_format_KO'],
     ['funcionalidad_accion', 'id_accion', 22, 22, 'SEARCH', {'id_accion': '123'}, true]
-]
+];

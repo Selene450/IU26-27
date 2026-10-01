@@ -31,7 +31,7 @@ var rol_def_tests = [
     ['rol', 'rol_description', 'input', 30, 'Validar rol_description correcto en EDIT', 'valid', 'EDIT', true, 'rol_description correcto'],
     ['rol', 'rol_description', 'input', 31, 'Validar max_size de rol_description en SEARCH', 'max_size', 'SEARCH', 'rol_description_max_size_KO', 'El campo rol_description debe tener como maximo 200 caracteres'],
     ['rol', 'rol_description', 'input', 32, 'Validar format de rol_description en SEARCH', 'format', 'SEARCH', 'rol_description_format_KO', 'El campo rol_description debe ser alfanumerico incluyendo ñ, acentos, puntos, comas, guiones y espacios'],
-    ['rol', 'rol_description', 'input', 33, 'Validar rol_description correcto en SEARCH', 'valid', 'SEARCH', true, 'rol_description correcto'],
+    ['rol', 'rol_description', 'input', 33, 'Validar rol_description correcto en SEARCH', 'valid', 'SEARCH', true, 'rol_description correcto']
 ];
 var rol_pruebas = [
     ['rol', 'id_rol', 1, 1, 'ADD', {'id_rol': ''}, 'id_rol_min_size_KO'],
@@ -66,6 +66,6 @@ var rol_pruebas = [
     ['rol', 'rol_description', 30, 30, 'EDIT', {'rol_description': 'Rol con acceso total al sistema'}, true],
     ['rol', 'rol_description', 31, 31, 'SEARCH', {'rol_description': 'a'.repeat(201)}, 'rol_description_max_size_KO'],
     ['rol', 'rol_description', 32, 32, 'SEARCH', {'rol_description': 'Descripcion @@@ invalida'}, 'rol_description_format_KO'],
-    ['rol', 'rol_description', 33, 33, 'SEARCH', {'rol_description': 'Rol con acceso total al sistema'}, true],
+    ['rol', 'rol_description', 33, 33, 'SEARCH', {'rol_description': 'Rol con acceso total al sistema'}, true]
 ];
 

@@ -43,8 +43,8 @@ var funcionalidad_def_tests = [
     //SEARCH
     ['funcionalidad', 'descrip_funcionalidad', 'textarea', 31, 'Validar max_size de descrip_funcionalidad en  SEARCH', 'max_size', 'SEARCH', 'descrip_funcionalidad_max_size_KO', 'El campo descrip_funcionalidad debe tener como máximo 200 caracteres'],
     ['funcionalidad', 'descrip_funcionalidad', 'textarea', 32, 'Validar format de descrip_funcionalidad en  SEARCH', 'format', 'SEARCH', 'descrip_funcionalidad_format_KO', 'El campo descrip_funcionalidad debe ser alfabetico con ñ y signos de puntuación'],
-    ['funcionalidad', 'descrip_funcionalidad', 'textarea', 33, 'Validar descrip_funcionalidad correcto en SEARCH', 'valid', 'SEARCH', true, 'descrip_funcionalidad correcto'],
-]
+    ['funcionalidad', 'descrip_funcionalidad', 'textarea', 33, 'Validar descrip_funcionalidad correcto en SEARCH', 'valid', 'SEARCH', true, 'descrip_funcionalidad correcto']
+];
 
 var funcionalidad_pruebas = [
     //id_funcionalidad
@@ -88,5 +88,5 @@ var funcionalidad_pruebas = [
     ['funcionalidad', 'descrip_funcionalidad', 31, 35, 'SEARCH', { 'descrip_funcionalidad': 'a'.repeat(201) }, 'descrip_funcionalidad_max_size_KO'],
     ['funcionalidad', 'descrip_funcionalidad', 32, 36, 'SEARCH', { 'descrip_funcionalidad': 'a123,.' }, 'descrip_funcionalidad_format_KO'],
     ['funcionalidad', 'descrip_funcionalidad', 32, 37, 'SEARCH', { 'descrip_funcionalidad': '@@@###' }, 'descrip_funcionalidad_format_KO'],
-    ['funcionalidad', 'descrip_funcionalidad', 33, 38, 'SEARCH', { 'descrip_funcionalidad': 'Descripción de la funcionalidad' }, true],
-]
+    ['funcionalidad', 'descrip_funcionalidad', 33, 38, 'SEARCH', { 'descrip_funcionalidad': 'Descripción de la funcionalidad' }, true]
+];

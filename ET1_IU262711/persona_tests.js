@@ -87,7 +87,7 @@ var persona_def_tests = [
     ['persona', 'nuevo_foto_persona', 'file', 86, 'Validar foto_persona correcta en EDIT', 'valid', 'EDIT', true, 'foto_persona correcta'],
     ['persona', 'foto_persona', 'file', 87, 'Formato nombre fichero foto SEARCH', 'format_name_file', 'SEARCH', 'foto_persona_format_name_file_KO', 'Nombre de foto incorrecto. Debe ser alfabetico y terminar en .jpg o .jpeg'],
     ['persona', 'foto_persona', 'file', 88, 'Tamaño fichero foto SEARCH', 'max_size_file', 'SEARCH', 'foto_persona_max_name_file_KO', 'Tamaño de fichero excesivo. Debe ser menor de 2 MB'],
-    ['persona', 'foto_persona', 'file', 89, 'Validar foto_persona correcta en SEARCH', 'valid', 'SEARCH', true, 'foto_persona correcta'],
+    ['persona', 'foto_persona', 'file', 89, 'Validar foto_persona correcta en SEARCH', 'valid', 'SEARCH', true, 'foto_persona correcta']
 ];
 
 var persona_pruebas = [
@@ -179,5 +179,5 @@ var persona_pruebas = [
     ['persona', 'nuevo_foto_persona', 86, 86, 'EDIT', {nuevo_foto_persona: {format_name_file: 'foto.jpg', type_file: 'image/jpeg', max_size_file: 200000}}, true],
     ['persona', 'foto_persona', 87, 88, 'SEARCH', {foto_persona: 'foto123.jpg'}, 'foto_persona_format_name_file_KO'],
     ['persona', 'foto_persona', 88, 89, 'SEARCH', {foto_persona: 'f'.repeat(16) + '.jpg'}, 'foto_persona_max_name_file_KO'],
-    ['persona', 'foto_persona', 89, 90, 'SEARCH', {foto_persona: 'foto.jpg'}, true],
+    ['persona', 'foto_persona', 89, 90, 'SEARCH', {foto_persona: 'foto.jpg'}, true]
 ];

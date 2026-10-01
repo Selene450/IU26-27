@@ -31,8 +31,8 @@ var rolaccionfuncionalidad_def_tests = [
     ['rolaccionfuncionalidad', 'id_funcionalidad', 'input', 30, 'Validar id_funcionalidad correcto en EDIT', 'valid', 'EDIT', true, 'id_funcionalidad correcto'],
     ['rolaccionfuncionalidad', 'id_funcionalidad', 'input', 31, 'Validar max_size de id_funcionalidad en  SEARCH', 'max_size', 'SEARCH', 'id_funcionalidad_max_size_KO', 'El campo id_funcionalidad tiene como máximo 11 caracteres'],
     ['rolaccionfuncionalidad', 'id_funcionalidad', 'input', 32, 'Validar format de id_funcionalidad en  SEARCH', 'format', 'SEARCH', 'id_funcionalidad_format_KO', 'El campo id_funcionalidad debe ser un número entero'],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 'input', 33, 'Validar id_funcionalidad correcto en SEARCH', 'valid', 'SEARCH', true, 'id_funcionalidad correcto'],
-]
+    ['rolaccionfuncionalidad', 'id_funcionalidad', 'input', 33, 'Validar id_funcionalidad correcto en SEARCH', 'valid', 'SEARCH', true, 'id_funcionalidad correcto']
+];
 
 var rolaccionfuncionalidad_pruebas = [
     ['rolaccionfuncionalidad', 'id_rol', 1, 1, 'ADD', {'id_rol': ''}, 'id_rol_min_size_KO'],
@@ -67,5 +67,5 @@ var rolaccionfuncionalidad_pruebas = [
     ['rolaccionfuncionalidad', 'id_funcionalidad', 30, 30, 'EDIT', {'id_funcionalidad': '123'}, true],
     ['rolaccionfuncionalidad', 'id_funcionalidad', 31, 31, 'SEARCH', {'id_funcionalidad': '123456789012'}, 'id_funcionalidad_max_size_KO'],
     ['rolaccionfuncionalidad', 'id_funcionalidad', 32, 32, 'SEARCH', {'id_funcionalidad': 'abc'}, 'id_funcionalidad_format_KO'],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 33, 33, 'SEARCH', {'id_funcionalidad': '123'}, true],
-]
+    ['rolaccionfuncionalidad', 'id_funcionalidad', 33, 33, 'SEARCH', {'id_funcionalidad': '123'}, true]
+];
