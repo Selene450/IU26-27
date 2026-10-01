@@ -7,3 +7,4 @@ Definición de las pruebas de los test de usuario     |0'5
 Corrección de errores en los test de usuario         |0,5 
 Definición de los test de funcionalidad y sus pruebas|1
 Corrección de errores en varias entidades            |0,5 
+Añadir mñas test de prueba para formatos             |1
