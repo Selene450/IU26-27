@@ -9,3 +9,4 @@ Revisión de la entidad funcionalidad                                      | 0'5
 Revisión de la entidad rol                                                | 0'5
 Añadir nuevas pruebas en la entidad funcionalidad                         | 0'5
 Añadir nuevas pruebas en la entidad rol                                   | 0'5
+Añadir pruebas en la entidad rolaccionfuncionalidad                       | 0'5
