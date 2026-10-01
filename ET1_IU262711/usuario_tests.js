@@ -26,23 +26,23 @@
     ['usuario', 'usuario', 'input', 18, 'Validar format de usuario en  EDIT', 'format', 'EDIT', 'usuario_format_KO', 'El campo usuario debe ser alfabético sin ñ, ni acentos'],
     ['usuario', 'usuario', 'input', 19, 'Validar usuario correcto en EDIT', 'valid', 'EDIT', true, 'usuario correcto'],
     //SEARCH
-    ['usuario', 'usuario', 'input', 20, 'Validar max_size de usuario en  SEARCH', 'max_size', 'SEARCH', 'usuario_max_size_KO', 'El campo usuario tiene como máximo 45 caracteres'],
+    ['usuario', 'usuario', 'input', 20, 'Validar max_size de usuario en  SEARCH', 'max_size', 'SEARCH', 'usuario_max_size_KO', 'El campo usuario debe tener como máximo 45 caracteres''],
     ['usuario', 'usuario', 'input', 21, 'Validar format de usuario en  SEARCH', 'format', 'SEARCH', 'usuario_format_KO', 'El campo usuario debe ser alfabético sin ñ, ni acentos'],
     ['usuario', 'usuario', 'input', 22, "Validar usuario correcto en SEARCH", "valid", "SEARCH", true, "usuario correcto"],
     //campo contraseña
     //ADD
     ['usuario', 'contrasena', 'input', 23, 'Validar min_size de contraseña en  ADD', 'min_size', 'ADD', 'contrasena_min_size_KO', 'El campo contrasena debe tener al menos 8 caracteres'],
     ['usuario', 'contrasena', 'input', 24, 'Validar max_size de contraseña en  ADD', 'max_size', 'ADD', 'contrasena_max_size_KO', 'El campo contrasena debe tener como máximo 45 caracteres'],
-    ['usuario', 'contrasena', 'input', 25, 'Validar format de contraseña en  ADD', 'format', 'ADD', 'contrasena_format_KO', 'El campo contrasena debe ser alfabetico sin ñ, ni acentos'],
+    ['usuario', 'contrasena', 'input', 25, 'Validar format de contraseña en  ADD', 'format', 'ADD', 'contrasena_format_KO', 'El campo contrasena debe ser alfabético sin ñ, ni acentos'],
     ['usuario', 'contrasena', 'input', 26, 'Validar contraseña correcta en ADD', 'valid', 'ADD', true, 'contrasena correcta'],
     //EDIT
     ['usuario', 'contrasena', 'input', 27, 'Validar min_size de contraseña en  EDIT', 'min_size', 'EDIT', 'contrasena_min_size_KO', 'El campo contrasena debe tener al menos 8 caracteres'],
     ['usuario', 'contrasena', 'input', 28, 'Validar max_size de contraseña en  EDIT', 'max_size', 'EDIT', 'contrasena_max_size_KO', 'El campo contrasena debe tener como máximo 45 caracteres'],
-    ['usuario', 'contrasena', 'input', 29, 'Validar format de contraseña en  EDIT', 'format', 'EDIT', 'contrasena_format_KO', 'El campo contrasena debe ser alfabetico sin ñ, ni acentos'],
+    ['usuario', 'contrasena', 'input', 29, 'Validar format de contraseña en  EDIT', 'format', 'EDIT', 'contrasena_format_KO', 'El campo contrasena debe ser alfabético sin ñ, ni acentos'],
     ['usuario', 'contrasena', 'input', 30, 'Validar contraseña correcta en EDIT', 'valid', 'EDIT', true, 'contrasena correcta'],
     //SEARCH
     ['usuario', 'contrasena', 'input', 31, 'Validar max_size de contraseña en  SEARCH', 'max_size', 'SEARCH', 'contrasena_max_size_KO', 'El campo contrasena tiene como máximo 45 caracteres'],
-    ['usuario', 'contrasena', 'input', 32, 'Validar format de contraseña en  SEARCH', 'format', 'SEARCH', 'contrasena_format_KO', 'El campo contrasena debe ser alfabetico sin ñ, ni acentos'],
+    ['usuario', 'contrasena', 'input', 32, 'Validar format de contraseña en  SEARCH', 'format', 'SEARCH', 'contrasena_format_KO', 'El campo contrasena debe ser alfabético sin ñ, ni acentos'],
     ['usuario', 'contrasena', 'input', 33, "Validar contraseña correcta en SEARCH", "valid", "SEARCH", true, "contrasena correcta"],
     //campo id_rol
     //ADD
@@ -73,7 +73,7 @@ var usuario_pruebas = [ //pendiente de corregir los errores de validación de lo
     ['usuario', 'dni', 8, 8, 'EDIT', { 'dni': '12345678Z'}, true],
     ['usuario', 'dni', 9, 9, 'SEARCH', { 'dni': '1234567890' }, 'dni_max_size_KO'],
     ['usuario', 'dni', 10, 10, 'SEARCH', { 'dni': '12345678A' }, 'dni_format_KO'],
-    ['usuario', 'dni', 11, 11, 'SEARCH', { 'dni': '123456789Z' }, true],
+    ['usuario', 'dni', 11, 11, 'SEARCH', { 'dni': '12345678Z' }, true],
    
     //usuario
     ['usuario', 'usuario', 12, 12, 'ADD', { 'usuario': 'abc' }, 'usuario_min_size_KO'],
