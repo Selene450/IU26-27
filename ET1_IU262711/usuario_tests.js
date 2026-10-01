@@ -126,4 +126,137 @@ var usuario_pruebas = [ //pendiente de corregir los errores de validación de lo
     ['usuario', 'id_rol', 43, 57, 'SEARCH', { 'id_rol': 'abc' }, 'id_rol_format_KO'],
     ['usuario', 'id_rol', 43, 58, 'SEARCH', { 'id_rol': '12,3' }, 'id_rol_format_KO'],
     ['usuario', 'id_rol', 44, 59, 'SEARCH', { 'id_rol': '1234' }, true]
+
+
+     // =========================================================
+    // PRUEBAS ADICIONALES: casos limite, valores nulos
+    // =========================================================
+
+    // ---------------------------------------------------------
+    // Límites exactos válidos
+    // ---------------------------------------------------------
+
+    // dni: exactamente 9 caracteres
+    ['usuario', 'dni', 4, 60, 'ADD', { 'dni': '12345678Z' }, true],
+    ['usuario', 'dni', 8, 61, 'EDIT', { 'dni': '12345678Z' }, true],
+    ['usuario', 'dni', 11, 62, 'SEARCH', { 'dni': '12345678Z' }, true],
+
+    // usuario: mínimo exacto, 5 caracteres
+    ['usuario', 'usuario', 15, 63, 'ADD', { 'usuario': 'abcde' }, true],
+    ['usuario', 'usuario', 19, 64, 'EDIT', { 'usuario': 'abcde' }, true],
+    ['usuario', 'usuario', 22, 65, 'SEARCH', { 'usuario': 'abcde' }, true],
+
+    // usuario: máximo exacto, 45 caracteres
+    ['usuario', 'usuario', 15, 66, 'ADD', { 'usuario': 'a'.repeat(45) }, true],
+    ['usuario', 'usuario', 19, 67, 'EDIT', { 'usuario': 'a'.repeat(45) }, true],
+    ['usuario', 'usuario', 22, 68, 'SEARCH', { 'usuario': 'a'.repeat(45) }, true],
+
+    // contrasena: mínimo exacto, 8 caracteres
+    ['usuario', 'contrasena', 26, 69, 'ADD', { 'contrasena': 'abcdefgh' }, true],
+    ['usuario', 'contrasena', 30, 70, 'EDIT', { 'contrasena': 'abcdefgh' }, true],
+    ['usuario', 'contrasena', 33, 71, 'SEARCH', { 'contrasena': 'abcdefgh' }, true],
+
+    // contrasena: máximo exacto, 45 caracteres
+    ['usuario', 'contrasena', 26, 72, 'ADD', { 'contrasena': 'a'.repeat(45) }, true],
+    ['usuario', 'contrasena', 30, 73, 'EDIT', { 'contrasena': 'a'.repeat(45) }, true],
+    ['usuario', 'contrasena', 33, 74, 'SEARCH', { 'contrasena': 'a'.repeat(45) }, true],
+
+    // id_rol: mínimo exacto, 1 carácter
+    ['usuario', 'id_rol', 37, 75, 'ADD', { 'id_rol': '1' }, true],
+    ['usuario', 'id_rol', 41, 76, 'EDIT', { 'id_rol': '1' }, true],
+    ['usuario', 'id_rol', 44, 77, 'SEARCH', { 'id_rol': '1' }, true],
+
+    // id_rol: máximo exacto, 11 caracteres
+    ['usuario', 'id_rol', 37, 78, 'ADD', { 'id_rol': '1'.repeat(11) }, true],
+    ['usuario', 'id_rol', 41, 79, 'EDIT', { 'id_rol': '1'.repeat(11) }, true],
+    ['usuario', 'id_rol', 44, 80, 'SEARCH', { 'id_rol': '1'.repeat(11) }, true],
+
+    // ---------------------------------------------------------
+    // Valores nulos, ausentes, vacíos y con espacios
+    // ---------------------------------------------------------
+
+    // dni en ADD
+    ['usuario', 'dni', 1, 81, 'ADD', {}, 'dni_min_size_KO'],
+    ['usuario', 'dni', 1, 83, 'ADD', { 'dni': '' }, 'dni_min_size_KO'],
+    ['usuario', 'dni', 3, 84, 'ADD', { 'dni': '         ' }, 'dni_format_KO'],
+    ['usuario', 'dni', 3, 85, 'ADD', { 'dni': ' 12345678Z' }, 'dni_format_KO'],
+    ['usuario', 'dni', 3, 86, 'ADD', { 'dni': '12345678Z ' }, 'dni_format_KO'],
+
+    // dni en EDIT
+    ['usuario', 'dni', 5, 87, 'EDIT', {}, 'dni_min_size_KO'],
+    ['usuario', 'dni', 5, 88, 'EDIT', { 'dni': '' }, 'dni_min_size_KO'],
+    ['usuario', 'dni', 7, 89, 'EDIT', { 'dni': '         ' }, 'dni_format_KO'],
+    ['usuario', 'dni', 7, 90, 'EDIT', { 'dni': ' 12345678Z' }, 'dni_format_KO'],
+    ['usuario', 'dni', 7, 91, 'EDIT', { 'dni': '12345678Z ' }, 'dni_format_KO'],
+
+    // dni en SEARCH
+    ['usuario', 'dni', 10, 92, 'SEARCH', {}, 'dni_format_KO'],
+    ['usuario', 'dni', 10, 93, 'SEARCH', { 'dni': '' }, 'dni_format_KO'],
+    ['usuario', 'dni', 10, 94, 'SEARCH', { 'dni': '         ' }, 'dni_format_KO'],
+    ['usuario', 'dni', 10, 95, 'SEARCH', { 'dni': ' 12345678Z' }, 'dni_format_KO'],
+    ['usuario', 'dni', 10, 96, 'SEARCH', { 'dni': '12345678Z ' }, 'dni_format_KO'],
+
+    // usuario en ADD
+    ['usuario', 'usuario', 12, 97, 'ADD', {}, 'usuario_min_size_KO'],
+    ['usuario', 'usuario', 12, 98, 'ADD', { 'usuario': '' }, 'usuario_min_size_KO'],
+    ['usuario', 'usuario', 14, 99, 'ADD', { 'usuario': '     ' }, 'usuario_format_KO'],
+    ['usuario', 'usuario', 14, 100, 'ADD', { 'usuario': ' abcde' }, 'usuario_format_KO'],
+    ['usuario', 'usuario', 14, 101, 'ADD', { 'usuario': 'abcde ' }, 'usuario_format_KO'],
+
+    // usuario en EDIT
+    ['usuario', 'usuario', 16, 102, 'EDIT', {}, 'usuario_min_size_KO'],
+    ['usuario', 'usuario', 16, 103, 'EDIT', { 'usuario': '' }, 'usuario_min_size_KO'],
+    ['usuario', 'usuario', 18, 104, 'EDIT', { 'usuario': '     ' }, 'usuario_format_KO'],
+    ['usuario', 'usuario', 18, 105, 'EDIT', { 'usuario': ' abcde' }, 'usuario_format_KO'],
+    ['usuario', 'usuario', 18, 106, 'EDIT', { 'usuario': 'abcde ' }, 'usuario_format_KO'],
+
+    // usuario en SEARCH
+    ['usuario', 'usuario', 21, 107, 'SEARCH', {}, 'usuario_format_KO'],
+    ['usuario', 'usuario', 21, 108, 'SEARCH', { 'usuario': '' }, 'usuario_format_KO'],
+    ['usuario', 'usuario', 21, 109, 'SEARCH', { 'usuario': '     ' }, 'usuario_format_KO'],
+    ['usuario', 'usuario', 21, 110, 'SEARCH', { 'usuario': ' abcde' }, 'usuario_format_KO'],
+    ['usuario', 'usuario', 21, 111, 'SEARCH', { 'usuario': 'abcde ' }, 'usuario_format_KO'],
+
+    // contrasena en ADD
+    ['usuario', 'contrasena', 23, 112, 'ADD', {}, 'contrasena_min_size_KO'],
+    ['usuario', 'contrasena', 23, 113, 'ADD', { 'contrasena': '' }, 'contrasena_min_size_KO'],
+    ['usuario', 'contrasena', 25, 114, 'ADD', { 'contrasena': '        ' }, 'contrasena_format_KO'],
+    ['usuario', 'contrasena', 25, 115, 'ADD', { 'contrasena': ' abcdefgh' }, 'contrasena_format_KO'],
+    ['usuario', 'contrasena', 25, 116, 'ADD', { 'contrasena': 'abcdefgh ' }, 'contrasena_format_KO'],
+
+    // contrasena en EDIT
+    ['usuario', 'contrasena', 27, 117, 'EDIT', {}, 'contrasena_min_size_KO'],
+    ['usuario', 'contrasena', 27, 118, 'EDIT', { 'contrasena': '' }, 'contrasena_min_size_KO'],
+    ['usuario', 'contrasena', 29, 120, 'EDIT', { 'contrasena': '        ' }, 'contrasena_format_KO'],
+    ['usuario', 'contrasena', 29, 121, 'EDIT', { 'contrasena': ' abcdefgh' }, 'contrasena_format_KO'],
+    ['usuario', 'contrasena', 29, 122, 'EDIT', { 'contrasena': 'abcdefgh ' }, 'contrasena_format_KO'],
+
+    // contrasena en SEARCH
+    ['usuario', 'contrasena', 32, 123, 'SEARCH', {}, 'contrasena_format_KO'],
+    ['usuario', 'contrasena', 32, 124, 'SEARCH', { 'contrasena': '' }, 'contrasena_format_KO'],
+    ['usuario', 'contrasena', 32, 125, 'SEARCH', { 'contrasena': '        ' }, 'contrasena_format_KO'],
+    ['usuario', 'contrasena', 32, 126, 'SEARCH', { 'contrasena': ' abcdefgh' }, 'contrasena_format_KO'],
+    ['usuario', 'contrasena', 32, 127, 'SEARCH', { 'contrasena': 'abcdefgh ' }, 'contrasena_format_KO'],
+
+    // id_rol en ADD
+    ['usuario', 'id_rol', 34, 128, 'ADD', {}, 'id_rol_min_size_KO'],
+    ['usuario', 'id_rol', 34, 129, 'ADD', { 'id_rol': '' }, 'id_rol_min_size_KO'],
+    ['usuario', 'id_rol', 36, 130, 'ADD', { 'id_rol': ' ' }, 'id_rol_format_KO'],
+    ['usuario', 'id_rol', 36, 131, 'ADD', { 'id_rol': ' 1234' }, 'id_rol_format_KO'],
+    ['usuario', 'id_rol', 36, 132, 'ADD', { 'id_rol': '1234 ' }, 'id_rol_format_KO'],
+
+    // id_rol en EDIT
+    ['usuario', 'id_rol', 38, 133, 'EDIT', {}, 'id_rol_min_size_KO'],
+    ['usuario', 'id_rol', 38, 134, 'EDIT', { 'id_rol': '' }, 'id_rol_min_size_KO'],
+    ['usuario', 'id_rol', 40, 135, 'EDIT', { 'id_rol': ' ' }, 'id_rol_format_KO'],
+    ['usuario', 'id_rol', 40, 136, 'EDIT', { 'id_rol': ' 1234' }, 'id_rol_format_KO'],
+    ['usuario', 'id_rol', 40, 137, 'EDIT', { 'id_rol': '1234 ' }, 'id_rol_format_KO'],
+
+    // id_rol en SEARCH
+    ['usuario', 'id_rol', 43, 138, 'SEARCH', {}, 'id_rol_format_KO'],
+    ['usuario', 'id_rol', 43, 139, 'SEARCH', { 'id_rol': '' }, 'id_rol_format_KO'],
+    ['usuario', 'id_rol', 43, 140, 'SEARCH', { 'id_rol': ' ' }, 'id_rol_format_KO'],
+    ['usuario', 'id_rol', 43, 141, 'SEARCH', { 'id_rol': ' 1234' }, 'id_rol_format_KO'],
+    ['usuario', 'id_rol', 43, 142, 'SEARCH', { 'id_rol': '1234 ' }, 'id_rol_format_KO'],
+
 ];
