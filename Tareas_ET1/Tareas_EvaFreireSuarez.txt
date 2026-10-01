@@ -8,3 +8,5 @@ Tareas                                             | Horas
  definicion pruebas entidad persona                | 1'5
  revisión entidades nuevas                         | 0'5
  correcció campo contrasena                        | 0'25
+ corrección pruebas entidad usuario                | 1
+ definicion pruebas entidad usuario                | 0'5
