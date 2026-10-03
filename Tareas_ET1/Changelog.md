@@ -39,4 +39,5 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Corrregimos fallos de numeración y ortograficos en `usuario_test`
 - Corregimos un test `true` de formato de `dni` en la entidad `usuario`
 - Añadir pruebas de casos vacios y casos limite en la entidad `usuario`
+- Añadir el número de horas de cada participante a `ET1_IU262711`
 
