@@ -49,15 +49,15 @@ var usuario_def_tests = [
     
     //campo id_rol
     //ADD
-    ['usuario', 'id_rol', 'input', 34, 'Validar min_size de id_rol en  ADD', 'min_size', 'ADD', 'id_rol_min_size_KO', 'El campo id_rol debe tener al menos 1 caracter'],
-    ['usuario', 'id_rol', 'input', 35, 'Validar max_size de id_rol en  ADD', 'max_size', 'ADD', 'id_rol_max_size_KO', 'El campo id_rol debe tener como máximo 11 caracteres'],
-    ['usuario', 'id_rol', 'input', 36, 'Validar formato de id_rol en  ADD', 'format', 'ADD', 'id_rol_format_KO', 'El campo id_rol debe ser un numero entero'],
-    ['usuario', 'id_rol', 'input', 37, 'Validar id_rol correcto en ADD', 'valid', 'ADD', true, 'id_rol correcto'],
+    ['usuario', 'id_rol', 'select', 34, 'Validar min_size de id_rol en  ADD', 'min_size', 'ADD', 'id_rol_min_size_KO', 'El campo id_rol debe tener al menos 1 caracter'],
+    ['usuario', 'id_rol', 'select', 35, 'Validar max_size de id_rol en  ADD', 'max_size', 'ADD', 'id_rol_max_size_KO', 'El campo id_rol debe tener como máximo 11 caracteres'],
+    ['usuario', 'id_rol', 'select', 36, 'Validar formato de id_rol en  ADD', 'format', 'ADD', 'id_rol_format_KO', 'El campo id_rol debe ser un numero entero'],
+    ['usuario', 'id_rol', 'select', 37, 'Validar id_rol correcto en ADD', 'valid', 'ADD', true, 'id_rol correcto'],
     //EDIT
-    ['usuario', 'id_rol', 'input', 38, 'Validar min_size de id_rol en  EDIT', 'min_size', 'EDIT', 'id_rol_min_size_KO', 'El campo id_rol debe tener al menos 1 caracter'],
-    ['usuario', 'id_rol', 'input', 39, 'Validar max_size de id_rol en  EDIT', 'max_size', 'EDIT', 'id_rol_max_size_KO', 'El campo id_rol debe tener como máximo 11 caracteres'],
-    ['usuario', 'id_rol', 'input', 40, 'Validar formato de id_rol en  EDIT', 'format', 'EDIT', 'id_rol_format_KO', 'El campo id_rol debe ser un numero entero'],
-    ['usuario', 'id_rol', 'input', 41, 'Validar id_rol correcto en EDIT', 'valid', 'EDIT', true, 'id_rol correcto'],
+    ['usuario', 'id_rol', 'select', 38, 'Validar min_size de id_rol en  EDIT', 'min_size', 'EDIT', 'id_rol_min_size_KO', 'El campo id_rol debe tener al menos 1 caracter'],
+    ['usuario', 'id_rol', 'select', 39, 'Validar max_size de id_rol en  EDIT', 'max_size', 'EDIT', 'id_rol_max_size_KO', 'El campo id_rol debe tener como máximo 11 caracteres'],
+    ['usuario', 'id_rol', 'select', 40, 'Validar formato de id_rol en  EDIT', 'format', 'EDIT', 'id_rol_format_KO', 'El campo id_rol debe ser un numero entero'],
+    ['usuario', 'id_rol', 'select', 41, 'Validar id_rol correcto en EDIT', 'valid', 'EDIT', true, 'id_rol correcto'],
     //SEARCH
     ['usuario', 'id_rol', 'input', 42, 'Validar max_size de id_rol en  SEARCH', 'max_size', 'SEARCH', 'id_rol_max_size_KO', 'El campo id_rol tiene como máximo 11 caracteres'],
     ['usuario', 'id_rol', 'input', 43, 'Validar formato de id_rol en  SEARCH', 'format', 'SEARCH', 'id_rol_format_KO', 'El campo id_rol debe ser un numero entero'],

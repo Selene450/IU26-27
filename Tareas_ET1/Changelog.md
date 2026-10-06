@@ -42,4 +42,5 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Añadir el número de horas de cada participante a `ET1_IU262711`
 - Modificaciones en `foto_persona` y `nuevo_foto_persona` para adaptarse a nueva información recibida através del foro de dudas. En concreto hacer pruebas y tests de ADD, EDIT y SEARCH de todos los campos, aunque no se usen en el formulario. En este caso aclararemos que `nuevo_foto_persona` es una imagen nueva que no está guardada en la base de datos y `foto_persona` es una referencia a una imagen existente en la base de datos ya introducida.
 - Se han añadido más pruebas de limite, formatos, tamaño minimo... a todas las entidades en el proyecto, ademas de corregir y ordenar las que ya estaban en usuario [6/10/2026]
+- Corregimos el tipo de campo de `id_rol` en la entidad `usuario` siguiendo criterio no odficial de Rodeiro qur dijo en el grupo IU_2 (me va a matar este hombre) [6/10/2026]
 
