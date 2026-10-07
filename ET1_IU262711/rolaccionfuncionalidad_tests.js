@@ -11,9 +11,9 @@ var rolaccionfuncionalidad_def_tests = [
     ['rolaccionfuncionalidad', 'id_rol', 'select', 7, 'Validar format de id_rol en  EDIT', 'format', 'EDIT', 'id_rol_format_KO', 'El campo id_rol debe ser un número entero'],
     ['rolaccionfuncionalidad', 'id_rol', 'select', 8, 'Validar id_rol correcto en EDIT', 'valid', 'EDIT', true, 'id_rol correcto'],
     //SEARCH
-    ['rolaccionfuncionalidad', 'id_rol', 'select', 9, 'Validar max_size de id_rol en  SEARCH', 'max_size', 'SEARCH', 'id_rol_max_size_KO', 'El campo id_rol tiene como máximo 11 caracteres'],
-    ['rolaccionfuncionalidad', 'id_rol', 'select', 10, 'Validar format de id_rol en  SEARCH', 'format', 'SEARCH', 'id_rol_format_KO', 'El campo id_rol debe ser un número entero'],
-    ['rolaccionfuncionalidad', 'id_rol', 'select', 11, 'Validar id_rol correcto en SEARCH', 'valid', 'SEARCH', true, 'id_rol correcto'],
+    ['rolaccionfuncionalidad', 'id_rol', 'input', 9, 'Validar max_size de id_rol en  SEARCH', 'max_size', 'SEARCH', 'id_rol_max_size_KO', 'El campo id_rol tiene como máximo 11 caracteres'],
+    ['rolaccionfuncionalidad', 'id_rol', 'input', 10, 'Validar format de id_rol en  SEARCH', 'format', 'SEARCH', 'id_rol_format_KO', 'El campo id_rol debe ser un número entero'],
+    ['rolaccionfuncionalidad', 'id_rol', 'input', 11, 'Validar id_rol correcto en SEARCH', 'valid', 'SEARCH', true, 'id_rol correcto'],
 
     //campo id_accion
     //ADD
@@ -27,9 +27,9 @@ var rolaccionfuncionalidad_def_tests = [
     ['rolaccionfuncionalidad', 'id_accion', 'select', 18, 'Validar format de id_accion en  EDIT', 'format', 'EDIT', 'id_accion_format_KO', 'El campo id_accion debe ser un número entero'],
     ['rolaccionfuncionalidad', 'id_accion', 'select', 19, 'Validar id_accion correcto en EDIT', 'valid', 'EDIT', true, 'id_accion correcto'],
     //SEARCH
-    ['rolaccionfuncionalidad', 'id_accion', 'select', 20, 'Validar max_size de id_accion en  SEARCH', 'max_size', 'SEARCH', 'id_accion_max_size_KO', 'El campo id_accion tiene como máximo 11 caracteres'],
-    ['rolaccionfuncionalidad', 'id_accion', 'select', 21, 'Validar format de id_accion en  SEARCH', 'format', 'SEARCH', 'id_accion_format_KO', 'El campo id_accion debe ser un número entero'],
-    ['rolaccionfuncionalidad', 'id_accion', 'select', 22, 'Validar id_accion correcto en SEARCH', 'valid', 'SEARCH', true, 'id_accion correcto'],
+    ['rolaccionfuncionalidad', 'id_accion', 'input', 20, 'Validar max_size de id_accion en  SEARCH', 'max_size', 'SEARCH', 'id_accion_max_size_KO', 'El campo id_accion tiene como máximo 11 caracteres'],
+    ['rolaccionfuncionalidad', 'id_accion', 'input', 21, 'Validar format de id_accion en  SEARCH', 'format', 'SEARCH', 'id_accion_format_KO', 'El campo id_accion debe ser un número entero'],
+    ['rolaccionfuncionalidad', 'id_accion', 'input', 22, 'Validar id_accion correcto en SEARCH', 'valid', 'SEARCH', true, 'id_accion correcto'],
 
     //campo id_funcionalidad
     //ADD
@@ -43,9 +43,9 @@ var rolaccionfuncionalidad_def_tests = [
     ['rolaccionfuncionalidad', 'id_funcionalidad', 'select', 29, 'Validar format de id_funcionalidad en  EDIT', 'format', 'EDIT', 'id_funcionalidad_format_KO', 'El campo id_funcionalidad debe ser un número entero'],
     ['rolaccionfuncionalidad', 'id_funcionalidad', 'select', 30, 'Validar id_funcionalidad correcto en EDIT', 'valid', 'EDIT', true, 'id_funcionalidad correcto'],
     //SEARCH
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 'select', 31, 'Validar max_size de id_funcionalidad en  SEARCH', 'max_size', 'SEARCH', 'id_funcionalidad_max_size_KO', 'El campo id_funcionalidad tiene como máximo 11 caracteres'],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 'select', 32, 'Validar format de id_funcionalidad en  SEARCH', 'format', 'SEARCH', 'id_funcionalidad_format_KO', 'El campo id_funcionalidad debe ser un número entero'],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 'select', 33, 'Validar id_funcionalidad correcto en SEARCH', 'valid', 'SEARCH', true, 'id_funcionalidad correcto']
+    ['rolaccionfuncionalidad', 'id_funcionalidad', 'input', 31, 'Validar max_size de id_funcionalidad en  SEARCH', 'max_size', 'SEARCH', 'id_funcionalidad_max_size_KO', 'El campo id_funcionalidad tiene como máximo 11 caracteres'],
+    ['rolaccionfuncionalidad', 'id_funcionalidad', 'input', 32, 'Validar format de id_funcionalidad en  SEARCH', 'format', 'SEARCH', 'id_funcionalidad_format_KO', 'El campo id_funcionalidad debe ser un número entero'],
+    ['rolaccionfuncionalidad', 'id_funcionalidad', 'input', 33, 'Validar id_funcionalidad correcto en SEARCH', 'valid', 'SEARCH', true, 'id_funcionalidad correcto']
 ];
 
 var rolaccionfuncionalidad_pruebas = [
@@ -78,9 +78,9 @@ var rolaccionfuncionalidad_pruebas = [
     ['rolaccionfuncionalidad', 'id_rol', 10, 22, 'SEARCH', {'id_rol': 'abc'}, 'id_rol_format_KO'],
     ['rolaccionfuncionalidad', 'id_rol', 10, 23, 'SEARCH', {'id_rol': '12,3'}, 'id_rol_format_KO'],
     ['rolaccionfuncionalidad', 'id_rol', 10, 24, 'SEARCH', {'id_rol': '123@'}, 'id_rol_format_KO'],
-    ['rolaccionfuncionalidad', 'id_rol', 10, 25, 'SEARCH', {}, 'id_rol_format_KO'],
-    ['rolaccionfuncionalidad', 'id_rol', 10, 26, 'SEARCH', {'id_rol': ''}, 'id_rol_format_KO'],
-    ['rolaccionfuncionalidad', 'id_rol', 10, 27, 'SEARCH', {'id_rol': ' '}, 'id_rol_format_KO'],
+    ['rolaccionfuncionalidad', 'id_rol', 11, 25, 'SEARCH', {}, true],
+    ['rolaccionfuncionalidad', 'id_rol', 11, 26, 'SEARCH', {'id_rol': ''}, true],
+    ['rolaccionfuncionalidad', 'id_rol', 11, 27, 'SEARCH', {'id_rol': ' '}, true],
     ['rolaccionfuncionalidad', 'id_rol', 11, 28, 'SEARCH', {'id_rol': '1'}, true],
     ['rolaccionfuncionalidad', 'id_rol', 11, 29, 'SEARCH', {'id_rol': '12345678901'}, true],
     ['rolaccionfuncionalidad', 'id_rol', 11, 30, 'SEARCH', {'id_rol': '123'}, true],
@@ -113,9 +113,9 @@ var rolaccionfuncionalidad_pruebas = [
     ['rolaccionfuncionalidad', 'id_accion', 21, 52, 'SEARCH', {'id_accion': 'abc'}, 'id_accion_format_KO'],
     ['rolaccionfuncionalidad', 'id_accion', 21, 53, 'SEARCH', {'id_accion': '12,3'}, 'id_accion_format_KO'],
     ['rolaccionfuncionalidad', 'id_accion', 21, 54, 'SEARCH', {'id_accion': '123@'}, 'id_accion_format_KO'],
-    ['rolaccionfuncionalidad', 'id_accion', 21, 55, 'SEARCH', {}, 'id_accion_format_KO'],
-    ['rolaccionfuncionalidad', 'id_accion', 21, 56, 'SEARCH', {'id_accion': ''}, 'id_accion_format_KO'],
-    ['rolaccionfuncionalidad', 'id_accion', 21, 57, 'SEARCH', {'id_accion': ' '}, 'id_accion_format_KO'],
+    ['rolaccionfuncionalidad', 'id_accion', 22, 55, 'SEARCH', {}, true],
+    ['rolaccionfuncionalidad', 'id_accion', 22, 56, 'SEARCH', {'id_accion': ''}, true],
+    ['rolaccionfuncionalidad', 'id_accion', 22, 57, 'SEARCH', {'id_accion': ' '}, true],
     ['rolaccionfuncionalidad', 'id_accion', 22, 58, 'SEARCH', {'id_accion': '1'}, true],
     ['rolaccionfuncionalidad', 'id_accion', 22, 59, 'SEARCH', {'id_accion': '12345678901'}, true],
     ['rolaccionfuncionalidad', 'id_accion', 22, 60, 'SEARCH', {'id_accion': '123'}, true],
@@ -148,9 +148,9 @@ var rolaccionfuncionalidad_pruebas = [
     ['rolaccionfuncionalidad', 'id_funcionalidad', 32, 82, 'SEARCH', {'id_funcionalidad': 'abc'}, 'id_funcionalidad_format_KO'],
     ['rolaccionfuncionalidad', 'id_funcionalidad', 32, 83, 'SEARCH', {'id_funcionalidad': '12,3'}, 'id_funcionalidad_format_KO'],
     ['rolaccionfuncionalidad', 'id_funcionalidad', 32, 84, 'SEARCH', {'id_funcionalidad': '123@'}, 'id_funcionalidad_format_KO'],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 32, 85, 'SEARCH', {}, 'id_funcionalidad_format_KO'],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 32, 86, 'SEARCH', {'id_funcionalidad': ''}, 'id_funcionalidad_format_KO'],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 32, 87, 'SEARCH', {'id_funcionalidad': ' '}, 'id_funcionalidad_format_KO'],
+    ['rolaccionfuncionalidad', 'id_funcionalidad', 33, 85, 'SEARCH', {}, true],
+    ['rolaccionfuncionalidad', 'id_funcionalidad', 33, 86, 'SEARCH', {'id_funcionalidad': ''}, true],
+    ['rolaccionfuncionalidad', 'id_funcionalidad', 33, 87, 'SEARCH', {'id_funcionalidad': ' '}, true],
     ['rolaccionfuncionalidad', 'id_funcionalidad', 33, 88, 'SEARCH', {'id_funcionalidad': '1'}, true],
     ['rolaccionfuncionalidad', 'id_funcionalidad', 33, 89, 'SEARCH', {'id_funcionalidad': '12345678901'}, true],
     ['rolaccionfuncionalidad', 'id_funcionalidad', 33, 90, 'SEARCH', {'id_funcionalidad': '123'}, true]

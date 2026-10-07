@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="../../Base/css/IU.css" media="screen" />
+    <title>Revisión de pruebas por entidad</title>
+
+    <script src="./Data_Test_Class.js"></script>
+    <script src="../../../ET1_IU262711/accion_tests.js"></script>
+    <script src="../../../ET1_IU262711/funcionalidad_tests.js"></script>
+    <script src="../../../ET1_IU262711/funcionalidad_accion_tests.js"></script>
+    <script src="../../../ET1_IU262711/persona_tests.js"></script>
+    <script src="../../../ET1_IU262711/rol_tests.js"></script>
+    <script src="../../../ET1_IU262711/rolaccionfuncionalidad_tests.js"></script>
+    <script src="../../../ET1_IU262711/usuario_tests.js"></script>
+</head>
+
+<body>
+    <header id="header_page" class="bordeado">Revisión de pruebas definidas</header>
+
+    <main>
+        <section class="bordeado">
+            <h2>Selecciona una entidad</h2>
+            <p>Se comprobará que cada prueba corresponda con su definición. No se ejecutan validaciones de entidad.</p>
+            <div id="entity-menu">
+                <button type="button" onclick="run_entity_tests('accion', accion_def_tests, accion_pruebas)">Acción</button>
+                <button type="button" onclick="run_entity_tests('funcionalidad', funcionalidad_def_tests, funcionalidad_pruebas)">Funcionalidad</button>
+                <button type="button" onclick="run_entity_tests('funcionalidad_accion', funcionalidad_accion_def_tests, funcionalidad_accion_pruebas)">Funcionalidad-Acción</button>
+                <button type="button" onclick="run_entity_tests('persona', persona_def_tests, persona_pruebas)">Persona</button>
+                <button type="button" onclick="run_entity_tests('rol', rol_def_tests, rol_pruebas)">Rol</button>
+                <button type="button" onclick="run_entity_tests('rolaccionfuncionalidad', rolaccionfuncionalidad_def_tests, rolaccionfuncionalidad_pruebas)">Rol-Acción-Funcionalidad</button>
+                <button type="button" onclick="run_entity_tests('usuario', usuario_def_tests, usuario_pruebas)">Usuario</button>
+            </div>
+        </section>
+
+        <section id="IU_Test_result" class="bordeado contenidoTest" aria-live="polite">
+            <p>Selecciona una entidad para revisar sus definiciones y pruebas.</p>
+        </section>
+    </main>
+
+    <script>
+        function run_entity_tests(entityName, definitions, cases) {
+            new Data_Test(entityName, definitions, cases);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+/*
+
+index.html
+divs
+
+*/
+	.bordeado{
+		border-width: 1;
+		border-style: solid;
+	}
+	#header_page{
+		font-size: 60;
+		text-align: center;
+	}
+
+	#tablaresultadostest tbody tr th{
+		width: 10%;
+		word-wrap: break-word;
+	}
+
+	#IU_Test_result{
+		margin-top: 1rem;
+		overflow-x: auto;
+	}
+
+	#IU_Test_result table{
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	#IU_Test_result th,
+	#IU_Test_result td{
+		border: 1px solid black;
+		padding: 0.4rem;
+		text-align: left;
+		vertical-align: top;
+	}
+
+	#IU_Test_result td{
+		overflow-wrap: anywhere;
+	}
+
+	#IU_Test_result .test-failed{
+		background-color: #ffd6d6;
+	}
+
+	#entity-menu{
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}

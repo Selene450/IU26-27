@@ -11,9 +11,9 @@ var persona_def_tests = [
     ['persona', 'dni', 'select', 7, 'Validar format de dni en EDIT', 'format', 'EDIT', 'dni_format_KO', 'El campo dni debe tener un formato DNI valido'],
     ['persona', 'dni', 'select', 8, 'Validar dni correcto en EDIT', 'valid', 'EDIT', true, 'dni correcto'],
     //SEARCH
-    ['persona', 'dni', 'select', 9, 'Validar max_size de dni en SEARCH', 'max_size', 'SEARCH', 'dni_max_size_KO', 'El campo dni debe tener como maximo 9 caracteres'],
-    ['persona', 'dni', 'select', 10, 'Validar format de dni en SEARCH', 'format', 'SEARCH', 'dni_format_KO', 'El campo dni debe tener un formato DNI valido'],
-    ['persona', 'dni', 'select', 11, 'Validar dni correcto en SEARCH', 'valid', 'SEARCH', true, 'dni correcto'],
+    ['persona', 'dni', 'input', 9, 'Validar max_size de dni en SEARCH', 'max_size', 'SEARCH', 'dni_max_size_KO', 'El campo dni debe tener como maximo 9 caracteres'],
+    ['persona', 'dni', 'input', 10, 'Validar format de dni en SEARCH', 'format', 'SEARCH', 'dni_format_KO', 'El campo dni debe tener un formato DNI valido'],
+    ['persona', 'dni', 'input', 11, 'Validar dni correcto en SEARCH', 'valid', 'SEARCH', true, 'dni correcto'],
 
     //Campo nombre_persona
     //ADD
@@ -128,8 +128,8 @@ var persona_def_tests = [
     ['persona', 'nuevo_foto_persona', 'file', 85, 'Validar formato fichero nuevo_foto_persona EDIT', 'format', 'EDIT', 'nuevo_foto_persona_format_KO', 'Debe ser un archivo jpg o jpeg'],
     ['persona', 'nuevo_foto_persona', 'file', 86, 'Validar nuevo_foto_persona correcta en EDIT', 'valid', 'EDIT', true, 'nuevo_foto_persona correcta'],
     //SEARCH
-    ['persona', 'nuevo_foto_persona', 'file', 87, 'Tamaño nombre fichero nuevo_foto_persona SEARCH', 'max_size_file', 'SEARCH', 'nuevo_foto_persona_max_name_file_KO', 'Nombre de foto incorrecto. Debe tener como maximo 15 caracteres'],
-    ['persona', 'nuevo_foto_persona', 'file', 88, 'Formato nombre fichero nuevo_foto_persona SEARCH', 'format_name_file', 'SEARCH', 'nuevo_foto_persona_format_name_file_KO', 'Nombre de foto incorrecto. Debe ser alfabetico y terminar en .jpg o .jpeg'],
+    ['persona', 'nuevo_foto_persona', 'file', 87, 'Formato nombre fichero nuevo_foto_persona SEARCH', 'format_name_file', 'SEARCH', 'nuevo_foto_persona_format_name_file_KO', 'Nombre de foto incorrecto. Debe ser alfabetico y terminar en .jpg o .jpeg'],
+    ['persona', 'nuevo_foto_persona', 'file', 88, 'Tamaño nombre fichero nuevo_foto_persona SEARCH', 'max_name_file', 'SEARCH', 'nuevo_foto_persona_max_name_file_KO', 'Nombre de foto incorrecto. Debe tener como maximo 15 caracteres'],
     ['persona', 'nuevo_foto_persona', 'file', 89, 'Validar nuevo_foto_persona correcta en SEARCH', 'valid', 'SEARCH', true, 'nuevo_foto_persona correcta'],
 
     //Campo foto_persona
@@ -150,7 +150,7 @@ var persona_def_tests = [
     ['persona', 'foto_persona', 'file', 102, 'Validar formato fichero foto EDIT', 'format', 'EDIT', 'foto_persona_format_KO', 'Debe ser un archivo jpg o jpeg'],
     ['persona', 'foto_persona', 'file', 103, 'Validar foto_persona correcta en EDIT', 'valid', 'EDIT', true, 'foto_persona correcta'],
     //SEARCH
-    ['persona', 'foto_persona', 'file', 104, 'Tamaño fichero foto SEARCH', 'max_size_file', 'SEARCH', 'foto_persona_max_name_file_KO', 'Nombre de foto incorrecto. Debe tener como maximo 15 caracteres'],
+    ['persona', 'foto_persona', 'file', 104, 'Tamaño nombre fichero foto SEARCH', 'max_name_file', 'SEARCH', 'foto_persona_max_name_file_KO', 'Nombre de foto incorrecto. Debe tener como maximo 15 caracteres'],
     ['persona', 'foto_persona', 'file', 105, 'Formato nombre fichero foto SEARCH', 'format_name_file', 'SEARCH', 'foto_persona_format_name_file_KO', 'Nombre de foto incorrecto. Debe ser alfabetico y terminar en .jpg o .jpeg'],
     ['persona', 'foto_persona', 'file', 106, 'Validar foto_persona correcta en SEARCH', 'valid', 'SEARCH', true, 'foto_persona correcta']
 ];
@@ -180,9 +180,9 @@ var persona_pruebas = [
     //SEARCH
     ['persona', 'dni', 9, 19, 'SEARCH', {'dni': '1234567890'}, 'dni_max_size_KO'],
     ['persona', 'dni', 10, 20, 'SEARCH', {'dni': '12345678A'}, 'dni_format_KO'],
-    ['persona', 'dni', 10, 21, 'SEARCH', {}, 'dni_format_KO'],
-    ['persona', 'dni', 10, 22, 'SEARCH', {'dni': ''}, 'dni_format_KO'],
-    ['persona', 'dni', 10, 23, 'SEARCH', {'dni': '         '}, 'dni_format_KO'],
+    ['persona', 'dni', 11, 21, 'SEARCH', {}, true],
+    ['persona', 'dni', 11, 22, 'SEARCH', {'dni': ''}, true],
+    ['persona', 'dni', 11, 23, 'SEARCH', {'dni': '         '}, true],
     ['persona', 'dni', 10, 24, 'SEARCH', {'dni': ' 12345678Z'}, 'dni_format_KO'],
     ['persona', 'dni', 10, 25, 'SEARCH', {'dni': '12345678Z '}, 'dni_format_KO'],
     ['persona', 'dni', 11, 26, 'SEARCH', {'dni': '12345678Z'}, true],
@@ -265,8 +265,8 @@ var persona_pruebas = [
     //SEARCH
 	['persona', 'fechaNacimiento_persona', 42, 89, 'SEARCH', {'fechaNacimiento_persona': '23/09/2020/extra'}, 'fechaNacimiento_persona_max_size_KO'],
     ['persona', 'fechaNacimiento_persona', 43, 90, 'SEARCH', {'fechaNacimiento_persona': '2020-09-23'}, 'fechaNacimiento_persona_format_KO'],
-    ['persona', 'fechaNacimiento_persona', 43, 91, 'SEARCH', {}, 'fechaNacimiento_persona_format_KO'],
-    ['persona', 'fechaNacimiento_persona', 43, 92, 'SEARCH', {'fechaNacimiento_persona': ''}, 'fechaNacimiento_persona_format_KO'],
+    ['persona', 'fechaNacimiento_persona', 44, 91, 'SEARCH', {}, true],
+    ['persona', 'fechaNacimiento_persona', 44, 92, 'SEARCH', {'fechaNacimiento_persona': ''}, true],
     ['persona', 'fechaNacimiento_persona', 43, 93, 'SEARCH', {'fechaNacimiento_persona': '01/1a/2000'}, 'fechaNacimiento_persona_format_KO'],
     ['persona', 'fechaNacimiento_persona', 44, 94, 'SEARCH', {'fechaNacimiento_persona': '23/09/2020'}, true],
 
@@ -313,8 +313,8 @@ var persona_pruebas = [
     //SEARCH
 	['persona', 'telefono_persona', 64, 127, 'SEARCH', {'telefono_persona': '1234567890'}, 'telefono_persona_max_size_KO'],
     ['persona', 'telefono_persona', 65, 128, 'SEARCH', {'telefono_persona': '12345678'}, 'telefono_persona_format_KO'],
-    ['persona', 'telefono_persona', 65, 129, 'SEARCH', {}, 'telefono_persona_format_KO'],
-    ['persona', 'telefono_persona', 65, 130, 'SEARCH', {'telefono_persona': ''}, 'telefono_persona_format_KO'],
+    ['persona', 'telefono_persona', 66, 129, 'SEARCH', {}, true],
+    ['persona', 'telefono_persona', 66, 130, 'SEARCH', {'telefono_persona': ''}, true],
     ['persona', 'telefono_persona', 65, 131, 'SEARCH', {'telefono_persona': '61234567a'}, 'telefono_persona_format_KO'],
     ['persona', 'telefono_persona', 66, 132, 'SEARCH', {'telefono_persona': '612345678'}, true],
 
@@ -335,8 +335,8 @@ var persona_pruebas = [
     ['persona', 'email_persona', 70, 144, 'EDIT', {'email_persona': 'persona@example.com'}, true],
     //SEARCH
     ['persona', 'email_persona', 71, 145, 'SEARCH', {'email_persona': 'correo'}, 'email_persona_format_KO'],
-    ['persona', 'email_persona', 71, 146, 'SEARCH', {}, 'email_persona_format_KO'],
-    ['persona', 'email_persona', 71, 147, 'SEARCH', {'email_persona': ''}, 'email_persona_format_KO'],
+    ['persona', 'email_persona', 72, 146, 'SEARCH', {}, true],
+    ['persona', 'email_persona', 72, 147, 'SEARCH', {'email_persona': ''}, true],
     ['persona', 'email_persona', 71, 148, 'SEARCH', {'email_persona': 'persona@'}, 'email_persona_format_KO'],
     ['persona', 'email_persona', 71, 149, 'SEARCH', {'email_persona': '@example.com'}, 'email_persona_format_KO'],
     ['persona', 'email_persona', 72, 150, 'SEARCH', {'email_persona': 'persona@example.com'}, true],
@@ -404,7 +404,7 @@ var persona_pruebas = [
     //SEARCH
     ['persona', 'foto_persona', 104, 203, 'SEARCH', {foto_persona: 'f'.repeat(16) + '.jpg'}, 'foto_persona_max_name_file_KO'],
     ['persona', 'foto_persona', 104, 204, 'SEARCH', {foto_persona: 'f'.repeat(15) + '.jpg'}, true],
-    ['persona', 'foto_persona', 104, 205, 'SEARCH', {foto_persona: 'ab.jpg'}, 'foto_persona_min_name_file_KO'],
+    ['persona', 'foto_persona', 106, 205, 'SEARCH', {foto_persona: 'ab.jpg'}, true],
     ['persona', 'foto_persona', 104, 206, 'SEARCH', {foto_persona: 'abc.jpg'}, true],
     ['persona', 'foto_persona', 105, 207, 'SEARCH', {foto_persona: 'foto123.jpg'}, 'foto_persona_format_name_file_KO'],
     ['persona', 'foto_persona', 106, 208, 'SEARCH', {foto_persona: 'foto.jpg'}, true]
