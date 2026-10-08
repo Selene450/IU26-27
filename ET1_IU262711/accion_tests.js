@@ -141,8 +141,8 @@ var accion_pruebas = [
     ['accion', 'descrip_accion', 31, 75, 'SEARCH', {'descrip_accion': 'a'.repeat(201)}, 'descrip_accion_max_size_KO'],
     ['accion', 'descrip_accion', 32, 76, 'SEARCH', {'descrip_accion': '@@@@@@@@@@@@@@@@@@@@@'}, 'descrip_accion_format_KO'],
     ['accion', 'descrip_accion', 32, 77, 'SEARCH', {'descrip_accion': 'Esta acccion se encargara de 123456789'}, 'descrip_accion_format_KO'],
-    ['accion', 'descrip_accion', 33, 78, 'SEARCH', {'descrip_accion': ''}, true],
-    ['accion', 'descrip_accion', 32, 79, 'SEARCH', {'descrip_accion': 'Texto con @ no permitido'}, 'descrip_accion_format_KO'],
+    ['accion', 'descrip_accion', 32, 78, 'SEARCH', {'descrip_accion': 'Texto con @ no permitido'}, 'descrip_accion_format_KO'],
+    ['accion', 'descrip_accion', 33, 79, 'SEARCH', {'descrip_accion': ''}, true],
     ['accion', 'descrip_accion', 33, 80, 'SEARCH', {'descrip_accion': 'abcde'}, true],
     ['accion', 'descrip_accion', 33, 81, 'SEARCH', {'descrip_accion': 'a'.repeat(200)}, true],
     ['accion', 'descrip_accion', 33, 82, 'SEARCH', {'descrip_accion': 'Descripción válida con acentos y signos de puntuación y ñ.'}, true]
