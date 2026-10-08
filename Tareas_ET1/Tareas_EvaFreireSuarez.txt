@@ -10,3 +10,4 @@ Tareas                                             | Horas
  correcció campo contrasena                        | 0'25
  corrección pruebas entidad usuario                | 1
  definicion pruebas entidad usuario                | 0'5
+ creación enttorno test                            | 1'5
