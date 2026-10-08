@@ -46,4 +46,5 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Corrección de elementos tipo `select`par FK de entidades [7/10/2026]
 - Corrección de resultado de pruebas SEARCH vacías [7/10/2026]
 - Añadido entorno de pruebas [7/10/2026]
+- Corrección en la tabla de tareas de Hiba para eliminar elementos sobrantes [8/10/2026]
 
