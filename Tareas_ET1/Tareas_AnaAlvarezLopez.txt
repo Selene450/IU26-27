@@ -3,13 +3,13 @@ Nombre: Ana Alvarez Lopez
 Tareas                                                                    | Horas
 ------------------------------------------------------------------------  | -----
 Escritura de los tests y las pruebas de la entidad accion                 | 2
-Escritura de los tests y las pruebas de la entidad rolaccionfuncionalidad | 0'5
-Revisión de la entidad persona                                            | 0'5
-Revisión de la entidad funcionalidad                                      | 0'5
-Revisión de la entidad rol                                                | 0'5
-Añadir nuevas pruebas en la entidad funcionalidad                         | 0'5
-Añadir nuevas pruebas en la entidad rol                                   | 0'5
-Añadir pruebas en la entidad rolaccionfuncionalidad                       | 0'5
+Escritura de los tests y las pruebas de la entidad rolaccionfuncionalidad | 0.5
+Revisión de la entidad persona                                            | 0.5
+Revisión de la entidad funcionalidad                                      | 0.5
+Revisión de la entidad rol                                                | 0.5
+Añadir nuevas pruebas en la entidad funcionalidad                         | 0.5
+Añadir nuevas pruebas en la entidad rol                                   | 0.5
+Añadir pruebas en la entidad rolaccionfuncionalidad                       | 0.5
 Añdir tests y pruebas de foto_persona y nuevo_foto_persona                | 1
-Corrección tipo de campo id_rol en entidad usuario                        | 0'25
-Eliminación de pruebas duplicadas                                         | 0'25
+Corrección tipo de campo id_rol en entidad usuario                        | 0.25
+Eliminación de pruebas duplicadas                                         | 0.25

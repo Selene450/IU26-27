@@ -3,5 +3,5 @@ Nombre: Hiba El Ghali El Ghali
 Tareas                                  | Horas
 --------------------------------------- | -----
  Revisa y corregir la entidad persona   | 2
- Defincion de tests de la entidad rol   | 0,5
- Defincion de pruebas de la entidad rol | 0,5
+ Defincion de tests de la entidad rol   | 0.5
+ Defincion de pruebas de la entidad rol | 0.5

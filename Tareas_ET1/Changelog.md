@@ -48,4 +48,5 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Añadido entorno de pruebas [7/10/2026]
 - Corrección en la tabla de tareas de Hiba para eliminar elementos sobrantes [8/10/2026]
 - Eliminación de pruebas duplicadas de usuario_tests.js y actualización de numeración [8/20/2026]
+- Cambiar signo de decimal de `'` a `.` [9/10/2026]
 

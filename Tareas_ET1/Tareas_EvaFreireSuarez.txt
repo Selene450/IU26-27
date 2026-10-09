@@ -2,12 +2,12 @@ Nombre: Eva Freire Suarez
 
 Tareas                                             | Horas
 -------------------------------------------------- | -----
- revision entidad accion                           |  0'5         
- correccion tipo de dato true de string a boolean  | 0'5         
- deinicion test persona                            | 1'5         
- definicion pruebas entidad persona                | 1'5
- revisión entidades nuevas                         | 0'5
- correcció campo contrasena                        | 0'25
+ revision entidad accion                           | 0.5         
+ correccion tipo de dato true de string a boolean  | 0.5         
+ deinicion test persona                            | 1.5         
+ definicion pruebas entidad persona                | 1.5
+ revisión entidades nuevas                         | 0.5
+ correcció campo contrasena                        | 0.25
  corrección pruebas entidad usuario                | 1
- definicion pruebas entidad usuario                | 0'5
- creación enttorno test                            | 1'5
+ definicion pruebas entidad usuario                | 0.5
+ creación enttorno test                            | 1.5

@@ -2,11 +2,11 @@ Nombre: Manuel Cortiñas Perez
 
 Tareas                                                  | Horas
 --------------------------------------------------------| --
-Definición de los test de usuario                       |0,5 
-Definición de las pruebas de los test de usuario        |0,5
-Corrección de errores en los test de usuario            |0,5 
+Definición de los test de usuario                       |0.5 
+Definición de las pruebas de los test de usuario        |0.5
+Corrección de errores en los test de usuario            |0.5 
 Definición de los test de funcionalidad y sus pruebas   |1
-Corrección de errores en varias entidades               |0,5 
+Corrección de errores en varias entidades               |0.5 
 Añadir mas test de prueba para formatos                 |1
 Añadir y revisar pruebas de todas las entidades         |2
-Corrección de el orden del numero de prueba de los tests|0,5
+Corrección de el orden del numero de prueba de los tests|0.5
