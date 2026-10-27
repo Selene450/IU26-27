@@ -46,7 +46,7 @@ class AbstractEntidad{
 				this.dom.abrirModalError(respuesta['code']);
 	        }
 
-			//setLang();
+			setLang();
 
         });
     }
@@ -83,7 +83,7 @@ class AbstractEntidad{
                 document.getElementById('IU_manage_table').className = 'RECORDSET_VACIO';
             }
 
-			//setLang();
+			setLang();
 
         });
     
@@ -122,7 +122,7 @@ class AbstractEntidad{
 				this.dom.abrirModalError(respuesta['code']);
 	        }
 
-			//setLang();
+			setLang();
 
         });
     
@@ -161,7 +161,7 @@ class AbstractEntidad{
 				this.dom.abrirModalError(respuesta['code']);
 	        }
 
-			//setLang();
+			setLang();
 
         });
     
@@ -206,10 +206,10 @@ class AbstractEntidad{
 		
 		//muestro datos en tabla
 		this.dom.showData('IU_manage_table', misdatos);
-		this.dom.mostrarocultarcolumnas(this.columnasamostrar, this.atributos);
 		this.dom.crearSeleccionablecolumnas(this.columnasamostrar, this.atributos);
-		
+		this.dom.mostrarocultarcolumnas(this.columnasamostrar, this.atributos);
 
+		setLang();
 	}
 
     /**

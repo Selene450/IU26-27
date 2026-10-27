@@ -45,7 +45,9 @@ class dom extends dom_table {
 		document.getElementById('span_error_'+id).style.display = 'inline';
 		document.getElementById('error_'+id).innerHTML = codigoerror;
 		document.getElementById(id).style.borderBlockColor = 'red';
+		document.getElementById('error_'+id).classList.add(codigoerror);
 		document.getElementById('submit_button').focus();
+		setLang();
 	}
 	/**
 	 	Modifica el aspecto del campo en función de si no tiene un error. Borde verde si correcto
@@ -99,10 +101,10 @@ class dom extends dom_table {
         document.getElementById('error_action_modal').style.display = 'block';
         document.getElementById('modal_action_overlay').style.display = 'block';
 		//mientras no tenemos multiidioma, el mensaje de error es el codigo de error, en el futuro se traducira
-		document.getElementById('error_action_msg').innerHTML = errorMsg;
+		//document.getElementById('error_action_msg').innerHTML = errorMsg;
 		//cuando ya tengamos el multiidioma, se pondra la clase del mensaje de error para que se traduzca
-        document.getElementById('error_action_msg').className = errorMsg;
-        //setLang();
+        document.getElementById('error_action_msg').classList.add = errorMsg;
+        setLang();
     }
 
 		
@@ -112,7 +114,7 @@ class dom extends dom_table {
     cerrarModalError(){
         document.getElementById('error_action_modal').style.display = 'none';
         document.getElementById('modal_action_overlay').style.display = 'none';
-        //document.getElementById('error_action_msg').removeAttribute('class');
+        document.getElementById('error_action_msg').removeAttribute('class');
     }
 	/**
 	 * vacia el contenido de un div
@@ -155,7 +157,7 @@ class dom extends dom_table {
 			}
 			document.getElementById("seleccioncolumnas").append(optionselect);
 		}
-		//setLang();
+		setLang();
 
 	}
 
@@ -176,7 +178,7 @@ class dom extends dom_table {
 			else{
 				estadodisplay = 'none';
 			}
-			document.querySelector("th[class='tabla-th-"+columna+"']").style.display = estadodisplay;
+			document.querySelector("th[class~='tabla-th-"+columna+"']").style.display = estadodisplay;
 			let arraytds = document.querySelectorAll("td[class='tabla-td-"+columna+"']");
 			for (let i=0;i<arraytds.length;i++){
 				arraytds[i].style.display = estadodisplay;

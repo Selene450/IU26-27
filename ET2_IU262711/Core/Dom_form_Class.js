@@ -1,6 +1,7 @@
-class dom_form {
+class dom_form extends dom{
 
     constructor(){
+		super();
     }
 
     /**

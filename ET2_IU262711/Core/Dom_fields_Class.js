@@ -7,47 +7,43 @@ class dom_fields extends dom_form{
 /**
 	 * crea un elemento del DOM y lo devuelve
 	 * 
+	 * @param {string} contenedor componente donde esta colocado o debe colocarse el elemento a tratar
 	 * @param {string} tag html a crear
 	 * @param {string} tipo del tag si corresponde 
 	 * @param {string} nombrecampo name e id del tag html a crear
 	 * @param {object} valores objeto con los valores a colocar en el tad
-	 * @returns el objeto dom creado
+	 * @param {object} extra objeto opcional con los valores que se consideren necesarios para crear o manipular
+	 *  objetos hmtl
+	 * @returns void
 	 */
-	crearElementoHtml(tag, tipo, nombrecampo, valores){
+	crearElementoHtml(contenedor, tag, nombrecampo, valores, extra=null){
 
 		switch (tag){
 			case 'input':
-				//si tiene mas de un valor, creo y relleno todos los campos con sus valores y devuelvo el primero
-				//let counter = 0;
 				for (var clave in valores){
-					
 					var nombrecampo = clave;
 					var valorcampo = valores[nombrecampo];
-					var element = this.createInput(nombrecampo, tipo);
+					var element = this.createInput(nombrecampo, 'text');
 					this.fillElementValue(element, valorcampo);
-					this.colocarelemento(element, 'form');
-					/*if (counter == 0){
-						var elementToReturn = element;
-					}
-					counter++;*/
-
-				}
-				
-				//return elementToReturn;
+					this.colocarelemento(element, contenedor);			
+				}				
 				break;
 			case 'file':
-				element = this.createInput(nombrecampo, tipo);
+				element = this.createInput(nombrecampo, 'file');
 				this.fillElementFile(element, valores);
-				//return element;
-				this.colocarelemento(element, 'form');
+				this.colocarelemento(element, contenedor);
+				break;
+			case 'submit':
+				element = this.createInput(nombrecampo, 'input');
+				element.type = 'submit';
+				this.fillElementFile(element, valores);
+				this.colocarelemento(element, contenedor);
 				break;
 			default: // este lo uso para crear los span y los a de los errores sin valor
 				element = document.createElement(tag);
-				element.type = tipo;
 				element.id = nombrecampo;
 				this.fillElementValue(element, '');
-				this.colocarelemento(element, 'form');
-				return element;
+				this.colocarelemento(element, contenedor);
 				break;	
 		}
 
