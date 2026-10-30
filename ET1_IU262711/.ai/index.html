@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Validación de entidades</title>
+    <style>
+        :root {
+            font-family: Arial, sans-serif;
+            color: #222;
+            background: #f4f6f8;
+        }
+
+        body {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        main {
+            padding: 24px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px #0001;
+        }
+
+        .controls, .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        select, input, textarea, button {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 9px;
+            border: 1px solid #bbc3ca;
+            border-radius: 4px;
+            font: inherit;
+        }
+
+        .control {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            width: auto;
+            cursor: pointer;
+            background: #2457a6;
+            color: white;
+            border: 0;
+        }
+
+        button.secondary {
+            background: #68727d;
+        }
+
+        .result {
+            padding: 12px;
+            border-radius: 4px;
+        }
+
+        .result.success {
+            color: #155724;
+            background: #d4edda;
+        }
+
+        .result.error {
+            color: #721c24;
+            background: #f8d7da;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Validación de entidades</h1>
+        <p>Selecciona una entidad, una operación y valida sus campos.</p>
+
+        <div class="controls">
+            <div class="control">
+                <label for="entity">Entidad</label>
+                <select id="entity">
+                    <option value="usuario">Usuario</option>
+                    <option value="rol">Rol</option>
+                    <option value="accion">Acción</option>
+                    <option value="funcionalidad">Funcionalidad</option>
+                    <option value="funcionalidad_accion">Funcionalidad-Acción</option>
+                    <option value="rolaccionfuncionalidad">Rol-Acción-Funcionalidad</option>
+                </select>
+            </div>
+            <div class="control">
+                <label for="action">Operación</label>
+                <select id="action">
+                    <option value="ADD">ADD</option>
+                    <option value="EDIT">EDIT</option>
+                    <option value="SEARCH">SEARCH</option>
+                </select>
+            </div>
+        </div>
+
+        <h2 id="entity-title"></h2>
+        <form id="entity-form" onsubmit="return false;">
+            <div id="form-container"></div>
+            <div class="actions">
+                <button id="validate" type="button">Validar</button>
+                <button id="clear" class="secondary" type="button">Limpiar</button>
+            </div>
+        </form>
+        <div id="result" aria-live="polite"></div>
+    </main>
+
+    <script src="../ValidateFieldsForm.js"></script>
+    <script src="entities.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
