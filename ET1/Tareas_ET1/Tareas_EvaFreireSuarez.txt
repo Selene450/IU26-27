@@ -11,3 +11,6 @@ Tareas                                             | Horas
  corrección pruebas entidad usuario                | 1
  definicion pruebas entidad usuario                | 0.5
  creación enttorno test                            | 1.5
+ diccionario textos ingles	                        |1.5 h
+ diccionario textos espanol	                       |3.0 h
+ entidades herencia abstracta	                     |3.5 h
