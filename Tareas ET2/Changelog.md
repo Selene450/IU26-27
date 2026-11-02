@@ -12,3 +12,4 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
 ### Corregido
 - Se añadieron dos líneas en el restod e entidades para forzar que mostrasen sus títulos,, debido a que con las tablas al principio ponía Gestión de rolaccionfuncionalidad en todas las entidades [02/11/2026]
+- En persona_Class.js se corrigieron las comprobaciones de los metodos para el ADD y EDIT de un fichero, nombre, tamaño, tipo de fichero... [2/11/2026]
