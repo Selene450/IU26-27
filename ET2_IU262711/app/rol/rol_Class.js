@@ -11,7 +11,8 @@ class rol extends AbstractEntidad {
 
         if (esTest !== 'test') {
             document.getElementById('IU_manage_entity').style.display = 'block';
-            document.getElementById('text_title_page').classList.add('text_titulo_page_rol');
+            document.getElementById('add_search_columns').style.display = 'block';
+            document.getElementById('text_title_page').className = 'text_titulo_page_rol';
             document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
             this.SEARCH();
         }

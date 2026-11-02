@@ -43,6 +43,14 @@ var textos_EN = {
     "text_contenido_titulo_form_funcionalidad_SHOWCURRENT": "Functionality Details",
     "text_contenido_titulo_form_funcionalidad_SEARCH": "Search Functionality Form",
 
+    "text_titulo_page_funcionalidad_accion": "Functionality - Action Management",
+    "text_titulo_page_rolaccionfuncionalidad": "Role - Action - Functionality Management",
+    "text_selector_rol": "Role:",
+    "text_matriz_funcionalidad": "Functionality",
+    "text_sin_roles": "No roles available.",
+    "text_seleccione_rol": "Select a role to view its permissions.",
+    "text_cargando_permisos": "Loading permissions...",
+
     // Validation errors - ROL
     "id_rol_min_size_KO": "Role ID must be at least 1 character long.",
     "id_rol_max_size_KO": "Role ID cannot exceed 11 characters.",

@@ -43,6 +43,14 @@ var textos_ES = {
     "text_contenido_titulo_form_funcionalidad_SHOWCURRENT": "Detalle de la Funcionalidad",
     "text_contenido_titulo_form_funcionalidad_SEARCH": "Formulario de Búsqueda de Funcionalidad",
 
+    "text_titulo_page_funcionalidad_accion": "Gestión de Funcionalidad - Acción",
+    "text_titulo_page_rolaccionfuncionalidad": "Gestión de Rol - Acción - Funcionalidad",
+    "text_selector_rol": "Rol:",
+    "text_matriz_funcionalidad": "Funcionalidad",
+    "text_sin_roles": "No hay roles disponibles.",
+    "text_seleccione_rol": "Selecciona un rol para ver sus permisos.",
+    "text_cargando_permisos": "Cargando permisos...",
+
     // Errores de validación - ROL
     "id_rol_min_size_KO": "El ID de rol debe tener al menos 1 carácter.",
     "id_rol_max_size_KO": "El ID de rol no puede superar los 11 caracteres.",
