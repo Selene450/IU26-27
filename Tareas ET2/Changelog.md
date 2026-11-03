@@ -13,3 +13,9 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 ### Corregido
 - Se añadieron dos líneas en el restod e entidades para forzar que mostrasen sus títulos,, debido a que con las tablas al principio ponía Gestión de rolaccionfuncionalidad en todas las entidades [02/11/2026]
 - En persona_Class.js se corrigieron las comprobaciones de los metodos para el ADD y EDIT de un fichero, nombre, tamaño, tipo de fichero... [2/11/2026]
+- Se ha corregido los test de dni con personalized para que sean correctos [02/11/2026]
+- Se ha añadido y todo el codigo en las clases de las entidades, aunque aun tiene errores como el delete que no funciono bien o algun caso en el edit [02/11/2026]
+- Se modifico el diseño de la interfaz para que sea mas bonita [03/11/2026]
+- Se actualizo los idiomas y deberia estar completo [03/11/2026]
+- Se actualizaron Dom_fields y Validations para que funcionasen los formularios [03/11/2026]
+- Se han corregido test que fallaban al ejecutarse [03/11/2026]
