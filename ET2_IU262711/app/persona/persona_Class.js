@@ -8,7 +8,7 @@ class persona extends AbstractEntidad{
 		this.mostrarespecial = ['foto_persona','fechaNacimiento_persona'];
 		this.nombreentidad = 'persona';
 
-		this.dom = new entity_dom_fields();
+		this.dom = new dom_fields();
 		this.validations = new Validations();
 		this.access_functions = new ExternalAccess();
 
@@ -100,6 +100,19 @@ class persona extends AbstractEntidad{
 
 	*/
 	ADD_dni_validation(){
+		const dni = document.getElementById('dni').value;
+		if (dni.length < 9){
+			this.dom.mostrar_error_campo('dni', 'dni_min_size_KO');
+			return 'dni_min_size_KO';
+		}
+		if (dni.length > 9){
+			this.dom.mostrar_error_campo('dni', 'dni_max_size_KO');
+			return 'dni_max_size_KO';
+		}
+		if (!this.validations.format('dni', '^[0-9]{8}[A-Z]$')){
+			this.dom.mostrar_error_campo('dni', 'dni_format_KO');
+			return 'dni_format_KO';
+		}
 		if (!(this.personalize_dni('dni'))){
 			this.dom.mostrar_error_campo('dni','dni_personalized_validate_dni_KO');
 			return "dni_personalized_validate_dni_KO";
@@ -147,10 +160,6 @@ class persona extends AbstractEntidad{
 	personalize_dni(id){
 		
 		const dni = document.getElementById(id).value;
-		if (!/^[0-9]{8}[A-Z]$/.test(dni)){
-			return false;
-		}
-
 		const dni_letters = "TRWAGMYFPDXBNJZSQVHLCKE";
 		const letter = dni_letters.charAt(parseInt(dni, 10) % 23);
 		
@@ -432,17 +441,21 @@ class persona extends AbstractEntidad{
 
 	SEARCH_dni_validation(){
 		const dni = document.getElementById('dni').value;
-		if (dni === '' || /^\s+$/.test(dni)){
+		if (dni.trim() === ''){
 			this.dom.mostrar_exito_campo('dni');
 			return true;
 		}
-		if (dni.length > 9 && /^[0-9]{10,}$/.test(dni)){
+		if (!this.validations.max_size('dni', 9)){
 			this.dom.mostrar_error_campo('dni', 'dni_max_size_KO');
 			return 'dni_max_size_KO';
 		}
-		if (!this.personalize_dni('dni')){
+		if (!this.validations.format('dni', '^[0-9]{8}[A-Z]$')){
 			this.dom.mostrar_error_campo('dni', 'dni_format_KO');
 			return 'dni_format_KO';
+		}
+		if (!this.personalize_dni('dni')){
+			this.dom.mostrar_error_campo('dni', 'dni_personalized_validate_dni_KO');
+			return 'dni_personalized_validate_dni_KO';
 		}
 		this.dom.mostrar_exito_campo('dni');
 		return true;
@@ -506,7 +519,7 @@ class persona extends AbstractEntidad{
 		// colocar boton de submit
 		this.dom.colocarboton('EDIT');
 
-		setLang();
+		setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
 
 	}
 
@@ -537,7 +550,7 @@ class persona extends AbstractEntidad{
 		// colocar boton de submit
 		this.dom.colocarboton('DELETE');
 
-		setLang();
+		setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
 
 	}
 
@@ -566,7 +579,7 @@ class persona extends AbstractEntidad{
 		// colocar boton de submit
 		//this.colocarboton('SHOWCURRENT');
 
-		setLang();
+		setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
 
 	}
 
@@ -605,7 +618,7 @@ class persona extends AbstractEntidad{
 		// colocar boton de submit
 		this.dom.colocarboton('ADD');
 
-		setLang();
+		setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
 	}
 
 	createForm_SEARCH(){
@@ -634,7 +647,7 @@ class persona extends AbstractEntidad{
 		// colocar boton de submit
 		this.dom.colocarboton('SEARCH');
 
-		setLang();
+		setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
 
 	}
 

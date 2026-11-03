@@ -1,7 +1,7 @@
 class funcionalidad_accion extends AbstractEntidad {
     constructor(esTest = null) {
         super();
-        this.dom = new entity_dom_fields();
+        this.dom = new dom_fields();
         this.validations = new Validations();
         this.access_functions = new ExternalAccess();
         this.nombreentidad = 'funcionalidad_accion';
@@ -16,7 +16,7 @@ class funcionalidad_accion extends AbstractEntidad {
             document.getElementById('contenedor_IU_form').innerHTML = '';
             document.getElementById('IU_manage_table').innerHTML = this.manual_form_creation();
             this.dom.hide_element('Div_IU_form');
-            setLang();
+            setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
             this.inicializarVista();
         }
     }
@@ -30,6 +30,7 @@ class funcionalidad_accion extends AbstractEntidad {
                         <tbody id="tbody_funcionalidades"></tbody>
                     </table>
                 </div>
+                <p class="text_guardado_automatico" style="margin:8px 0"></p>
                 <p id="estado_matriz" role="status" style="margin:8px 0"></p>
             </section>`;
     }
@@ -99,8 +100,10 @@ class funcionalidad_accion extends AbstractEntidad {
                 checkbox.dataset.funcionalidad = funcionalidad.id_funcionalidad;
                 checkbox.dataset.accion = accion.id_accion;
                 checkbox.checked = relaciones.some(relacion =>
-                    String(relacion.id_funcionalidad) === String(funcionalidad.id_funcionalidad) &&
-                    String(relacion.id_accion) === String(accion.id_accion)
+                    String(this.obtenerIdRelacionado(relacion.id_funcionalidad, 'id_funcionalidad')) ===
+                        String(funcionalidad.id_funcionalidad) &&
+                    String(this.obtenerIdRelacionado(relacion.id_accion, 'id_accion')) ===
+                        String(accion.id_accion)
                 );
                 checkbox.setAttribute(
                     'aria-label',
@@ -112,11 +115,16 @@ class funcionalidad_accion extends AbstractEntidad {
             });
             cuerpo.appendChild(fila);
         });
-        setLang();
+        setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
+    }
+
+    obtenerIdRelacionado(valor, clave) {
+        return valor && typeof valor === 'object' ? valor[clave] : valor;
     }
 
     async gestionarCambioRelacion(checkbox) {
         checkbox.disabled = true;
+        this.mostrarEstado(window.traduccion.text_guardando_cambio);
         const datos = {
             id_funcionalidad: checkbox.dataset.funcionalidad,
             id_accion: checkbox.dataset.accion
@@ -128,10 +136,12 @@ class funcionalidad_accion extends AbstractEntidad {
                 checkbox.checked ? 'ADD' : 'DELETE',
                 datos
             );
-            if (!respuesta.ok) {
+            if (!respuesta || !respuesta.ok) {
                 checkbox.checked = !checkbox.checked;
-                this.mostrarError(new Error(respuesta.code || 'No se pudo actualizar la relación.'));
+                this.mostrarError(new Error(respuesta?.code || window.traduccion.text_error_guardar_cambio));
+                return;
             }
+            this.mostrarEstado(window.traduccion.text_cambios_guardados);
         } catch (error) {
             checkbox.checked = !checkbox.checked;
             this.mostrarError(error);
@@ -148,6 +158,7 @@ class funcionalidad_accion extends AbstractEntidad {
         const mensaje = error.status
             ? `Error de conexión (${error.status}).`
             : error.message || 'No se pudieron cargar las relaciones.';
+        this.mostrarEstado(mensaje);
         document.getElementById('error_action_msg').textContent = mensaje;
         this.dom.abrirModalError(mensaje);
     }

@@ -1,7 +1,7 @@
 class rolaccionfuncionalidad extends AbstractEntidad {
     constructor(esTest = null) {
         super();
-        this.dom = new entity_dom_fields();
+        this.dom = new dom_fields();
         this.validations = new Validations();
         this.access_functions = new ExternalAccess();
         this.nombreentidad = 'rolaccionfuncionalidad';
@@ -16,7 +16,7 @@ class rolaccionfuncionalidad extends AbstractEntidad {
             document.getElementById('contenedor_IU_form').innerHTML = '';
             document.getElementById('IU_manage_table').innerHTML = this.manual_form_creation();
             this.dom.hide_element('Div_IU_form');
-            setLang();
+            setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
             this.inicializarVista();
         }
     }
@@ -34,6 +34,7 @@ class rolaccionfuncionalidad extends AbstractEntidad {
                         <tbody id="tbody_funcionalidades"></tbody>
                     </table>
                 </div>
+                <p class="text_guardado_automatico" style="margin:8px 0"></p>
                 <p id="estado_matriz" role="status" style="margin:8px 0"></p>
             </section>`;
     }
@@ -93,7 +94,10 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         selector.disabled = true;
         this.mostrarEstado(window.traduccion.text_cargando_permisos);
         try {
-            const permisos = await this.buscarRegistros('rolaccionfuncionalidad', { id_rol: idRol });
+            const todosLosPermisos = await this.buscarRegistros('rolaccionfuncionalidad', { id_rol: idRol });
+            const permisos = todosLosPermisos.filter(permiso =>
+                String(this.obtenerIdRelacionado(permiso.id_rol, 'id_rol')) === String(idRol)
+            );
             this.renderizarMatriz(idRol, permisos);
             this.mostrarEstado('');
         } catch (error) {
@@ -124,7 +128,7 @@ class rolaccionfuncionalidad extends AbstractEntidad {
             filaCabecera.appendChild(celda);
         });
         cabecera.appendChild(filaCabecera);
-        setLang();
+        setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
 
         this.funcionalidades.forEach(funcionalidad => {
             const fila = document.createElement('tr');
@@ -142,8 +146,10 @@ class rolaccionfuncionalidad extends AbstractEntidad {
                 checkbox.dataset.funcionalidad = funcionalidad.id_funcionalidad;
                 checkbox.dataset.accion = accion.id_accion;
                 checkbox.checked = permisos.some(permiso =>
-                    String(permiso.id_funcionalidad) === String(funcionalidad.id_funcionalidad) &&
-                    String(permiso.id_accion) === String(accion.id_accion)
+                    String(this.obtenerIdRelacionado(permiso.id_funcionalidad, 'id_funcionalidad')) ===
+                        String(funcionalidad.id_funcionalidad) &&
+                    String(this.obtenerIdRelacionado(permiso.id_accion, 'id_accion')) ===
+                        String(accion.id_accion)
                 );
                 checkbox.setAttribute(
                     'aria-label',
@@ -157,8 +163,13 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         });
     }
 
+    obtenerIdRelacionado(valor, clave) {
+        return valor && typeof valor === 'object' ? valor[clave] : valor;
+    }
+
     async gestionarCambioPermiso(checkbox, idRol) {
         checkbox.disabled = true;
+        this.mostrarEstado(window.traduccion.text_guardando_cambio);
         const datos = {
             id_rol: idRol,
             id_funcionalidad: checkbox.dataset.funcionalidad,
@@ -171,10 +182,12 @@ class rolaccionfuncionalidad extends AbstractEntidad {
                 checkbox.checked ? 'ADD' : 'DELETE',
                 datos
             );
-            if (!respuesta.ok) {
+            if (!respuesta || !respuesta.ok) {
                 checkbox.checked = !checkbox.checked;
-                this.mostrarError(new Error(respuesta.code || 'No se pudo actualizar el permiso.'));
+                this.mostrarError(new Error(respuesta?.code || window.traduccion.text_error_guardar_cambio));
+                return;
             }
+            this.mostrarEstado(window.traduccion.text_cambios_guardados);
         } catch (error) {
             checkbox.checked = !checkbox.checked;
             this.mostrarError(error);
@@ -191,6 +204,7 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         const mensaje = error.status
             ? `Error de conexión (${error.status}).`
             : error.message || 'No se pudieron cargar los permisos.';
+        this.mostrarEstado(mensaje);
         document.getElementById('error_action_msg').textContent = mensaje;
         this.dom.abrirModalError(mensaje);
     }

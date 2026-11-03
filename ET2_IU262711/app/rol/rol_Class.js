@@ -1,7 +1,7 @@
 class rol extends AbstractEntidad {
     constructor(esTest = null) {
         super();
-        this.dom = new entity_dom_fields();
+        this.dom = new dom_fields();
         this.validations = new Validations();
         this.access_functions = new ExternalAccess();
         this.nombreentidad = 'rol';
@@ -117,11 +117,12 @@ class rol extends AbstractEntidad {
     // VALIDACIONES DE ROL_DESCRIPTION
     // ==========================================
     ADD_rol_description_validation() {
-        if (!this.validations.min_size('rol_description', 5)) {
+        const descripcion = document.getElementById('rol_description').value;
+        if (descripcion.length < 5) {
             this.dom.mostrar_error_campo('rol_description', 'rol_description_min_size_KO');
             return 'rol_description_min_size_KO';
         }
-        if (!this.validations.max_size('rol_description', 200)) {
+        if (descripcion.length > 200) {
             this.dom.mostrar_error_campo('rol_description', 'rol_description_max_size_KO');
             return 'rol_description_max_size_KO';
         }
@@ -138,7 +139,8 @@ class rol extends AbstractEntidad {
     }
 
     SEARCH_rol_description_validation() {
-        if (!this.validations.max_size('rol_description', 200)) {
+        const descripcion = document.getElementById('rol_description').value;
+        if (descripcion.length > 200) {
             this.dom.mostrar_error_campo('rol_description', 'rol_description_max_size_KO');
             return 'rol_description_max_size_KO';
         }
@@ -169,10 +171,12 @@ class rol extends AbstractEntidad {
 
     EDIT_submit_rol() {
         var set_result = {};
+        set_result.id_rol = this.EDIT_id_rol_validation();
         set_result.rol_name = this.EDIT_rol_name_validation();
         set_result.rol_description = this.EDIT_rol_description_validation();
 
         let result = (
+            (set_result.id_rol) &
             (set_result.rol_name) &
             (set_result.rol_description)
         );
@@ -206,9 +210,21 @@ class rol extends AbstractEntidad {
 
         this.dom.rellenarvaloresform(fila);
         this.dom.colocarvalidaciones('form_iu', 'EDIT');
-        this.dom.assign_property_value('id_rol', 'readonly', 'true');
         this.dom.colocarboton('EDIT');
-        setLang();
+        setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
+    }
+
+    async DELETE() {
+        const respuesta = await this.access_functions.peticionBackGeneral('form_iu', this.nombreentidad, 'DELETE');
+        if (respuesta.ok) {
+            document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
+            this.dom.hide_element('Div_IU_form');
+            this.SEARCH();
+        } else {
+            this.dom.abrirModalError(respuesta.code);
+            document.getElementById('error_action_msg').textContent = respuesta.code;
+        }
+        setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
     createForm_DELETE(fila) {
@@ -221,7 +237,7 @@ class rol extends AbstractEntidad {
         this.dom.rellenarvaloresform(fila);
         this.dom.colocartodosreadonly('form_iu');
         this.dom.colocarboton('DELETE');
-        setLang();
+        setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
     createForm_SHOWCURRENT(fila) {
@@ -231,7 +247,7 @@ class rol extends AbstractEntidad {
 
         this.dom.rellenarvaloresform(fila);
         this.dom.colocartodosreadonly('form_iu');
-        setLang();
+        setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
     createForm_ADD() {
@@ -244,7 +260,7 @@ class rol extends AbstractEntidad {
 
         this.dom.colocarvalidaciones('form_iu', 'ADD');
         this.dom.colocarboton('ADD');
-        setLang();
+        setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
     createForm_SEARCH() {
@@ -257,7 +273,7 @@ class rol extends AbstractEntidad {
 
         this.dom.colocarvalidaciones('form_iu', 'SEARCH');
         this.dom.colocarboton('SEARCH');
-        setLang();
+        setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
     cambiarmostrarespecial(columna, valor) {
