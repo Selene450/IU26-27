@@ -57,6 +57,10 @@ var textos_EN = {
     "text_sin_roles": "No roles available.",
     "text_seleccione_rol": "Select a role to view its permissions.",
     "text_cargando_permisos": "Loading permissions...",
+    "text_guardado_automatico": "Changes are saved automatically when you check or uncheck a box; no additional button is needed.",
+    "text_guardando_cambio": "Saving change...",
+    "text_cambios_guardados": "Change saved.",
+    "text_error_guardar_cambio": "Could not save the change.",
 
     // Form labels
     "label_dni": "National ID",
@@ -103,7 +107,7 @@ var textos_EN = {
     "descrip_accion_format_KO": "Invalid action description format.",
 
     // Validation errors - USUARIO
-    "dni_min_size_KO": "DNI must be exactly 9 characters long.",
+    "dni_min_size_KO": "DNI must contain 9 characters.",
     "dni_max_size_KO": "DNI cannot exceed 9 characters.",
     "dni_format_KO": "DNI format must be 8 digits followed by an uppercase letter.",
     "usuario_min_size_KO": "Username must be at least 5 characters long.",
@@ -125,7 +129,7 @@ var textos_EN = {
     "descrip_funcionalidad_format_KO": "Functionality description contains unsupported characters.",
 
     // Validation errors - PERSONA
-    "dni_personalized_validate_dni_KO": "DNI must contain 8 digits and a valid check letter.",
+    "dni_personalized_validate_dni_KO": "DNI check letter is invalid.",
     "dni_mierror_ko": "The DNI is invalid.",
     "nombre_persona_min_size_KO": "First name must be at least 2 characters long.",
     "nombre_persona_max_size_KO": "First name cannot exceed 45 characters.",

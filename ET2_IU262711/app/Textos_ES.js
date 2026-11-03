@@ -57,6 +57,10 @@ var textos_ES = {
     "text_sin_roles": "No hay roles disponibles.",
     "text_seleccione_rol": "Selecciona un rol para ver sus permisos.",
     "text_cargando_permisos": "Cargando permisos...",
+    "text_guardado_automatico": "Los cambios se guardan automáticamente al marcar o desmarcar una casilla; no hay que pulsar otro botón.",
+    "text_guardando_cambio": "Guardando cambio...",
+    "text_cambios_guardados": "Cambio guardado.",
+    "text_error_guardar_cambio": "No se pudo guardar el cambio.",
 
     // Etiquetas de formularios
     "label_dni": "DNI",
@@ -103,7 +107,7 @@ var textos_ES = {
     "descrip_accion_format_KO": "Formato de descripción de acción inválido.",
 
     // Errores de validación - USUARIO
-    "dni_min_size_KO": "El DNI debe tener exactamente 9 caracteres.",
+    "dni_min_size_KO": "El DNI debe tener 9 caracteres.",
     "dni_max_size_KO": "El DNI no puede superar los 9 caracteres.",
     "dni_format_KO": "El formato del DNI debe ser 8 números seguidos de una letra mayúscula.",
     "usuario_min_size_KO": "El nombre de usuario debe tener al menos 5 caracteres.",
@@ -125,7 +129,7 @@ var textos_ES = {
     "descrip_funcionalidad_format_KO": "La descripción de la funcionalidad contiene caracteres no permitidos.",
 
     // Errores de validación - PERSONA
-    "dni_personalized_validate_dni_KO": "El DNI debe tener 8 números y una letra de control válida.",
+    "dni_personalized_validate_dni_KO": "La letra de control del DNI no es válida.",
     "dni_mierror_ko": "El DNI no es válido.",
     "nombre_persona_min_size_KO": "El nombre debe tener al menos 2 caracteres.",
     "nombre_persona_max_size_KO": "El nombre no puede superar los 45 caracteres.",
@@ -158,3 +162,14 @@ var textos_ES = {
     "nuevo_foto_persona_max_size_file_KO": "La nueva foto no puede superar los 2 MB.",
     "nuevo_foto_persona_format_KO": "La nueva foto debe estar en formato JPEG."
 };
+
+(function(){
+    const setLangOriginal = window.setLang;
+    window.setLang = function(lang = ''){
+        if (lang){
+            window.localStorage.setItem('lang', lang);
+        }
+        const idiomaGuardado = lang || window.localStorage.getItem('lang') || '';
+        return setLangOriginal.call(window, idiomaGuardado);
+    };
+})();
