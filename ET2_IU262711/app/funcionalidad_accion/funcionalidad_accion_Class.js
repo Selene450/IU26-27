@@ -24,8 +24,8 @@ class funcionalidad_accion extends AbstractEntidad {
     manual_form_creation() {
         return `
             <section class="relacion-matriz">
-                <div class="contenedor_matriz" style="max-width:100%;max-height:75vh;overflow:auto">
-                    <table id="tabla_funcionalidad_accion" class="tabla_matriz" style="border-collapse:separate;border-spacing:0;min-width:100%;width:max-content">
+                <div class="contenedor_matriz">
+                    <table id="tabla_funcionalidad_accion" class="tabla_matriz">
                         <thead id="thead_acciones"></thead>
                         <tbody id="tbody_funcionalidades"></tbody>
                     </table>
@@ -96,7 +96,6 @@ class funcionalidad_accion extends AbstractEntidad {
                 this.estilizarCelda(celda);
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
-                checkbox.style.cssText = 'cursor:pointer;height:16px;width:16px';
                 checkbox.dataset.funcionalidad = funcionalidad.id_funcionalidad;
                 checkbox.dataset.accion = accion.id_accion;
                 checkbox.checked = relaciones.some(relacion =>
@@ -154,17 +153,11 @@ class funcionalidad_accion extends AbstractEntidad {
     }
 
     estilizarCelda(celda, cabecera = false, primeraColumna = false) {
-        celda.style.cssText = 'background:white;border:1px solid #bbb;padding:6px 12px;text-align:center';
         if (cabecera) {
-            celda.style.position = 'sticky';
-            celda.style.top = '0';
-            celda.style.zIndex = '2';
+            celda.classList.add('matriz-cabecera');
         }
         if (primeraColumna) {
-            celda.style.position = 'sticky';
-            celda.style.left = '0';
-            celda.style.zIndex = cabecera ? '3' : '1';
-            celda.style.textAlign = 'left';
+            celda.classList.add('matriz-primera-columna');
         }
     }
 }

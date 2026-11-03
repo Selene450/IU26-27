@@ -68,7 +68,7 @@ class rol extends AbstractEntidad {
             this.dom.mostrar_error_campo('id_rol', 'id_rol_max_size_KO');
             return 'id_rol_max_size_KO';
         }
-        if (document.getElementById('id_rol').value !== '' && !this.validations.format('id_rol', '^[0-9]+$')) {
+        if (document.getElementById('id_rol').value.trim() !== '' && !this.validations.format('id_rol', '^[0-9]+$')) {
             this.dom.mostrar_error_campo('id_rol', 'id_rol_format_KO');
             return 'id_rol_format_KO';
         }
@@ -105,7 +105,7 @@ class rol extends AbstractEntidad {
             this.dom.mostrar_error_campo('rol_name', 'rol_name_max_size_KO');
             return 'rol_name_max_size_KO';
         }
-        if (document.getElementById('rol_name').value !== '' && !this.validations.format('rol_name', '^[A-Za-z]+$')) {
+        if (document.getElementById('rol_name').value.trim() !== '' && !this.validations.format('rol_name', '^[A-Za-z]+$')) {
             this.dom.mostrar_error_campo('rol_name', 'rol_name_format_KO');
             return 'rol_name_format_KO';
         }
@@ -142,7 +142,7 @@ class rol extends AbstractEntidad {
             this.dom.mostrar_error_campo('rol_description', 'rol_description_max_size_KO');
             return 'rol_description_max_size_KO';
         }
-        if (document.getElementById('rol_description').value !== '' && !this.validations.format('rol_description', '^[A-Za-z0-9áéíóúÁÉÍÓÚñÑ.,\\-\\s]+$')) {
+        if (document.getElementById('rol_description').value.trim() !== '' && !this.validations.format('rol_description', '^[A-Za-z0-9áéíóúÁÉÍÓÚñÑ.,\\-\\s]+$')) {
             this.dom.mostrar_error_campo('rol_description', 'rol_description_format_KO');
             return 'rol_description_format_KO';
         }
@@ -217,6 +217,7 @@ class rol extends AbstractEntidad {
         this.dom.show_element('Div_IU_form', 'block');
 
         this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.DELETE();');
+        this.dom.assign_property_value('form_iu', 'onsubmit', 'entidad.DELETE(); return false;');
         this.dom.rellenarvaloresform(fila);
         this.dom.colocartodosreadonly('form_iu');
         this.dom.colocarboton('DELETE');

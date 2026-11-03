@@ -68,7 +68,7 @@ class accion extends AbstractEntidad {
             this.dom.mostrar_error_campo('id_accion', 'id_accion_max_size_KO');
             return 'id_accion_max_size_KO';
         }
-        if (document.getElementById('id_accion').value !== '' && !this.validations.format('id_accion', '^[0-9]+$')) {
+        if (document.getElementById('id_accion').value.trim() !== '' && !this.validations.format('id_accion', '^[0-9]+$')) {
             this.dom.mostrar_error_campo('id_accion', 'id_accion_format_KO');
             return 'id_accion_format_KO';
         }
@@ -105,7 +105,7 @@ class accion extends AbstractEntidad {
             this.dom.mostrar_error_campo('nombre_accion', 'nombre_accion_max_size_KO');
             return 'nombre_accion_max_size_KO';
         }
-        if (document.getElementById('nombre_accion').value !== '' && !this.validations.format('nombre_accion', '^[A-Za-zñÑ]+$')) {
+        if (document.getElementById('nombre_accion').value.trim() !== '' && !this.validations.format('nombre_accion', '^[A-Za-zñÑ]+$')) {
             this.dom.mostrar_error_campo('nombre_accion', 'nombre_accion_format_KO');
             return 'nombre_accion_format_KO';
         }
@@ -125,7 +125,7 @@ class accion extends AbstractEntidad {
             this.dom.mostrar_error_campo('descrip_accion', 'descrip_accion_max_size_KO');
             return 'descrip_accion_max_size_KO';
         }
-        if (!this.validations.format('descrip_accion', '^[A-Za-z0-9áéíóúÁÉÍÓÚñÑ.,\\-\\s]+$')) {
+        if (!this.validations.format('descrip_accion', '^[A-Za-záéíóúÁÉÍÓÚñÑ.,\\-\\s]+$')) {
             this.dom.mostrar_error_campo('descrip_accion', 'descrip_accion_format_KO');
             return 'descrip_accion_format_KO';
         }
@@ -142,7 +142,7 @@ class accion extends AbstractEntidad {
             this.dom.mostrar_error_campo('descrip_accion', 'descrip_accion_max_size_KO');
             return 'descrip_accion_max_size_KO';
         }
-        if (document.getElementById('descrip_accion').value !== '' && !this.validations.format('descrip_accion', '^[A-Za-z0-9áéíóúÁÉÍÓÚñÑ.,\\-\\s]+$')) {
+        if (document.getElementById('descrip_accion').value.trim() !== '' && !this.validations.format('descrip_accion', '^[A-Za-záéíóúÁÉÍÓÚñÑ.,\\-\\s]+$')) {
             this.dom.mostrar_error_campo('descrip_accion', 'descrip_accion_format_KO');
             return 'descrip_accion_format_KO';
         }
@@ -217,6 +217,7 @@ class accion extends AbstractEntidad {
         this.dom.show_element('Div_IU_form', 'block');
 
         this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.DELETE();');
+        this.dom.assign_property_value('form_iu', 'onsubmit', 'entidad.DELETE(); return false;');
         this.dom.rellenarvaloresform(fila);
         this.dom.colocartodosreadonly('form_iu');
         this.dom.colocarboton('DELETE');

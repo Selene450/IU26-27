@@ -37,7 +37,7 @@ class usuario extends AbstractEntidad {
                 <br>
 
                 <label class="label_id_rol" for="id_rol">ID de rol</label>
-                <input type="text" id="id_rol" name="id_rol">
+                <select id="id_rol" name="id_rol"></select>
                 <span id="span_error_id_rol"><a id="error_id_rol"></a></span>
                 <br>
             </form>`;
@@ -48,17 +48,9 @@ class usuario extends AbstractEntidad {
     // VALIDACIONES DE DNI
     // ==========================================
     ADD_dni_validation() {
-        if (!this.validations.min_size('dni', 9)) {
-            this.dom.mostrar_error_campo('dni', 'dni_min_size_KO');
-            return 'dni_min_size_KO';
-        }
-        if (!this.validations.max_size('dni', 9)) {
-            this.dom.mostrar_error_campo('dni', 'dni_max_size_KO');
-            return 'dni_max_size_KO';
-        }
-        if (!this.validations.format('dni', '^[0-9]{8}[A-Z]$')) {
-            this.dom.mostrar_error_campo('dni', 'dni_format_KO');
-            return 'dni_format_KO';
+        if (!this.personalize_dni('dni')) {
+            this.dom.mostrar_error_campo('dni', 'dni_personalized_validate_dni_KO');
+            return 'dni_personalized_validate_dni_KO';
         }
         this.dom.mostrar_exito_campo('dni');
         return true;
@@ -68,12 +60,26 @@ class usuario extends AbstractEntidad {
         return this.ADD_dni_validation();
     }
 
+    personalize_dni(id) {
+        const dni = document.getElementById(id).value;
+        if (!/^[0-9]{8}[A-Z]$/.test(dni)) {
+            return false;
+        }
+        const letras = 'TRWAGMYFPDXBNJZSQVHLCKE';
+        return letras[dni.slice(0, 8) % 23] === dni[8];
+    }
+
     SEARCH_dni_validation() {
+        const dni = document.getElementById('dni').value;
+        if (dni.trim() === '') {
+            this.dom.mostrar_exito_campo('dni');
+            return true;
+        }
         if (!this.validations.max_size('dni', 9)) {
             this.dom.mostrar_error_campo('dni', 'dni_max_size_KO');
             return 'dni_max_size_KO';
         }
-        if (document.getElementById('dni').value !== '' && !this.validations.format('dni', '^[0-9]{8}[A-Z]$')) {
+        if (!this.personalize_dni('dni')) {
             this.dom.mostrar_error_campo('dni', 'dni_format_KO');
             return 'dni_format_KO';
         }
@@ -110,7 +116,7 @@ class usuario extends AbstractEntidad {
             this.dom.mostrar_error_campo('usuario', 'usuario_max_size_KO');
             return 'usuario_max_size_KO';
         }
-        if (document.getElementById('usuario').value !== '' && !this.validations.format('usuario', '^[A-Za-z]+$')) {
+        if (document.getElementById('usuario').value.trim() !== '' && !this.validations.format('usuario', '^[A-Za-z]+$')) {
             this.dom.mostrar_error_campo('usuario', 'usuario_format_KO');
             return 'usuario_format_KO';
         }
@@ -147,7 +153,7 @@ class usuario extends AbstractEntidad {
             this.dom.mostrar_error_campo('contrasena', 'contrasena_max_size_KO');
             return 'contrasena_max_size_KO';
         }
-        if (document.getElementById('contrasena').value !== '' && !this.validations.format('contrasena', '^[A-Za-z]+$')) {
+        if (document.getElementById('contrasena').value.trim() !== '' && !this.validations.format('contrasena', '^[A-Za-z]+$')) {
             this.dom.mostrar_error_campo('contrasena', 'contrasena_format_KO');
             return 'contrasena_format_KO';
         }
@@ -158,6 +164,35 @@ class usuario extends AbstractEntidad {
     // ==========================================
     // VALIDACIONES DE ID_ROL
     // ==========================================
+    async cargarRoles(idRolSeleccionado = '') {
+        const selectRol = document.getElementById('id_rol');
+        try {
+            const respuesta = await this.access_functions.peticionBackGeneral('', 'rol', 'SEARCH');
+            let roles;
+            if (respuesta.code === 'RECORDSET_VACIO') {
+                roles = [];
+            } else if (respuesta.code === 'RECORDSET_DATOS' && Array.isArray(respuesta.resource)) {
+                roles = respuesta.resource;
+            } else {
+                throw new Error(respuesta.code || 'No se pudieron cargar los roles.');
+            }
+
+            const opcionVacia = document.createElement('option');
+            opcionVacia.value = '';
+            opcionVacia.textContent = '';
+            selectRol.replaceChildren(opcionVacia);
+            roles.forEach(rol => {
+                const opcion = document.createElement('option');
+                opcion.value = rol.id_rol;
+                opcion.textContent = rol.rol_name || rol.nombre_rol || rol.id_rol;
+                selectRol.appendChild(opcion);
+            });
+            selectRol.value = idRolSeleccionado === '' ? '' : String(idRolSeleccionado);
+        } catch (error) {
+            this.dom.abrirModalError(error.message || 'No se pudieron cargar los roles.');
+        }
+    }
+
     ADD_id_rol_validation() {
         if (!this.validations.min_size('id_rol', 1)) {
             this.dom.mostrar_error_campo('id_rol', 'id_rol_min_size_KO');
@@ -184,7 +219,8 @@ class usuario extends AbstractEntidad {
             this.dom.mostrar_error_campo('id_rol', 'id_rol_max_size_KO');
             return 'id_rol_max_size_KO';
         }
-        if (document.getElementById('id_rol').value !== '' && !this.validations.format('id_rol', '^[0-9]+$')) {
+        const idRol = document.getElementById('id_rol').value;
+        if (idRol.trim() !== '' && !this.validations.format('id_rol', '^[0-9]+$')) {
             this.dom.mostrar_error_campo('id_rol', 'id_rol_format_KO');
             return 'id_rol_format_KO';
         }
@@ -253,6 +289,7 @@ class usuario extends AbstractEntidad {
         this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.EDIT();');
 
         this.dom.rellenarvaloresform(fila);
+        this.cargarRoles(fila.id_rol);
         this.dom.colocarvalidaciones('form_iu', 'EDIT');
         this.dom.assign_property_value('dni', 'readonly', 'true');
         this.dom.colocarboton('EDIT');
@@ -265,7 +302,9 @@ class usuario extends AbstractEntidad {
         this.dom.show_element('Div_IU_form', 'block');
 
         this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.DELETE();');
+        this.dom.assign_property_value('form_iu', 'onsubmit', 'entidad.DELETE(); return false;');
         this.dom.rellenarvaloresform(fila);
+        this.cargarRoles(fila.id_rol);
         this.dom.colocartodosreadonly('form_iu');
         this.dom.colocarboton('DELETE');
         setLang();
@@ -277,6 +316,7 @@ class usuario extends AbstractEntidad {
         this.dom.show_element('Div_IU_form', 'block');
 
         this.dom.rellenarvaloresform(fila);
+        this.cargarRoles(fila.id_rol);
         this.dom.colocartodosreadonly('form_iu');
         setLang();
     }
@@ -290,13 +330,17 @@ class usuario extends AbstractEntidad {
         this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.ADD();');
 
         this.dom.colocarvalidaciones('form_iu', 'ADD');
+        this.cargarRoles();
         this.dom.colocarboton('ADD');
         setLang();
     }
 
     createForm_SEARCH() {
         this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_usuario_SEARCH');
-        document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
+        document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation().replace(
+            '<select id="id_rol" name="id_rol"></select>',
+            '<input type="text" id="id_rol" name="id_rol">'
+        );
         this.dom.show_element('Div_IU_form', 'block');
 
         this.dom.assign_property_value('form_iu', 'onsubmit', 'return entidad.dom.validarsubmit(entidad.SEARCH_submit_' + this.nombreentidad + '())');

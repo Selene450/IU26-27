@@ -68,7 +68,7 @@ class funcionalidad extends AbstractEntidad {
             this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_max_size_KO');
             return 'id_funcionalidad_max_size_KO';
         }
-        if (document.getElementById('id_funcionalidad').value !== '' && !this.validations.format('id_funcionalidad', '^[0-9]+$')) {
+        if (document.getElementById('id_funcionalidad').value.trim() !== '' && !this.validations.format('id_funcionalidad', '^[0-9]+$')) {
             this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_format_KO');
             return 'id_funcionalidad_format_KO';
         }
@@ -105,11 +105,167 @@ class funcionalidad extends AbstractEntidad {
             this.dom.mostrar_error_campo('nombre_funcionalidad', 'nombre_funcionalidad_max_size_KO');
             return 'nombre_funcionalidad_max_size_KO';
         }
-        if (document.getElementById('nombre_funcionalidad').value !== '' && !this.validations.format('nombre_funcionalidad', '^[A-Za-zñÑ]+$')) {
+        if (document.getElementById('nombre_funcionalidad').value.trim() !== '' && !this.validations.format('nombre_funcionalidad', '^[A-Za-zñÑ]+$')) {
             this.dom.mostrar_error_campo('nombre_funcionalidad', 'nombre_funcionalidad_format_KO');
             return 'nombre_funcionalidad_format_KO';
         }
         this.dom.mostrar_exito_campo('nombre_funcionalidad');
         return true;
+    }
+
+    // ==========================================
+    // VALIDACIONES DE DESCRIP_FUNCIONALIDAD
+    // ==========================================
+    ADD_descrip_funcionalidad_validation() {
+        if (!this.validations.min_size('descrip_funcionalidad', 5)) {
+            this.dom.mostrar_error_campo('descrip_funcionalidad', 'descrip_funcionalidad_min_size_KO');
+            return 'descrip_funcionalidad_min_size_KO';
+        }
+        if (!this.validations.max_size('descrip_funcionalidad', 200)) {
+            this.dom.mostrar_error_campo('descrip_funcionalidad', 'descrip_funcionalidad_max_size_KO');
+            return 'descrip_funcionalidad_max_size_KO';
+        }
+        if (!this.validations.format('descrip_funcionalidad', '^[A-Za-záéíóúÁÉÍÓÚñÑ.,\\-\\s]+$')) {
+            this.dom.mostrar_error_campo('descrip_funcionalidad', 'descrip_funcionalidad_format_KO');
+            return 'descrip_funcionalidad_format_KO';
+        }
+        this.dom.mostrar_exito_campo('descrip_funcionalidad');
+        return true;
+    }
+
+    EDIT_descrip_funcionalidad_validation() {
+        return this.ADD_descrip_funcionalidad_validation();
+    }
+
+    SEARCH_descrip_funcionalidad_validation() {
+        if (!this.validations.max_size('descrip_funcionalidad', 200)) {
+            this.dom.mostrar_error_campo('descrip_funcionalidad', 'descrip_funcionalidad_max_size_KO');
+            return 'descrip_funcionalidad_max_size_KO';
+        }
+        if (document.getElementById('descrip_funcionalidad').value.trim() !== '' &&
+            !this.validations.format('descrip_funcionalidad', '^[A-Za-záéíóúÁÉÍÓÚñÑ.,\\-\\s]+$')) {
+            this.dom.mostrar_error_campo('descrip_funcionalidad', 'descrip_funcionalidad_format_KO');
+            return 'descrip_funcionalidad_format_KO';
+        }
+        this.dom.mostrar_exito_campo('descrip_funcionalidad');
+        return true;
+    }
+
+    ADD_submit_funcionalidad() {
+        const resultado = {
+            id_funcionalidad: this.ADD_id_funcionalidad_validation(),
+            nombre_funcionalidad: this.ADD_nombre_funcionalidad_validation(),
+            descrip_funcionalidad: this.ADD_descrip_funcionalidad_validation()
+        };
+        return Object.values(resultado).every(valor => valor === true) ? true : resultado;
+    }
+
+    EDIT_submit_funcionalidad() {
+        const resultado = {
+            nombre_funcionalidad: this.EDIT_nombre_funcionalidad_validation(),
+            descrip_funcionalidad: this.EDIT_descrip_funcionalidad_validation()
+        };
+        return Object.values(resultado).every(valor => valor === true) ? true : resultado;
+    }
+
+    SEARCH_submit_funcionalidad() {
+        const resultado = {
+            id_funcionalidad: this.SEARCH_id_funcionalidad_validation(),
+            nombre_funcionalidad: this.SEARCH_nombre_funcionalidad_validation(),
+            descrip_funcionalidad: this.SEARCH_descrip_funcionalidad_validation()
+        };
+        return Object.values(resultado).every(valor => valor === true) ? true : resultado;
+    }
+
+    createForm_ADD() {
+        this.dom.assign_property_value(
+            'class_contenido_titulo_form',
+            'class',
+            'text_contenido_titulo_form_funcionalidad_ADD'
+        );
+        document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
+        this.dom.show_element('Div_IU_form', 'block');
+        this.dom.assign_property_value(
+            'form_iu',
+            'onsubmit',
+            'return entidad.dom.validarsubmit(entidad.ADD_submit_funcionalidad())'
+        );
+        this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.ADD();');
+        this.dom.colocarvalidaciones('form_iu', 'ADD');
+        this.dom.colocarboton('ADD');
+        setLang();
+    }
+
+    createForm_SEARCH() {
+        this.dom.assign_property_value(
+            'class_contenido_titulo_form',
+            'class',
+            'text_contenido_titulo_form_funcionalidad_SEARCH'
+        );
+        document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
+        this.dom.show_element('Div_IU_form', 'block');
+        this.dom.assign_property_value(
+            'form_iu',
+            'onsubmit',
+            'return entidad.dom.validarsubmit(entidad.SEARCH_submit_funcionalidad())'
+        );
+        this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.SEARCH();');
+        this.dom.colocarvalidaciones('form_iu', 'SEARCH');
+        this.dom.colocarboton('SEARCH');
+        setLang();
+    }
+
+    createForm_EDIT(fila) {
+        this.dom.assign_property_value(
+            'class_contenido_titulo_form',
+            'class',
+            'text_contenido_titulo_form_funcionalidad_EDIT'
+        );
+        document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
+        this.dom.show_element('Div_IU_form', 'block');
+        this.dom.assign_property_value(
+            'form_iu',
+            'onsubmit',
+            'return entidad.dom.validarsubmit(entidad.EDIT_submit_funcionalidad())'
+        );
+        this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.EDIT();');
+        this.dom.rellenarvaloresform(fila);
+        this.dom.colocarvalidaciones('form_iu', 'EDIT');
+        this.dom.assign_property_value('id_funcionalidad', 'readonly', 'true');
+        this.dom.colocarboton('EDIT');
+        setLang();
+    }
+
+    createForm_DELETE(fila) {
+        this.dom.assign_property_value(
+            'class_contenido_titulo_form',
+            'class',
+            'text_contenido_titulo_form_funcionalidad_DELETE'
+        );
+        document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
+        this.dom.show_element('Div_IU_form', 'block');
+        this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.DELETE();');
+        this.dom.assign_property_value('form_iu', 'onsubmit', 'entidad.DELETE(); return false;');
+        this.dom.rellenarvaloresform(fila);
+        this.dom.colocartodosreadonly('form_iu');
+        this.dom.colocarboton('DELETE');
+        setLang();
+    }
+
+    createForm_SHOWCURRENT(fila) {
+        this.dom.assign_property_value(
+            'class_contenido_titulo_form',
+            'class',
+            'text_contenido_titulo_form_funcionalidad_SHOWCURRENT'
+        );
+        document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
+        this.dom.show_element('Div_IU_form', 'block');
+        this.dom.rellenarvaloresform(fila);
+        this.dom.colocartodosreadonly('form_iu');
+        setLang();
+    }
+
+    cambiarmostrarespecial(columna, valor) {
+        return valor;
     }
 }
