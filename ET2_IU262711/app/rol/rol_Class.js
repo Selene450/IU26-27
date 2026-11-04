@@ -2,6 +2,7 @@ class rol extends AbstractEntidad {
     constructor(esTest = null) {
         super();
         this.dom = new dom_fields();
+        this.instalarLimpiezaMensajesError();
         this.validations = new Validations();
         this.access_functions = new ExternalAccess();
         this.nombreentidad = 'rol';
@@ -16,6 +17,14 @@ class rol extends AbstractEntidad {
             document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
             this.SEARCH();
         }
+    }
+
+    instalarLimpiezaMensajesError() {
+        const mostrarError = this.dom.mostrar_error_campo.bind(this.dom);
+        this.dom.mostrar_error_campo = (id, codigoError) => {
+            document.getElementById('error_' + id)?.removeAttribute('class');
+            mostrarError(id, codigoError);
+        };
     }
 
     manual_form_creation() {
@@ -195,6 +204,46 @@ class rol extends AbstractEntidad {
             (set_result.rol_description)
         );
         return Boolean(result) === true ? true : set_result;
+    }
+
+    async SEARCH() {
+        const respuesta = await this.access_functions.peticionBackGeneral('', this.nombreentidad, 'SEARCH');
+        let registros;
+        if (respuesta.code === 'RECORDSET_VACIO') {
+            registros = [];
+        } else if (respuesta.code === 'RECORDSET_DATOS' && Array.isArray(respuesta.resource)) {
+            registros = respuesta.resource;
+        } else {
+            throw new Error(respuesta.code || 'No se pudieron buscar los roles.');
+        }
+
+        const formulario = document.getElementById('form_iu');
+        const filtros = formulario
+            ? Array.from(formulario.elements)
+                .filter(campo => campo.name && campo.value.trim() !== '')
+                .map(campo => [campo.name, campo.value.trim().toLocaleLowerCase()])
+            : [];
+        const resultados = registros.filter(registro => filtros.every(([campo, consulta]) => {
+            const valor = registro[campo];
+            const valores = valor && typeof valor === 'object' ? Object.values(valor) : [valor];
+            return valores.some(elemento =>
+                String(elemento ?? '').toLocaleLowerCase().includes(consulta)
+            );
+        }));
+
+        document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
+        this.dom.hide_element('Div_IU_form');
+        if (resultados.length > 0) {
+            this.datos = resultados;
+            this.atributos = Object.keys(resultados[0]);
+            this.dom.show_element('IU_manage_entity');
+            this.crearTablaDatos(this.datos, this.mostrarespecial);
+        } else {
+            document.getElementById('IU_manage_table').style.display = 'block';
+            document.getElementById('IU_manage_table').innerHTML = 'No se han encontrado elementos que coincidan con la búsqueda';
+            document.getElementById('IU_manage_table').className = 'RECORDSET_VACIO';
+        }
+        setLang();
     }
 
     // ==========================================
