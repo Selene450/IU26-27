@@ -22,6 +22,7 @@ class persona extends AbstractEntidad{
 			//visualizar seccion tabla y botones
 			document.getElementById('IU_manage_entity').style.display = 'block';
 			document.getElementById('add_search_columns').style.display = 'block';
+			this.dom.mostrarControlesEntidad();
 			document.getElementById('text_title_page').className = 'text_titulo_page_'+this.nombreentidad;
 			
 			//crear el formulario vacio

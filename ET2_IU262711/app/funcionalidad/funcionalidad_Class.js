@@ -13,6 +13,7 @@ class funcionalidad extends AbstractEntidad {
         if (esTest !== 'test') {
             document.getElementById('IU_manage_entity').style.display = 'block';
             document.getElementById('add_search_columns').style.display = 'block';
+            this.dom.mostrarControlesEntidad();
             document.getElementById('text_title_page').className = 'text_titulo_page_funcionalidad';
             document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
             this.SEARCH();

@@ -6,6 +6,12 @@ class entity_dom_fields extends dom_fields{
         super();
     }
 
+    mostrarControlesEntidad(){
+        document.querySelectorAll('#add_search_columns > *').forEach(elemento => {
+            elemento.style.display = '';
+        });
+    }
+
     /**
      * abre el modal de error. Si el mensaje es un codigo de traduccion se pone como class para que setLang() lo traduzca
      * @param {string} errorMsg codigo de error o texto
