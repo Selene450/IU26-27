@@ -1,12 +1,12 @@
-class persona extends AbstractEntidad{
+class persona extends AbstractEntidad {
 
-	constructor(esTest=null){
-		
+	constructor(esTest = null) {
+
 		super();
 
 		this.esTest = esTest == 'test';
-		this.columnasamostrar = ['dni','nombre_persona', 'foto_persona'];
-		this.mostrarespecial = ['foto_persona','fechaNacimiento_persona'];
+		this.columnasamostrar = ['dni', 'nombre_persona', 'foto_persona'];
+		this.mostrarespecial = ['foto_persona', 'fechaNacimiento_persona'];
 		this.nombreentidad = 'persona';
 
 		this.dom = new entity_dom_fields();
@@ -17,23 +17,23 @@ class persona extends AbstractEntidad{
 
 
 		//init
-		if (esTest == 'test'){}
-		else{
+		if (esTest == 'test') { }
+		else {
 			//visualizar seccion tabla y botones
 			document.getElementById('IU_manage_entity').style.display = 'block';
 			document.getElementById('add_search_columns').style.display = 'block';
 			this.dom.mostrarControlesEntidad();
-			document.getElementById('text_title_page').className = 'text_titulo_page_'+this.nombreentidad;
-			
+			document.getElementById('text_title_page').className = 'text_titulo_page_' + this.nombreentidad;
+
 			//crear el formulario vacio
 			document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
 
 			//invocar busqueda en back con el formulario vacio
 			this.SEARCH();
 		}
-	}	
+	}
 
-	instalarLimpiezaMensajesError(){
+	instalarLimpiezaMensajesError() {
 		const mostrarError = this.dom.mostrar_error_campo.bind(this.dom);
 		this.dom.mostrar_error_campo = (id, codigoError) => {
 			document.getElementById('error_' + id)?.removeAttribute('class');
@@ -45,7 +45,7 @@ class persona extends AbstractEntidad{
 	 * replace the content of section element with a particular entity menu
 	 * @returns 
 	 */
-	manual_form_creation(){
+	manual_form_creation() {
 		var form_content = `
 			<form id = 'form_iu' action="" method="POST" enctype="multipart/form-data" onsubmit="" class='formulario'>
 
@@ -65,7 +65,7 @@ class persona extends AbstractEntidad{
 				<br>
 				
 				<label class="label_fechaNacimiento_persona">Fecha de Nacimiento</label>
-				<input type='text' id='fechaNacimiento_persona' name='fechaNacimiento_persona'></input>
+				<input type='date' id='fechaNacimiento_persona' name='fechaNacimiento_persona'></input>
 				<span id="span_error_fechaNacimiento_persona" ><a id="error_fechaNacimiento_persona"></a></span>
 				
 				<br>
@@ -97,7 +97,7 @@ class persona extends AbstractEntidad{
 			</form>
 		`;
 		return form_content;
-		
+
 	}
 
 	/**********************************************************************************************
@@ -110,7 +110,7 @@ class persona extends AbstractEntidad{
 		@return {bool} true due the field value is correct
 
 	*/
-	async cargarUsuariosDisponibles(dniSeleccionado = ''){
+	async cargarUsuariosDisponibles(dniSeleccionado = '') {
 		const selectDni = document.getElementById('dni');
 		selectDni.disabled = true;
 		this.dnisDisponibles = null;
@@ -120,10 +120,10 @@ class persona extends AbstractEntidad{
 				this.access_functions.peticionBackGeneral('', 'persona', 'SEARCH')
 			]);
 			const obtenerRegistros = (respuesta, entidad) => {
-				if (respuesta.code === 'RECORDSET_VACIO'){
+				if (respuesta.code === 'RECORDSET_VACIO') {
 					return [];
 				}
-				if (respuesta.code === 'RECORDSET_DATOS' && Array.isArray(respuesta.resource)){
+				if (respuesta.code === 'RECORDSET_DATOS' && Array.isArray(respuesta.resource)) {
 					return respuesta.resource;
 				}
 				throw new Error(respuesta.code || 'text_error_cargar_datos');
@@ -156,16 +156,16 @@ class persona extends AbstractEntidad{
 		}
 	}
 
-	validarDniPersonaDisponible(){
-		if (this.esTest){
+	validarDniPersonaDisponible() {
+		if (this.esTest) {
 			return true;
 		}
-		if (this.dnisDisponibles === null){
+		if (this.dnisDisponibles === null) {
 			this.dom.mostrar_error_campo('dni', 'dni_persona_no_verificado_KO');
 			return false;
 		}
 		const dni = document.getElementById('dni').value;
-		if (!this.dnisDisponibles.has(String(dni))){
+		if (!this.dnisDisponibles.has(String(dni))) {
 			this.dom.mostrar_error_campo('dni', 'dni_persona_ocupado_KO');
 			return false;
 		}
@@ -177,13 +177,13 @@ class persona extends AbstractEntidad{
 	 * @param {string} id id of the DNI field to validate
 	 * @returns {bool} true if the dni is valid or false if the dni is not valid
 	 */
-	personalize_dni(id){
-		
+	personalize_dni(id) {
+
 		const dni = document.getElementById(id).value;
 		const dni_letters = "TRWAGMYFPDXBNJZSQVHLCKE";
 		const letter = dni_letters.charAt(parseInt(dni, 10) % 23);
-		
-    	return letter == dni.charAt(8);
+
+		return letter == dni.charAt(8);
 	}
 
 	/**
@@ -197,42 +197,42 @@ class persona extends AbstractEntidad{
 
 	//ADD
 
-	ADD_dni_validation(){
+	ADD_dni_validation() {
 		const dni = document.getElementById('dni').value;
-		if (dni.length < 9){
+		if (dni.length < 9) {
 			this.dom.mostrar_error_campo('dni', 'dni_min_size_KO');
 			return 'dni_min_size_KO';
 		}
-		if (dni.length > 9){
+		if (dni.length > 9) {
 			this.dom.mostrar_error_campo('dni', 'dni_max_size_KO');
 			return 'dni_max_size_KO';
 		}
-		if (!this.validations.format('dni', '^[0-9]{8}[A-Z]$')){
+		if (!this.validations.format('dni', '^[0-9]{8}[A-Z]$')) {
 			this.dom.mostrar_error_campo('dni', 'dni_format_KO');
 			return 'dni_format_KO';
 		}
-		if (!this.personalize_dni('dni')){
+		if (!this.personalize_dni('dni')) {
 			this.dom.mostrar_error_campo('dni', 'dni_personalized_validate_dni_KO');
 			return 'dni_personalized_validate_dni_KO';
 		}
-		if (!this.validarDniPersonaDisponible()){
+		if (!this.validarDniPersonaDisponible()) {
 			return 'dni_persona_ocupado_KO';
 		}
 		this.dom.mostrar_exito_campo('dni');
 		return true;
 	}
 
-	ADD_nombre_persona_validation(){
+	ADD_nombre_persona_validation() {
 		const nombre = document.getElementById('nombre_persona').value;
-		if (nombre.length < 2){
+		if (nombre.length < 2) {
 			this.dom.mostrar_error_campo('nombre_persona', 'nombre_persona_min_size_KO');
 			return 'nombre_persona_min_size_KO';
 		}
-		if (nombre.length > 45){
+		if (nombre.length > 45) {
 			this.dom.mostrar_error_campo('nombre_persona', 'nombre_persona_max_size_KO');
 			return 'nombre_persona_max_size_KO';
 		}
-		if (!this.validations.format('nombre_persona', "^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]+$")){
+		if (!this.validations.format('nombre_persona', "^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]+$")) {
 			this.dom.mostrar_error_campo('nombre_persona', 'nombre_persona_format_KO');
 			return 'nombre_persona_format_KO';
 		}
@@ -240,17 +240,17 @@ class persona extends AbstractEntidad{
 		return true;
 	}
 
-	ADD_apellidos_persona_validation(){
+	ADD_apellidos_persona_validation() {
 		const apellidos = document.getElementById('apellidos_persona').value;
-		if (apellidos.length < 3){
+		if (apellidos.length < 3) {
 			this.dom.mostrar_error_campo('apellidos_persona', 'apellidos_persona_min_size_KO');
 			return 'apellidos_persona_min_size_KO';
 		}
-		if (apellidos.length > 100){
+		if (apellidos.length > 100) {
 			this.dom.mostrar_error_campo('apellidos_persona', 'apellidos_persona_max_size_KO');
 			return 'apellidos_persona_max_size_KO';
 		}
-		if (!this.validations.format('apellidos_persona', "^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]+$")){
+		if (!this.validations.format('apellidos_persona', "^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]+$")) {
 			this.dom.mostrar_error_campo('apellidos_persona', 'apellidos_persona_format_KO');
 			return 'apellidos_persona_format_KO';
 		}
@@ -258,17 +258,26 @@ class persona extends AbstractEntidad{
 		return true;
 	}
 
-	ADD_fechaNacimiento_persona_validation(){
-		const fechaNacimiento = document.getElementById('fechaNacimiento_persona').value;
-		if (fechaNacimiento.length < 10){
+	ADD_fechaNacimiento_persona_validation() {
+		const campoFecha = document.getElementById('fechaNacimiento_persona');
+		if (campoFecha.type === 'date') {
+			const fechaOriginal = campoFecha.value;
+			campoFecha.type = 'text';
+			campoFecha.value = fechaOriginal ? this.cambiarformatoFecha(fechaOriginal) : fechaOriginal;
+		}
+		const fechaNacimiento = campoFecha.value;
+		if (fechaNacimiento.length < 10) {
 			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_min_size_KO');
 			return 'fechaNacimiento_persona_min_size_KO';
 		}
-		if (fechaNacimiento.length > 10){
+		if (fechaNacimiento.length > 10) {
 			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_max_size_KO');
 			return 'fechaNacimiento_persona_max_size_KO';
 		}
-		if (!this.validations.format('fechaNacimiento_persona', '^(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[0-2])\\/[0-9]{4}$')){
+		if (!this.validations.format(
+			'fechaNacimiento_persona',
+			'^(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[0-2])\\/[0-9]{4}$'
+		)) {
 			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_format_KO');
 			return 'fechaNacimiento_persona_format_KO';
 		}
@@ -276,17 +285,17 @@ class persona extends AbstractEntidad{
 		return true;
 	}
 
-	ADD_direccion_persona_validation(){
+	ADD_direccion_persona_validation() {
 		const direccion = document.getElementById('direccion_persona').value;
-		if (direccion.length < 10){
+		if (direccion.length < 10) {
 			this.dom.mostrar_error_campo('direccion_persona', 'direccion_persona_min_size_KO');
 			return 'direccion_persona_min_size_KO';
 		}
-		if (direccion.length > 200){
+		if (direccion.length > 200) {
 			this.dom.mostrar_error_campo('direccion_persona', 'direccion_persona_max_size_KO');
 			return 'direccion_persona_max_size_KO';
 		}
-		if (!this.validations.format('direccion_persona', '^[A-Za-z0-9ÁÉÍÓÚÜÑáéíóúüñ .;,\\-/]+$')){
+		if (!this.validations.format('direccion_persona', '^[A-Za-z0-9ÁÉÍÓÚÜÑáéíóúüñ .;,\\-/]+$')) {
 			this.dom.mostrar_error_campo('direccion_persona', 'direccion_persona_format_KO');
 			return 'direccion_persona_format_KO';
 		}
@@ -294,17 +303,17 @@ class persona extends AbstractEntidad{
 		return true;
 	}
 
-	ADD_telefono_persona_validation(){
+	ADD_telefono_persona_validation() {
 		const telefono = document.getElementById('telefono_persona').value;
-		if (telefono.length < 9){
+		if (telefono.length < 9) {
 			this.dom.mostrar_error_campo('telefono_persona', 'telefono_persona_min_size_KO');
 			return 'telefono_persona_min_size_KO';
 		}
-		if (telefono.length > 9){
+		if (telefono.length > 9) {
 			this.dom.mostrar_error_campo('telefono_persona', 'telefono_persona_max_size_KO');
 			return 'telefono_persona_max_size_KO';
 		}
-		if (!this.validations.format('telefono_persona', '^[0-9]{9}$')){
+		if (!this.validations.format('telefono_persona', '^[0-9]{9}$')) {
 			this.dom.mostrar_error_campo('telefono_persona', 'telefono_persona_format_KO');
 			return 'telefono_persona_format_KO';
 		}
@@ -312,20 +321,20 @@ class persona extends AbstractEntidad{
 		return true;
 	}
 
-	ADD_email_persona_validation(){
+	ADD_email_persona_validation() {
 		const email = document.getElementById('email_persona').value;
-		if (email.length < 5){
+		if (email.length < 5) {
 			this.dom.mostrar_error_campo('email_persona', 'email_persona_min_size_KO');
 			return 'email_persona_min_size_KO';
 		}
-		if (email.length > 45){
+		if (email.length > 45) {
 			this.dom.mostrar_error_campo('email_persona', 'email_persona_max_size_KO');
 			return 'email_persona_max_size_KO';
 		}
 		if (!this.validations.format(
 			'email_persona',
 			"^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$"
-		)){
+		)) {
 			this.dom.mostrar_error_campo('email_persona', 'email_persona_format_KO');
 			return 'email_persona_format_KO';
 		}
@@ -333,28 +342,28 @@ class persona extends AbstractEntidad{
 		return true;
 	}
 
-	ADD_nuevo_foto_persona_validation(){
-		if (!this.validations.exist_file('nuevo_foto_persona')){
+	ADD_nuevo_foto_persona_validation() {
+		if (!this.validations.exist_file('nuevo_foto_persona')) {
 			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_exist_file_KO');
 			return 'nuevo_foto_persona_exist_file_KO';
 		}
 		const nombreFichero = document.getElementById('nuevo_foto_persona').files[0].name;
 		const nombreSinExtension = nombreFichero.replace(/\.(jpg|jpeg)$/i, '');
-		if (!this.personalize_nuevo_foto_persona__min_name_file_validation(nombreSinExtension)){
+		if (!this.personalize_nuevo_foto_persona__min_name_file_validation(nombreSinExtension)) {
 			return 'nuevo_foto_persona_min_name_file_KO';
 		}
-		if (!this.personalize_nuevo_foto_persona__max_name_file_validation(nombreSinExtension)){
+		if (!this.personalize_nuevo_foto_persona__max_name_file_validation(nombreSinExtension)) {
 			return 'nuevo_foto_persona_max_name_file_KO';
 		}
-		if (!this.validations.format_name_file('nuevo_foto_persona', '^[a-zA-Z]{3,15}\\.(jpg|jpeg)$')){
+		if (!this.validations.format_name_file('nuevo_foto_persona', '^[a-zA-Z]{3,15}\\.(jpg|jpeg)$')) {
 			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_format_name_file_KO');
 			return 'nuevo_foto_persona_format_name_file_KO';
 		}
-		if (!this.validations.max_size_file('nuevo_foto_persona', 2000000)){
+		if (!this.validations.max_size_file('nuevo_foto_persona', 2000000)) {
 			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_max_size_file_KO');
 			return 'nuevo_foto_persona_max_size_file_KO';
 		}
-		if (!this.validations.type_file('nuevo_foto_persona', ['image/jpeg'])){
+		if (!this.validations.type_file('nuevo_foto_persona', ['image/jpeg'])) {
 			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_type_file_KO');
 			return 'nuevo_foto_persona_type_file_KO';
 		}
@@ -362,16 +371,16 @@ class persona extends AbstractEntidad{
 		return true;
 	}
 
-	personalize_nuevo_foto_persona__min_name_file_validation(nombreFichero){
-		if (nombreFichero.length < 3){
+	personalize_nuevo_foto_persona__min_name_file_validation(nombreFichero) {
+		if (nombreFichero.length < 3) {
 			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_min_name_file_KO');
 			return false;
 		}
 		return true;
 	}
 
-	personalize_nuevo_foto_persona__max_name_file_validation(nombreFichero){
-		if (nombreFichero.length > 15){
+	personalize_nuevo_foto_persona__max_name_file_validation(nombreFichero) {
+		if (nombreFichero.length > 15) {
 			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_max_name_file_KO');
 			return false;
 		}
@@ -384,7 +393,7 @@ class persona extends AbstractEntidad{
 		@return	{bool} true if all fields validations are ok or 
 		@return {object} object with the ids of elements and error code if field validation is not ok and true if field validation is ok
 	*/
-	ADD_submit_persona(){
+	ADD_submit_persona() {
 
 		// object to store de fields validations
 		var set_result = {};
@@ -408,61 +417,61 @@ class persona extends AbstractEntidad{
 	//
 	//EDIT
 	//
-	EDIT_dni_validation(){
+	EDIT_dni_validation() {
 		return this.ADD_dni_validation();
 	}
 
-	EDIT_nombre_persona_validation(){
+	EDIT_nombre_persona_validation() {
 
 		return this.ADD_nombre_persona_validation();
 
 	}
 
-	EDIT_apellidos_persona_validation(){
+	EDIT_apellidos_persona_validation() {
 		return this.ADD_apellidos_persona_validation();
 	}
 
-	EDIT_fechaNacimiento_persona_validation(){
+	EDIT_fechaNacimiento_persona_validation() {
 		return this.ADD_fechaNacimiento_persona_validation();
 	}
 
-	EDIT_direccion_persona_validation(){
+	EDIT_direccion_persona_validation() {
 		return this.ADD_direccion_persona_validation();
 	}
 
-	EDIT_telefono_persona_validation(){
+	EDIT_telefono_persona_validation() {
 		return this.ADD_telefono_persona_validation();
 	}
 
-	EDIT_email_persona_validation(){
+	EDIT_email_persona_validation() {
 		return this.ADD_email_persona_validation();
 	}
 
-	EDIT_nuevo_foto_persona_validation(){
+	EDIT_nuevo_foto_persona_validation() {
 
-		if (!(this.validations.exist_file('nuevo_foto_persona'))){
+		if (!(this.validations.exist_file('nuevo_foto_persona'))) {
 			this.dom.mostrar_exito_campo('nuevo_foto_persona');
 			return true;
 		}
 		const nombreFichero = document.getElementById('nuevo_foto_persona').files[0].name;
 		const nombreSinExtension = nombreFichero.replace(/\.(jpg|jpeg)$/i, '');
-		if (!(this.personalize_nuevo_foto_persona__min_name_file_validation(nombreSinExtension))){
+		if (!(this.personalize_nuevo_foto_persona__min_name_file_validation(nombreSinExtension))) {
 			return "nuevo_foto_persona_min_name_file_KO";
 		}
-		if (!(this.personalize_nuevo_foto_persona__max_name_file_validation(nombreSinExtension))){
+		if (!(this.personalize_nuevo_foto_persona__max_name_file_validation(nombreSinExtension))) {
 			return "nuevo_foto_persona_max_name_file_KO";
 		}
-		if (!(this.validations.format_name_file('nuevo_foto_persona','^[a-zA-Z]{3,15}\\.(jpg|jpeg)$'))){
-			this.dom.mostrar_error_campo('nuevo_foto_persona','nuevo_foto_persona_format_name_file_KO');
+		if (!(this.validations.format_name_file('nuevo_foto_persona', '^[a-zA-Z]{3,15}\\.(jpg|jpeg)$'))) {
+			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_format_name_file_KO');
 			return "nuevo_foto_persona_format_name_file_KO";
 		}
 
-		if (!(this.validations.max_size_file('nuevo_foto_persona',2000000))){
-			this.dom.mostrar_error_campo('nuevo_foto_persona','nuevo_foto_persona_max_size_file_KO');
+		if (!(this.validations.max_size_file('nuevo_foto_persona', 2000000))) {
+			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_max_size_file_KO');
 			return "nuevo_foto_persona_max_size_file_KO";
 		}
-		if (!(this.validations.type_file('nuevo_foto_persona',['image/jpeg']))){
-			this.dom.mostrar_error_campo('nuevo_foto_persona','nuevo_foto_persona_type_file_KO');
+		if (!(this.validations.type_file('nuevo_foto_persona', ['image/jpeg']))) {
+			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_type_file_KO');
 			return "nuevo_foto_persona_type_file_KO";
 		}
 		this.dom.mostrar_exito_campo('nuevo_foto_persona');
@@ -477,7 +486,7 @@ class persona extends AbstractEntidad{
 		@return	{bool} true if all fields validations are ok or 
 		@return {object} object with the ids of elements and error code if field validation is not ok and true if field validation is ok
 	*/
-	EDIT_submit_persona(){
+	EDIT_submit_persona() {
 
 		// object to store de fields validations
 		var set_result = {};
@@ -500,18 +509,18 @@ class persona extends AbstractEntidad{
 
 	//SEARCH
 
-	SEARCH_dni_validation(){
+	SEARCH_dni_validation() {
 		const campoDni = document.getElementById('dni');
 		const dni = campoDni.value;
-		if (dni.trim() === ''){
+		if (dni.trim() === '') {
 			this.dom.mostrar_exito_campo('dni');
 			return true;
 		}
-		if (!this.validations.max_size('dni', 9)){
+		if (!this.validations.max_size('dni', 9)) {
 			this.dom.mostrar_error_campo('dni', 'dni_max_size_KO');
 			return 'dni_max_size_KO';
 		}
-		if (!/^(?:[0-9]{1,9}|[0-9]{1,8}[A-Za-z])$/.test(dni)){
+		if (!/^(?:[0-9]{1,9}|[0-9]{1,8}[A-Za-z])$/.test(dni)) {
 			this.dom.mostrar_error_campo('dni', 'dni_format_KO');
 			return 'dni_format_KO';
 		}
@@ -520,12 +529,12 @@ class persona extends AbstractEntidad{
 		return true;
 	}
 
-	async SEARCH(){
+	async SEARCH() {
 		const respuesta = await this.access_functions.peticionBackGeneral('', this.nombreentidad, 'SEARCH');
 		let registros;
-		if (respuesta.code === 'RECORDSET_VACIO'){
+		if (respuesta.code === 'RECORDSET_VACIO') {
 			registros = [];
-		} else if (respuesta.code === 'RECORDSET_DATOS' && Array.isArray(respuesta.resource)){
+		} else if (respuesta.code === 'RECORDSET_DATOS' && Array.isArray(respuesta.resource)) {
 			registros = respuesta.resource;
 		} else {
 			throw new Error(respuesta.code || 'text_error_buscar');
@@ -547,7 +556,7 @@ class persona extends AbstractEntidad{
 
 		document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
 		this.dom.hide_element('Div_IU_form');
-		if (resultados.length > 0){
+		if (resultados.length > 0) {
 			this.datos = resultados;
 			this.atributos = Object.keys(resultados[0]);
 			this.dom.show_element('IU_manage_entity');
@@ -561,17 +570,17 @@ class persona extends AbstractEntidad{
 	}
 
 
-	SEARCH_nombre_persona_validation(){
+	SEARCH_nombre_persona_validation() {
 		const nombre = document.getElementById('nombre_persona').value;
-		if (nombre.trim() === ''){
+		if (nombre.trim() === '') {
 			this.dom.mostrar_exito_campo('nombre_persona');
 			return true;
 		}
-		if (nombre.length > 45){
+		if (nombre.length > 45) {
 			this.dom.mostrar_error_campo('nombre_persona', 'nombre_persona_max_size_KO');
 			return 'nombre_persona_max_size_KO';
 		}
-		if (!this.validations.format('nombre_persona', "^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]+$")){
+		if (!this.validations.format('nombre_persona', "^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]+$")) {
 			this.dom.mostrar_error_campo('nombre_persona', 'nombre_persona_format_KO');
 			return 'nombre_persona_format_KO';
 		}
@@ -579,17 +588,17 @@ class persona extends AbstractEntidad{
 		return true;
 	}
 
-	SEARCH_apellidos_persona_validation(){
+	SEARCH_apellidos_persona_validation() {
 		const apellidos = document.getElementById('apellidos_persona').value;
-		if (apellidos.trim() === ''){
+		if (apellidos.trim() === '') {
 			this.dom.mostrar_exito_campo('apellidos_persona');
 			return true;
 		}
-		if (apellidos.length > 100){
+		if (apellidos.length > 100) {
 			this.dom.mostrar_error_campo('apellidos_persona', 'apellidos_persona_max_size_KO');
 			return 'apellidos_persona_max_size_KO';
 		}
-		if (!this.validations.format('apellidos_persona', "^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]+$")){
+		if (!this.validations.format('apellidos_persona', "^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]+$")) {
 			this.dom.mostrar_error_campo('apellidos_persona', 'apellidos_persona_format_KO');
 			return 'apellidos_persona_format_KO';
 		}
@@ -597,20 +606,26 @@ class persona extends AbstractEntidad{
 		return true;
 	}
 
-	SEARCH_fechaNacimiento_persona_validation(){
-		const fechaNacimiento = document.getElementById('fechaNacimiento_persona').value;
-		if (fechaNacimiento.trim() === ''){
+	SEARCH_fechaNacimiento_persona_validation() {
+		const campoFecha = document.getElementById('fechaNacimiento_persona');
+		if (campoFecha.type === 'date') {
+			const fechaOriginal = campoFecha.value;
+			campoFecha.type = 'text';
+			campoFecha.value = fechaOriginal ? this.cambiarformatoFecha(fechaOriginal) : fechaOriginal;
+		}
+		const fechaNacimiento = campoFecha.value;
+		if (fechaNacimiento.trim() === '') {
 			this.dom.mostrar_exito_campo('fechaNacimiento_persona');
 			return true;
 		}
-		if (fechaNacimiento.length > 10){
+		if (fechaNacimiento.length > 10) {
 			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_max_size_KO');
 			return 'fechaNacimiento_persona_max_size_KO';
 		}
 		if (!this.validations.format(
 			'fechaNacimiento_persona',
 			'^(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[0-2])\\/[0-9]{4}$'
-		)){
+		)) {
 			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_format_KO');
 			return 'fechaNacimiento_persona_format_KO';
 		}
@@ -618,17 +633,17 @@ class persona extends AbstractEntidad{
 		return true;
 	}
 
-	SEARCH_direccion_persona_validation(){
+	SEARCH_direccion_persona_validation() {
 		const direccion = document.getElementById('direccion_persona').value;
-		if (direccion.trim() === ''){
+		if (direccion.trim() === '') {
 			this.dom.mostrar_exito_campo('direccion_persona');
 			return true;
 		}
-		if (direccion.length > 200){
+		if (direccion.length > 200) {
 			this.dom.mostrar_error_campo('direccion_persona', 'direccion_persona_max_size_KO');
 			return 'direccion_persona_max_size_KO';
 		}
-		if (!this.validations.format('direccion_persona', '^[A-Za-z0-9ÁÉÍÓÚÜÑáéíóúüñ .;,\\-/]+$')){
+		if (!this.validations.format('direccion_persona', '^[A-Za-z0-9ÁÉÍÓÚÜÑáéíóúüñ .;,\\-/]+$')) {
 			this.dom.mostrar_error_campo('direccion_persona', 'direccion_persona_format_KO');
 			return 'direccion_persona_format_KO';
 		}
@@ -636,17 +651,17 @@ class persona extends AbstractEntidad{
 		return true;
 	}
 
-	SEARCH_telefono_persona_validation(){
+	SEARCH_telefono_persona_validation() {
 		const telefono = document.getElementById('telefono_persona').value;
-		if (telefono.trim() === ''){
+		if (telefono.trim() === '') {
 			this.dom.mostrar_exito_campo('telefono_persona');
 			return true;
 		}
-		if (telefono.length > 9){
+		if (telefono.length > 9) {
 			this.dom.mostrar_error_campo('telefono_persona', 'telefono_persona_max_size_KO');
 			return 'telefono_persona_max_size_KO';
 		}
-		if (!this.validations.format('telefono_persona', '^[0-9]{9}$')){
+		if (!this.validations.format('telefono_persona', '^[0-9]{9}$')) {
 			this.dom.mostrar_error_campo('telefono_persona', 'telefono_persona_format_KO');
 			return 'telefono_persona_format_KO';
 		}
@@ -654,20 +669,20 @@ class persona extends AbstractEntidad{
 		return true;
 	}
 
-	SEARCH_email_persona_validation(){
+	SEARCH_email_persona_validation() {
 		const email = document.getElementById('email_persona').value;
-		if (email.trim() === ''){
+		if (email.trim() === '') {
 			this.dom.mostrar_exito_campo('email_persona');
 			return true;
 		}
-		if (email.length > 45){
+		if (email.length > 45) {
 			this.dom.mostrar_error_campo('email_persona', 'email_persona_max_size_KO');
 			return 'email_persona_max_size_KO';
 		}
 		if (!this.validations.format(
 			'email_persona',
 			"^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$"
-		)){
+		)) {
 			this.dom.mostrar_error_campo('email_persona', 'email_persona_format_KO');
 			return 'email_persona_format_KO';
 		}
@@ -675,24 +690,24 @@ class persona extends AbstractEntidad{
 		return true;
 	}
 
-	SEARCH_foto_persona_validation(){
+	SEARCH_foto_persona_validation() {
 		const elemento = document.getElementById('foto_persona');
 		const ruta = elemento.value;
-		if (ruta.trim() === ''){
+		if (ruta.trim() === '') {
 			this.dom.mostrar_exito_campo('foto_persona');
 			return true;
 		}
 		const nombreFichero = ruta.split(/[\\/]/).pop();
 		const partes = /^(.+)\.(jpg|jpeg)$/i.exec(nombreFichero);
-		if (!partes){
+		if (!partes) {
 			this.dom.mostrar_error_campo('foto_persona', 'foto_persona_format_name_file_KO');
 			return 'foto_persona_format_name_file_KO';
 		}
-		if (partes[1].length > 15){
+		if (partes[1].length > 15) {
 			this.dom.mostrar_error_campo('foto_persona', 'foto_persona_max_name_file_KO');
 			return 'foto_persona_max_name_file_KO';
 		}
-		if (!/^[a-zA-Z]+$/.test(partes[1])){
+		if (!/^[a-zA-Z]+$/.test(partes[1])) {
 			this.dom.mostrar_error_campo('foto_persona', 'foto_persona_format_name_file_KO');
 			return 'foto_persona_format_name_file_KO';
 		}
@@ -700,7 +715,7 @@ class persona extends AbstractEntidad{
 		return true;
 	}
 
-	SEARCH_submit_persona(){
+	SEARCH_submit_persona() {
 		const set_result = {
 			dni: this.SEARCH_dni_validation(),
 			nombre_persona: this.SEARCH_nombre_persona_validation(),
@@ -722,37 +737,37 @@ class persona extends AbstractEntidad{
 	 * @param {Object} fila objeto con los datos de la ocurrencia a modificar
 	 * 
 	 */
-	createForm_EDIT(fila){
+	createForm_EDIT(fila) {
 
 		// poner titulo al formulario
-		this.dom.assign_property_value('class_contenido_titulo_form','class','text_contenido_titulo_form_persona_EDIT');		// limpiar y poner visible el formulario
+		this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_persona_EDIT');		// limpiar y poner visible el formulario
 		document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
 		const inputDni = document.getElementById('dni');
 		const selectDni = document.createElement('select');
 		selectDni.id = 'dni';
 		selectDni.name = 'dni';
 		inputDni.replaceWith(selectDni);
-		this.dom.show_element('Div_IU_form','block');
+		this.dom.show_element('Div_IU_form', 'block');
 
 		// rellenar onsubmit y action
-		this.dom.assign_property_value('form_iu','onsubmit','return entidad.dom.validarsubmit(entidad.EDIT_submit_'+this.nombreentidad+'())');
+		this.dom.assign_property_value('form_iu', 'onsubmit', 'return entidad.dom.validarsubmit(entidad.EDIT_submit_' + this.nombreentidad + '())');
 		this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.EDIT();');
 
 		//activar el link al fichero
-		this.dom.assign_property_value('link_foto_persona', 'href', 'http://193.147.87.202/ET2/filesuploaded/files_foto_persona/'+fila.foto_persona);
-		
+		this.dom.assign_property_value('link_foto_persona', 'href', 'http://193.147.87.202/ET2/filesuploaded/files_foto_persona/' + fila.foto_persona);
+
 		// modificar presentacion (en este caso concreto para fecha)
 		fila.fechaNacimiento_persona = this.cambiarformatoFecha(fila.fechaNacimiento_persona);
 
 		// rellenar valores
 		this.dom.rellenarvaloresform(fila);
 		this.cargarUsuariosDisponibles(fila.dni);
-		
+
 		// poner las validaciones
-		this.dom.colocarvalidaciones('form_iu','EDIT');
+		this.dom.colocarvalidaciones('form_iu', 'EDIT');
 
 		// poner inactivos los campos correspondientes
-		this.dom.assign_property_value('foto_persona','readonly','true');
+		this.dom.assign_property_value('foto_persona', 'readonly', 'true');
 
 		// colocar boton de submit
 		this.dom.colocarboton('EDIT');
@@ -761,11 +776,11 @@ class persona extends AbstractEntidad{
 
 	}
 
-	createForm_DELETE(fila){
+	createForm_DELETE(fila) {
 		// poner titulo al formulario
-		this.dom.assign_property_value('class_contenido_titulo_form','class','text_contenido_titulo_form_persona_DELETE');		// limpiar y poner visible el formulario
+		this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_persona_DELETE');		// limpiar y poner visible el formulario
 		document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
-		this.dom.show_element('Div_IU_form','block');
+		this.dom.show_element('Div_IU_form', 'block');
 
 		// rellenar y action
 		this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.DELETE();');
@@ -773,8 +788,8 @@ class persona extends AbstractEntidad{
 
 		// poner no visible el campo nuevo_foto_persona (solo se puede ver el nombre de fichero)
 		this.dom.hide_element_form('nuevo_foto_persona');
-		this.dom.assign_property_value('link_foto_persona', 'href', 'http://193.147.87.202/ET2/filesuploaded/files_foto_persona/'+fila.foto_persona);
-		
+		this.dom.assign_property_value('link_foto_persona', 'href', 'http://193.147.87.202/ET2/filesuploaded/files_foto_persona/' + fila.foto_persona);
+
 		// modificar presentacion (en este caso concreto para fecha)
 		fila.fechaNacimiento_persona = this.cambiarformatoFecha(fila.fechaNacimiento_persona);
 
@@ -792,19 +807,19 @@ class persona extends AbstractEntidad{
 
 	}
 
-	createForm_SHOWCURRENT(fila){
+	createForm_SHOWCURRENT(fila) {
 		// poner titulo al formulario
-		this.dom.assign_property_value('class_contenido_titulo_form','class','text_contenido_titulo_form_persona_SHOWCURRENT');		// limpiar y poner visible el formulario
+		this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_persona_SHOWCURRENT');		// limpiar y poner visible el formulario
 		document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
-		this.dom.show_element('Div_IU_form','block');
+		this.dom.show_element('Div_IU_form', 'block');
 
 		// rellenar y action
 		//this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.DELETE();');
 
 		// poner no visible el campo nuevo_foto_persona (solo se puede ver el nombre de fichero)
 		this.dom.hide_element_form('nuevo_foto_persona');
-		this.dom.assign_property_value('link_foto_persona', 'href', 'http://193.147.87.202/ET2/filesuploaded/files_foto_persona/'+fila.foto_persona);
-		
+		this.dom.assign_property_value('link_foto_persona', 'href', 'http://193.147.87.202/ET2/filesuploaded/files_foto_persona/' + fila.foto_persona);
+
 		// modificar presentacion (en este caso concreto para fecha)
 		fila.fechaNacimiento_persona = this.cambiarformatoFecha(fila.fechaNacimiento_persona);
 
@@ -821,9 +836,9 @@ class persona extends AbstractEntidad{
 
 	}
 
-	createForm_ADD(){
+	createForm_ADD() {
 		// poner titulo al formulario
-		this.dom.assign_property_value('class_contenido_titulo_form','class','text_contenido_titulo_form_persona_ADD');
+		this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_persona_ADD');
 		// limpiar y poner visible el formulario
 		document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
 		const inputDni = document.getElementById('dni');
@@ -831,14 +846,14 @@ class persona extends AbstractEntidad{
 		selectDni.id = 'dni';
 		selectDni.name = 'dni';
 		inputDni.replaceWith(selectDni);
-		this.dom.show_element('Div_IU_form','block');
+		this.dom.show_element('Div_IU_form', 'block');
 
 		// poner onsubmit
-		this.dom.assign_property_value('form_iu','onsubmit','return entidad.dom.validarsubmit(entidad.ADD_submit_'+this.nombreentidad+'())');
+		this.dom.assign_property_value('form_iu', 'onsubmit', 'return entidad.dom.validarsubmit(entidad.ADD_submit_' + this.nombreentidad + '())');
 
 		// poner action
 		this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.ADD();');
-		
+
 		// poner no visible el campo foto_persona (solo se puede subir fichero)
 		this.dom.hide_element_form('foto_persona');
 		this.dom.hide_element('link_foto_persona');
@@ -847,7 +862,7 @@ class persona extends AbstractEntidad{
 		// en ADD no hay valores que rellenar
 
 		// poner las validaciones
-		this.dom.colocarvalidaciones('form_iu','ADD');
+		this.dom.colocarvalidaciones('form_iu', 'ADD');
 		this.cargarUsuariosDisponibles();
 
 		// poner inactivos los campos correspondientes
@@ -859,19 +874,19 @@ class persona extends AbstractEntidad{
 		setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
 	}
 
-	createForm_SEARCH(){
+	createForm_SEARCH() {
 		// poner titulo al formulario
-		this.dom.assign_property_value('class_contenido_titulo_form','class','text_contenido_titulo_form_persona_SEARCH');
+		this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_persona_SEARCH');
 		// limpiar y poner visible el formulario
 		document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
-		this.dom.show_element('Div_IU_form','block');
+		this.dom.show_element('Div_IU_form', 'block');
 
 		// poner onsubmit
-		this.dom.assign_property_value('form_iu','onsubmit','return entidad.dom.validarsubmit(entidad.SEARCH_submit_'+this.nombreentidad+'())');
+		this.dom.assign_property_value('form_iu', 'onsubmit', 'return entidad.dom.validarsubmit(entidad.SEARCH_submit_' + this.nombreentidad + '())');
 
 		// poner action
 		this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.SEARCH();');
-		
+
 		// poner no visible el campo foto_persona (solo se puede subir fichero)
 		this.dom.hide_element_form('nuevo_foto_persona');
 		this.dom.hide_element('link_foto_persona');
@@ -880,7 +895,7 @@ class persona extends AbstractEntidad{
 		// en SEARCH no hay valores que rellenar
 
 		// poner las validaciones
-		this.dom.colocarvalidaciones('form_iu','SEARCH');
+		this.dom.colocarvalidaciones('form_iu', 'SEARCH');
 
 		// colocar boton de submit
 		this.dom.colocarboton('SEARCH');
@@ -916,11 +931,11 @@ class persona extends AbstractEntidad{
 	 * @returns {any} nuevo valor transformado de la columna
 	 */
 
-	cambiarmostrarespecial(columna, valor){
+	cambiarmostrarespecial(columna, valor) {
 		var nuevovalor = valor;
-		switch(columna){
+		switch (columna) {
 			case 'foto_persona':
-				nuevovalor = `<a href='http://193.147.87.202/ET2/filesuploaded/files_foto_persona/`+valor+`'>`+valor+`</a>`;
+				nuevovalor = `<a href='http://193.147.87.202/ET2/filesuploaded/files_foto_persona/` + valor + `'>` + valor + `</a>`;
 				return nuevovalor;
 				break;
 			case 'fechaNacimiento_persona':
@@ -935,5 +950,5 @@ class persona extends AbstractEntidad{
 
 
 
-		
+
 }

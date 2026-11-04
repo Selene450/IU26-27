@@ -3,7 +3,7 @@ datosgenerales =
     Lider:
         ['AlvarezLopezAna',
             'ET2',
-            4],
+            7],
     Participante1:
         ['FreireSuarezEva',
             'ET2',

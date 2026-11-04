@@ -23,3 +23,6 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Se eliminaron tests y uebas de nuevo_foto_persona y foto_persona que no tenían utilidad lógica [04/11/2026]
 - Se añadieron las traducciones necesarias para los cambios [04/11/2026]
 - Se volvieron a crear ficheros necesarios de la estrructura eliminados por error [04/11/2026]
+- Se corrigieron errores de muestra de iconos [05/11/2026]
+- Se corrigió la gestión de los select en las pruebas, antes saltaba solo id_entidad_min_size_KO en las entidades débiles independientemente del id proporcionado [05/11/2026]
+- Se cambió el tipo de dato del formulario de persona fechaNacimiento a date y para la persistencia del formato pedido se usó la función que venía dada en la arquitectura de Rodeiro [05/11/2026] 
