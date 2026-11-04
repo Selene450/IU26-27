@@ -33,18 +33,6 @@ class dom_fields extends dom_form{
 				this.fillElementFile(element, valores);
 				this.colocarelemento(element, contenedor);
 				break;
-			case 'select':
-				element = document.createElement('select');
-				element.id = nombrecampo;
-				element.name = nombrecampo;
-				const valorSeleccionado = valores[nombrecampo] ?? '';
-				const option = document.createElement('option');
-				option.value = valorSeleccionado;
-				option.textContent = valorSeleccionado;
-				element.appendChild(option);
-				element.value = valorSeleccionado;
-				this.colocarelemento(element, contenedor);
-				break;
 			case 'submit':
 				element = this.createInput(nombrecampo, 'input');
 				element.type = 'submit';
@@ -54,10 +42,7 @@ class dom_fields extends dom_form{
 			default: // este lo uso para crear los span y los a de los errores sin valor
 				element = document.createElement(tag);
 				element.id = nombrecampo;
-				const valor = Object.prototype.hasOwnProperty.call(valores, nombrecampo)
-					? valores[nombrecampo]
-					: '';
-				this.fillElementValue(element, valor);
+				this.fillElementValue(element, '');
 				this.colocarelemento(element, contenedor);
 				break;	
 		}
@@ -89,12 +74,7 @@ class dom_fields extends dom_form{
 	 */
 
 	fillElementValue(elemento, valor){
-		if (elemento.tagName === 'TEXTAREA'){
-			elemento.value = valor;
-		}
-		else{
-			elemento.setAttribute('value', valor);
-		}
+		elemento.setAttribute('value', valor);
 	}
 
 	/**
@@ -107,7 +87,7 @@ class dom_fields extends dom_form{
 	
 		// creo objeto html sino tengo cargado el formulario (para crear cada elemento dinamicamente dentro del form)
         // construyo objeto file y relleno valor para prueba
-        if (Object.values(valores).length > 0 && valores[Object.keys(valores)[0]] !== ''){
+        if (Object.values(valores).length > 0){
                               
 			var fichero = Object.keys(valores)[0];			
 			

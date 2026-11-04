@@ -1,7 +1,7 @@
 class funcionalidad_accion extends AbstractEntidad {
     constructor(esTest = null) {
         super();
-        this.dom = new dom_fields();
+        this.dom = new entity_dom_fields();
         this.validations = new Validations();
         this.access_functions = new ExternalAccess();
         this.nombreentidad = 'funcionalidad_accion';
@@ -12,7 +12,8 @@ class funcionalidad_accion extends AbstractEntidad {
         if (esTest !== 'test') {
             document.getElementById('IU_manage_entity').style.display = 'block';
             document.getElementById('text_title_page').className = 'text_titulo_page_funcionalidad_accion';
-            document.getElementById('add_search_columns').style.display = 'none';
+            document.getElementById('add_search_columns').style.display = '';
+            this.ocultarBotonesNoAplicables();
             document.getElementById('contenedor_IU_form').innerHTML = '';
             document.getElementById('IU_manage_table').innerHTML = this.manual_form_creation();
             this.dom.hide_element('Div_IU_form');
@@ -57,7 +58,7 @@ class funcionalidad_accion extends AbstractEntidad {
             return [];
         }
         if (respuesta.code !== 'RECORDSET_DATOS' || !Array.isArray(respuesta.resource)) {
-            throw new Error(respuesta.code || `No se pudieron cargar los datos de ${entidad}.`);
+            throw new Error(respuesta.code || 'text_error_cargar_datos');
         }
         return respuesta.resource;
     }
@@ -72,7 +73,7 @@ class funcionalidad_accion extends AbstractEntidad {
         const tituloFuncionalidad = document.createElement('th');
         tituloFuncionalidad.scope = 'col';
         tituloFuncionalidad.classList.add('text_matriz_funcionalidad');
-        tituloFuncionalidad.textContent = 'Funcionalidad';
+        tituloFuncionalidad.textContent = window.traduccion.text_matriz_funcionalidad;
         this.estilizarCelda(tituloFuncionalidad, true, true);
         filaCabecera.appendChild(tituloFuncionalidad);
         this.acciones.forEach(accion => {
@@ -219,8 +220,8 @@ class funcionalidad_accion extends AbstractEntidad {
 
     mostrarError(error) {
         const mensaje = error.status
-            ? `Error de conexión (${error.status}).`
-            : error.message || 'No se pudieron cargar las relaciones.';
+            ? `${window.traduccion.text_error_conexion} (${error.status})`
+            : (window.traduccion[error.message] || error.message || window.traduccion.text_error_cargar_relaciones);
         this.mostrarEstado(mensaje);
         document.getElementById('error_action_msg').textContent = mensaje;
         this.dom.abrirModalError(mensaje);
@@ -233,5 +234,81 @@ class funcionalidad_accion extends AbstractEntidad {
         if (primeraColumna) {
             celda.classList.add('matriz-primera-columna');
         }
+    }
+
+    // en la matriz solo se muestra el icono TEST; se ocultan ADD, SEARCH y la seleccion de columnas
+    ocultarBotonesNoAplicables() {
+        document.querySelectorAll('#add_search_columns > *').forEach(elemento => {
+            const esTest = elemento.tagName === 'IMG' && (elemento.getAttribute('src') || '').includes('TEST');
+            elemento.style.display = esTest ? '' : 'none';
+        });
+    }
+
+    ADD_id_funcionalidad_validation() {
+        if (!this.validations.min_size('id_funcionalidad', 1)) {
+            this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_min_size_KO');
+            return 'id_funcionalidad_min_size_KO';
+        }
+        if (!this.validations.max_size('id_funcionalidad', 11)) {
+            this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_max_size_KO');
+            return 'id_funcionalidad_max_size_KO';
+        }
+        if (!this.validations.format('id_funcionalidad', '^[0-9]+$')) {
+            this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_format_KO');
+            return 'id_funcionalidad_format_KO';
+        }
+        this.dom.mostrar_exito_campo('id_funcionalidad');
+        return true;
+    }
+
+    EDIT_id_funcionalidad_validation() {
+        return this.ADD_id_funcionalidad_validation();
+    }
+
+    SEARCH_id_funcionalidad_validation() {
+        if (!this.validations.max_size('id_funcionalidad', 11)) {
+            this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_max_size_KO');
+            return 'id_funcionalidad_max_size_KO';
+        }
+        if (document.getElementById('id_funcionalidad').value.trim() !== '' && !this.validations.format('id_funcionalidad', '^[0-9]+$')) {
+            this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_format_KO');
+            return 'id_funcionalidad_format_KO';
+        }
+        this.dom.mostrar_exito_campo('id_funcionalidad');
+        return true;
+    }
+
+    ADD_id_accion_validation() {
+        if (!this.validations.min_size('id_accion', 1)) {
+            this.dom.mostrar_error_campo('id_accion', 'id_accion_min_size_KO');
+            return 'id_accion_min_size_KO';
+        }
+        if (!this.validations.max_size('id_accion', 11)) {
+            this.dom.mostrar_error_campo('id_accion', 'id_accion_max_size_KO');
+            return 'id_accion_max_size_KO';
+        }
+        if (!this.validations.format('id_accion', '^[0-9]+$')) {
+            this.dom.mostrar_error_campo('id_accion', 'id_accion_format_KO');
+            return 'id_accion_format_KO';
+        }
+        this.dom.mostrar_exito_campo('id_accion');
+        return true;
+    }
+
+    EDIT_id_accion_validation() {
+        return this.ADD_id_accion_validation();
+    }
+
+    SEARCH_id_accion_validation() {
+        if (!this.validations.max_size('id_accion', 11)) {
+            this.dom.mostrar_error_campo('id_accion', 'id_accion_max_size_KO');
+            return 'id_accion_max_size_KO';
+        }
+        if (document.getElementById('id_accion').value.trim() !== '' && !this.validations.format('id_accion', '^[0-9]+$')) {
+            this.dom.mostrar_error_campo('id_accion', 'id_accion_format_KO');
+            return 'id_accion_format_KO';
+        }
+        this.dom.mostrar_exito_campo('id_accion');
+        return true;
     }
 }

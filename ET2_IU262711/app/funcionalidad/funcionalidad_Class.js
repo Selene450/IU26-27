@@ -1,7 +1,7 @@
 class funcionalidad extends AbstractEntidad {
     constructor(esTest = null) {
         super();
-        this.dom = new dom_fields();
+        this.dom = new entity_dom_fields();
         this.instalarLimpiezaMensajesError();
         this.validations = new Validations();
         this.access_functions = new ExternalAccess();
@@ -196,7 +196,7 @@ class funcionalidad extends AbstractEntidad {
         } else if (respuesta.code === 'RECORDSET_DATOS' && Array.isArray(respuesta.resource)) {
             registros = respuesta.resource;
         } else {
-            throw new Error(respuesta.code || 'No se pudieron buscar las funcionalidades.');
+            throw new Error(respuesta.code || 'text_error_buscar');
         }
 
         const formulario = document.getElementById('form_iu');
@@ -222,7 +222,7 @@ class funcionalidad extends AbstractEntidad {
             this.crearTablaDatos(this.datos, this.mostrarespecial);
         } else {
             document.getElementById('IU_manage_table').style.display = 'block';
-            document.getElementById('IU_manage_table').innerHTML = 'No se han encontrado elementos que coincidan con la búsqueda';
+            document.getElementById('IU_manage_table').innerHTML = window.traduccion.RECORDSET_VACIO;
             document.getElementById('IU_manage_table').className = 'RECORDSET_VACIO';
         }
         setLang();

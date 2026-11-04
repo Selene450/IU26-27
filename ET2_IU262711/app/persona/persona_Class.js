@@ -9,7 +9,7 @@ class persona extends AbstractEntidad{
 		this.mostrarespecial = ['foto_persona','fechaNacimiento_persona'];
 		this.nombreentidad = 'persona';
 
-		this.dom = new dom_fields();
+		this.dom = new entity_dom_fields();
 		this.instalarLimpiezaMensajesError();
 		this.validations = new Validations();
 		this.access_functions = new ExternalAccess();
@@ -125,7 +125,7 @@ class persona extends AbstractEntidad{
 				if (respuesta.code === 'RECORDSET_DATOS' && Array.isArray(respuesta.resource)){
 					return respuesta.resource;
 				}
-				throw new Error(respuesta.code || `No se pudieron cargar los datos de ${entidad}.`);
+				throw new Error(respuesta.code || 'text_error_cargar_datos');
 			};
 			const usuarios = obtenerRegistros(respuestaUsuarios, 'usuarios');
 			const personas = obtenerRegistros(respuestaPersonas, 'personas');
@@ -149,7 +149,7 @@ class persona extends AbstractEntidad{
 			});
 			selectDni.value = dniSeleccionado;
 		} catch (error) {
-			this.dom.abrirModalError(error.message || 'No se pudieron cargar los usuarios.');
+			this.dom.abrirModalError(error.message || 'text_error_cargar_usuarios');
 		} finally {
 			selectDni.disabled = false;
 		}
@@ -527,7 +527,7 @@ class persona extends AbstractEntidad{
 		} else if (respuesta.code === 'RECORDSET_DATOS' && Array.isArray(respuesta.resource)){
 			registros = respuesta.resource;
 		} else {
-			throw new Error(respuesta.code || 'No se pudieron buscar las personas.');
+			throw new Error(respuesta.code || 'text_error_buscar');
 		}
 
 		const formulario = document.getElementById('form_iu');
@@ -553,7 +553,7 @@ class persona extends AbstractEntidad{
 			this.crearTablaDatos(this.datos, this.mostrarespecial);
 		} else {
 			document.getElementById('IU_manage_table').style.display = 'block';
-			document.getElementById('IU_manage_table').innerHTML = 'No se han encontrado elementos que coincidan con la búsqueda';
+			document.getElementById('IU_manage_table').innerHTML = window.traduccion.RECORDSET_VACIO;
 			document.getElementById('IU_manage_table').className = 'RECORDSET_VACIO';
 		}
 		setLang();

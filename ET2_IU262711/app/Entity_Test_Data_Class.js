@@ -5,6 +5,7 @@
 class entity_Test_Data extends Data_Test{
     constructor(entidad){
         super(entidad);
+        this.dom = new entity_dom_fields();
     }
 
     data_test_data(){
@@ -19,7 +20,7 @@ class entity_Test_Data extends Data_Test{
     data_test_class(){
         const ventana = window.open('', '_blank');
         if (!ventana){
-            window.alert('No se pudo abrir la ventana de resultados. Permite las ventanas emergentes para ejecutar los tests.');
+            window.alert(window.traduccion.text_test_ventana_bloqueada);
             return false;
         }
 
@@ -29,21 +30,21 @@ class entity_Test_Data extends Data_Test{
         const incorrectos = resultados.length - correctos;
         const documento = ventana.document;
 
-        documento.title = `Resultados de tests - ${this.entidad.nombreentidad}`;
+        documento.title = `${window.traduccion.text_test_resultados_titulo} - ${this.entidad.nombreentidad}`;
         documento.head.innerHTML = '';
         documento.body.innerHTML = '';
 
         const titulo = documento.createElement('h1');
-        titulo.textContent = `Resultados de tests: ${this.entidad.nombreentidad}`;
+        titulo.textContent = `${window.traduccion.text_test_resultados_titulo}: ${this.entidad.nombreentidad}`;
         documento.body.append(titulo);
 
         const resumen = documento.createElement('p');
-        resumen.textContent = `Total: ${resultados.length} | Correctos: ${correctos} | Incorrectos: ${incorrectos}`;
+        resumen.textContent = `${window.traduccion.text_test_total}: ${resultados.length} | ${window.traduccion.text_test_correctos}: ${correctos} | ${window.traduccion.text_test_incorrectos}: ${incorrectos}`;
         documento.body.append(resumen);
 
         if (columnas.length === 0){
             const sinResultados = documento.createElement('p');
-            sinResultados.textContent = 'No hay pruebas definidas para esta entidad.';
+            sinResultados.textContent = window.traduccion.text_test_sin_pruebas;
             documento.body.append(sinResultados);
             return true;
         }
