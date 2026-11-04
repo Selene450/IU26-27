@@ -397,10 +397,12 @@ class persona extends AbstractEntidad{
 			this.dom.mostrar_exito_campo('nuevo_foto_persona');
 			return true;
 		}
-		if (!(this.personalize_nuevo_foto_persona__min_name_file_validation(nombreFichero))){
+		const nombreFichero = document.getElementById('nuevo_foto_persona').files[0].name;
+		const nombreSinExtension = nombreFichero.replace(/\.(jpg|jpeg)$/i, '');
+		if (!(this.personalize_nuevo_foto_persona__min_name_file_validation(nombreSinExtension))){
 			return "nuevo_foto_persona_min_name_file_KO";
 		}
-		if (!(this.personalize_nuevo_foto_persona__max_name_file_validation(nombreFichero))){
+		if (!(this.personalize_nuevo_foto_persona__max_name_file_validation(nombreSinExtension))){
 			return "nuevo_foto_persona_max_name_file_KO";
 		}
 		if (!(this.validations.format_name_file('nuevo_foto_persona','^[a-zA-Z]{3,15}\\.(jpg|jpeg)$'))){
