@@ -232,6 +232,7 @@ var textos_EN = {
     "text_aceptar": "Accept",
     "text_si": "Yes",
     "text_no": "No",
+    "text_test_validation_success": "Validation passed.",
 
     // MATRIX TEXTS (funcionalidad_accion)
     "text_error_cargar_acciones": "Could not load actions.",

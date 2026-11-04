@@ -7,6 +7,15 @@ class entity_Test_Data extends Data_Test{
         super(entidad);
     }
 
+    data_test_data(){
+        const resultados = super.data_test_data();
+        const traduccionExito = window.traduccion.text_test_validation_success;
+        return resultados.map(resultado => resultado.resultadoprueba === true
+            ? {...resultado, traduccionError: traduccionExito}
+            : resultado
+        );
+    }
+
     data_test_class(){
         const ventana = window.open('', '_blank');
         if (!ventana){
