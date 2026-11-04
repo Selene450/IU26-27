@@ -4,6 +4,7 @@ class persona extends AbstractEntidad{
 		
 		super();
 
+		this.esTest = esTest == 'test';
 		this.columnasamostrar = ['dni','nombre_persona', 'foto_persona'];
 		this.mostrarespecial = ['foto_persona','fechaNacimiento_persona'];
 		this.nombreentidad = 'persona';
@@ -12,6 +13,7 @@ class persona extends AbstractEntidad{
 		this.instalarLimpiezaMensajesError();
 		this.validations = new Validations();
 		this.access_functions = new ExternalAccess();
+		this.dnisDisponibles = null;
 
 
 		//init
@@ -109,22 +111,37 @@ class persona extends AbstractEntidad{
 	*/
 	async cargarUsuariosDisponibles(dniSeleccionado = ''){
 		const selectDni = document.getElementById('dni');
+		selectDni.disabled = true;
+		this.dnisDisponibles = null;
 		try {
-			const respuesta = await this.access_functions.peticionBackGeneral('', 'usuario', 'SEARCH');
-			let usuarios;
-			if (respuesta.code === 'RECORDSET_VACIO') {
-				usuarios = [];
-			} else if (respuesta.code === 'RECORDSET_DATOS' && Array.isArray(respuesta.resource)) {
-				usuarios = respuesta.resource;
-			} else {
-				throw new Error(respuesta.code || 'No se pudieron cargar los usuarios.');
-			}
+			const [respuestaUsuarios, respuestaPersonas] = await Promise.all([
+				this.access_functions.peticionBackGeneral('', 'usuario', 'SEARCH'),
+				this.access_functions.peticionBackGeneral('', 'persona', 'SEARCH')
+			]);
+			const obtenerRegistros = (respuesta, entidad) => {
+				if (respuesta.code === 'RECORDSET_VACIO'){
+					return [];
+				}
+				if (respuesta.code === 'RECORDSET_DATOS' && Array.isArray(respuesta.resource)){
+					return respuesta.resource;
+				}
+				throw new Error(respuesta.code || `No se pudieron cargar los datos de ${entidad}.`);
+			};
+			const usuarios = obtenerRegistros(respuestaUsuarios, 'usuarios');
+			const personas = obtenerRegistros(respuestaPersonas, 'personas');
+			const dnisOcupados = new Set(personas
+				.map(persona => String(persona.dni))
+				.filter(dni => dni !== String(dniSeleccionado)));
+			const usuariosDisponibles = usuarios.filter(usuario =>
+				!dnisOcupados.has(String(usuario.dni))
+			);
+			this.dnisDisponibles = new Set(usuariosDisponibles.map(usuario => String(usuario.dni)));
 
 			const opcionVacia = document.createElement('option');
 			opcionVacia.value = '';
 			opcionVacia.textContent = '';
 			selectDni.replaceChildren(opcionVacia);
-			usuarios.forEach(usuario => {
+			usuariosDisponibles.forEach(usuario => {
 				const opcion = document.createElement('option');
 				opcion.value = usuario.dni;
 				opcion.textContent = usuario.dni;
@@ -133,7 +150,25 @@ class persona extends AbstractEntidad{
 			selectDni.value = dniSeleccionado;
 		} catch (error) {
 			this.dom.abrirModalError(error.message || 'No se pudieron cargar los usuarios.');
+		} finally {
+			selectDni.disabled = false;
 		}
+	}
+
+	validarDniPersonaDisponible(){
+		if (this.esTest){
+			return true;
+		}
+		if (this.dnisDisponibles === null){
+			this.dom.mostrar_error_campo('dni', 'dni_persona_no_verificado_KO');
+			return false;
+		}
+		const dni = document.getElementById('dni').value;
+		if (!this.dnisDisponibles.has(String(dni))){
+			this.dom.mostrar_error_campo('dni', 'dni_persona_ocupado_KO');
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -178,6 +213,9 @@ class persona extends AbstractEntidad{
 		if (!this.personalize_dni('dni')){
 			this.dom.mostrar_error_campo('dni', 'dni_personalized_validate_dni_KO');
 			return 'dni_personalized_validate_dni_KO';
+		}
+		if (!this.validarDniPersonaDisponible()){
+			return 'dni_persona_ocupado_KO';
 		}
 		this.dom.mostrar_exito_campo('dni');
 		return true;
@@ -279,7 +317,7 @@ class persona extends AbstractEntidad{
 			this.dom.mostrar_error_campo('email_persona', 'email_persona_min_size_KO');
 			return 'email_persona_min_size_KO';
 		}
-		if (email.length > 254){
+		if (email.length > 45){
 			this.dom.mostrar_error_campo('email_persona', 'email_persona_max_size_KO');
 			return 'email_persona_max_size_KO';
 		}
@@ -621,7 +659,7 @@ class persona extends AbstractEntidad{
 			this.dom.mostrar_exito_campo('email_persona');
 			return true;
 		}
-		if (email.length > 254){
+		if (email.length > 45){
 			this.dom.mostrar_error_campo('email_persona', 'email_persona_max_size_KO');
 			return 'email_persona_max_size_KO';
 		}

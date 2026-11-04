@@ -99,16 +99,16 @@
     //Campo email_persona
     //ADD
     ['persona', 'email_persona', 'input', 68, 'Validar min_size de email_persona en ADD', 'min_size', 'ADD', 'email_persona_min_size_KO', 'El email debe tener al menos 5 caracteres'],
-    ['persona', 'email_persona', 'input', 69, 'Validar max_size de email_persona en ADD', 'max_size', 'ADD', 'email_persona_max_size_KO', 'El email no debe superar 254 caracteres'],
+    ['persona', 'email_persona', 'input', 69, 'Validar max_size de email_persona en ADD', 'max_size', 'ADD', 'email_persona_max_size_KO', 'El email no debe superar 45 caracteres'],
     ['persona', 'email_persona', 'input', 70, 'Validar format de email_persona en ADD', 'format', 'ADD', 'email_persona_format_KO', 'El campo email_persona debe tener un formato de email valido'],
     ['persona', 'email_persona', 'input', 71, 'Validar email_persona correcto en ADD', 'valid', 'ADD', true, 'email_persona correcto'],
     //EDIT
     ['persona', 'email_persona', 'input', 72, 'Validar min_size de email_persona en EDIT', 'min_size', 'EDIT', 'email_persona_min_size_KO', 'El email debe tener al menos 5 caracteres'],
-    ['persona', 'email_persona', 'input', 73, 'Validar max_size de email_persona en EDIT', 'max_size', 'EDIT', 'email_persona_max_size_KO', 'El email no debe superar 254 caracteres'],
+    ['persona', 'email_persona', 'input', 73, 'Validar max_size de email_persona en EDIT', 'max_size', 'EDIT', 'email_persona_max_size_KO', 'El email no debe superar 45 caracteres'],
     ['persona', 'email_persona', 'input', 74, 'Validar format de email_persona en EDIT', 'format', 'EDIT', 'email_persona_format_KO', 'El campo email_persona debe tener un formato de email valido'],
     ['persona', 'email_persona', 'input', 75, 'Validar email_persona correcto en EDIT', 'valid', 'EDIT', true, 'email_persona correcto'],
     //SEARCH
-    ['persona', 'email_persona', 'input', 76, 'Validar max_size de email_persona en SEARCH', 'max_size', 'SEARCH', 'email_persona_max_size_KO', 'El email no debe superar 254 caracteres'],
+    ['persona', 'email_persona', 'input', 76, 'Validar max_size de email_persona en SEARCH', 'max_size', 'SEARCH', 'email_persona_max_size_KO', 'El email no debe superar 45 caracteres'],
     ['persona', 'email_persona', 'input', 77, 'Validar format de email_persona en SEARCH', 'format', 'SEARCH', 'email_persona_format_KO', 'El campo email_persona debe tener un formato de email valido'],
     ['persona', 'email_persona', 'input', 78, 'Validar email_persona correcto en SEARCH', 'valid', 'SEARCH', true, 'email_persona correcto'],
 
@@ -285,29 +285,29 @@ var persona_pruebas = [
     //email_persona
     //ADD
     ['persona', 'email_persona', 68, 113, 'ADD', {'email_persona': 'a@b'},'email_persona_min_size_KO'],
-    ['persona', 'email_persona', 69, 114, 'ADD', {'email_persona': 'a'.repeat(65) + '@' + 'b'.repeat(63) + '.' + 'c'.repeat(63) + '.' + 'd'.repeat(61)},'email_persona_max_size_KO'],
+    ['persona', 'email_persona', 69, 114, 'ADD', {'email_persona': 'a'.repeat(33) + '@' + 'b'.repeat(8) + '.com'},'email_persona_max_size_KO'],
     ['persona', 'email_persona', 70, 115, 'ADD', {'email_persona': 'correo'},'email_persona_format_KO'],
     ['persona', 'email_persona', 70, 116, 'ADD', {'email_persona': 'persona@'},'email_persona_format_KO'],
     ['persona', 'email_persona', 70, 117, 'ADD', {'email_persona': '@example.com'},'email_persona_format_KO'],
     ['persona', 'email_persona', 71, 118, 'ADD', {'email_persona': 'persona@example.com'},true],
     ['persona', 'email_persona', 71, 119, 'ADD', {'email_persona': 'a@b.c'},true],
-    ['persona', 'email_persona', 71, 120, 'ADD', {'email_persona': 'a'.repeat(64) + '@' + 'b'.repeat(63) + '.' + 'c'.repeat(63) + '.' + 'd'.repeat(61)},true],
+    ['persona', 'email_persona', 71, 120, 'ADD', {'email_persona': 'a'.repeat(32) + '@' + 'b'.repeat(8) + '.com'},true],
     //EDIT
     ['persona', 'email_persona', 72, 121, 'EDIT', {'email_persona': 'a@b'},'email_persona_min_size_KO'],
-    ['persona', 'email_persona', 73, 122, 'EDIT', {'email_persona': 'a'.repeat(65) + '@' + 'b'.repeat(63) + '.' + 'c'.repeat(63) + '.' + 'd'.repeat(61)},'email_persona_max_size_KO'],
+    ['persona', 'email_persona', 73, 122, 'EDIT', {'email_persona': 'a'.repeat(33) + '@' + 'b'.repeat(8) + '.com'},'email_persona_max_size_KO'],
     ['persona', 'email_persona', 74, 123, 'EDIT', {'email_persona': 'correo'},'email_persona_format_KO'],
     ['persona', 'email_persona', 74, 124, 'EDIT', {'email_persona': 'persona@'},'email_persona_format_KO'],
     ['persona', 'email_persona', 74, 125, 'EDIT', {'email_persona': '@example.com'},'email_persona_format_KO'],
     ['persona', 'email_persona', 75, 126, 'EDIT', {'email_persona': 'persona@example.com'},true],
     ['persona', 'email_persona', 75, 127, 'EDIT', {'email_persona': 'a@b.c'},true],
-    ['persona', 'email_persona', 75, 128, 'EDIT', {'email_persona': 'a'.repeat(64) + '@' + 'b'.repeat(63) + '.' + 'c'.repeat(63) + '.' + 'd'.repeat(61)},true],
+    ['persona', 'email_persona', 75, 128, 'EDIT', {'email_persona': 'a'.repeat(32) + '@' + 'b'.repeat(8) + '.com'},true],
     //SEARCH
-    ['persona', 'email_persona', 76, 129, 'SEARCH', {'email_persona': 'a'.repeat(65) + '@' + 'b'.repeat(63) + '.' + 'c'.repeat(63) + '.' + 'd'.repeat(61)},'email_persona_max_size_KO'],
+    ['persona', 'email_persona', 76, 129, 'SEARCH', {'email_persona': 'a'.repeat(33) + '@' + 'b'.repeat(8) + '.com'},'email_persona_max_size_KO'],
     ['persona', 'email_persona', 77, 130, 'SEARCH', {'email_persona': 'correo'},'email_persona_format_KO'],
     ['persona', 'email_persona', 77, 131, 'SEARCH', {'email_persona': 'persona@'},'email_persona_format_KO'],
     ['persona', 'email_persona', 77, 132, 'SEARCH', {'email_persona': '@example.com'},'email_persona_format_KO'],
     ['persona', 'email_persona', 78, 133, 'SEARCH', {'email_persona': ''},true],
-    ['persona', 'email_persona', 78, 134, 'SEARCH', {'email_persona': 'persona@example.com'},true],
+    ['persona', 'email_persona', 78, 134, 'SEARCH', {'email_persona': 'a'.repeat(32) + '@' + 'b'.repeat(8) + '.com'},true],
     ['persona', 'email_persona', 78, 135, 'SEARCH', {'email_persona': 'a@b.c'},true],
 
     //nuevo_foto_persona
