@@ -122,6 +122,58 @@ class funcionalidad_accion extends AbstractEntidad {
         return valor && typeof valor === 'object' ? valor[clave] : valor;
     }
 
+    async eliminarPermisosDependientes(datos) {
+        let permisosEliminados = 0;
+        try {
+            const permisos = await this.buscarRegistros('rolaccionfuncionalidad', {
+                id_funcionalidad: datos.id_funcionalidad,
+                id_accion: datos.id_accion
+            });
+            const permisosRelacionados = permisos.filter(permiso =>
+                String(this.obtenerIdRelacionado(permiso.id_funcionalidad, 'id_funcionalidad')) ===
+                    String(datos.id_funcionalidad) &&
+                String(this.obtenerIdRelacionado(permiso.id_accion, 'id_accion')) ===
+                    String(datos.id_accion)
+            );
+            const rolesEliminados = new Set();
+
+            for (const permiso of permisosRelacionados) {
+                const idRol = this.obtenerIdRelacionado(permiso.id_rol, 'id_rol');
+                if (idRol === undefined || idRol === null || idRol === '') {
+                    throw new Error(window.traduccion.text_error_permiso_sin_rol);
+                }
+                if (rolesEliminados.has(String(idRol))) {
+                    continue;
+                }
+
+                const respuesta = await this.access_functions.peticionBackGeneral(
+                    '',
+                    'rolaccionfuncionalidad',
+                    'DELETE',
+                    {
+                        id_rol: idRol,
+                        id_funcionalidad: datos.id_funcionalidad,
+                        id_accion: datos.id_accion
+                    }
+                );
+                if (!respuesta || !respuesta.ok) {
+                    throw new Error(respuesta?.code || window.traduccion.text_error_guardar_cambio);
+                }
+                rolesEliminados.add(String(idRol));
+                permisosEliminados++;
+            }
+
+            return permisosEliminados;
+        } catch (error) {
+            if (permisosEliminados > 0) {
+                const detalle = window.traduccion.text_permisos_eliminados_antes_error
+                    .replace('{count}', String(permisosEliminados));
+                throw new Error(`${error.message || error}${detalle}`);
+            }
+            throw error;
+        }
+    }
+
     async gestionarCambioRelacion(checkbox) {
         checkbox.disabled = true;
         this.mostrarEstado(window.traduccion.text_guardando_cambio);
@@ -129,7 +181,11 @@ class funcionalidad_accion extends AbstractEntidad {
             id_funcionalidad: checkbox.dataset.funcionalidad,
             id_accion: checkbox.dataset.accion
         };
+        let permisosEliminados = 0;
         try {
+            if (!checkbox.checked) {
+                permisosEliminados = await this.eliminarPermisosDependientes(datos);
+            }
             const respuesta = await this.access_functions.peticionBackGeneral(
                 '',
                 'funcionalidad_accion',
@@ -137,11 +193,18 @@ class funcionalidad_accion extends AbstractEntidad {
                 datos
             );
             if (!respuesta || !respuesta.ok) {
-                checkbox.checked = !checkbox.checked;
-                this.mostrarError(new Error(respuesta?.code || window.traduccion.text_error_guardar_cambio));
-                return;
+                let mensaje = respuesta?.code || window.traduccion.text_error_guardar_cambio;
+                if (permisosEliminados > 0) {
+                    mensaje += window.traduccion.text_permisos_eliminados_antes_error
+                        .replace('{count}', String(permisosEliminados));
+                }
+                throw new Error(mensaje);
             }
-            this.mostrarEstado(window.traduccion.text_cambios_guardados);
+            const mensajeGuardado = permisosEliminados > 0
+                ? window.traduccion.text_cambio_guardado_con_permisos
+                    .replace('{count}', String(permisosEliminados))
+                : window.traduccion.text_cambios_guardados;
+            this.mostrarEstado(mensajeGuardado);
         } catch (error) {
             checkbox.checked = !checkbox.checked;
             this.mostrarError(error);

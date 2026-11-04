@@ -60,7 +60,10 @@ var textos_EN = {
     "text_guardado_automatico": "Changes are saved automatically when you check or uncheck a box; no additional button is needed.",
     "text_guardando_cambio": "Saving change...",
     "text_cambios_guardados": "Change saved.",
+    "text_cambio_guardado_con_permisos": "Change saved. {count} role permission(s) were also deleted.",
     "text_error_guardar_cambio": "Could not save the change.",
+    "text_error_permiso_sin_rol": "The associated role could not be identified; the deletion was not completed.",
+    "text_permisos_eliminados_antes_error": " {count} role permission(s) were deleted before the operation failed.",
 
     // Form labels
     "label_dni": "National ID",

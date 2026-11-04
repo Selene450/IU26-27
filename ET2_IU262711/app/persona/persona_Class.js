@@ -99,30 +99,6 @@ class persona extends AbstractEntidad{
 		@return {bool} true due the field value is correct
 
 	*/
-	ADD_dni_validation(){
-		const dni = document.getElementById('dni').value;
-		if (dni.length < 9){
-			this.dom.mostrar_error_campo('dni', 'dni_min_size_KO');
-			return 'dni_min_size_KO';
-		}
-		if (dni.length > 9){
-			this.dom.mostrar_error_campo('dni', 'dni_max_size_KO');
-			return 'dni_max_size_KO';
-		}
-		if (!this.validations.format('dni', '^[0-9]{8}[A-Z]$')){
-			this.dom.mostrar_error_campo('dni', 'dni_format_KO');
-			return 'dni_format_KO';
-		}
-		if (!(this.personalize_dni('dni'))){
-			this.dom.mostrar_error_campo('dni','dni_personalized_validate_dni_KO');
-			return "dni_personalized_validate_dni_KO";
-		}
-		
-		this.dom.mostrar_exito_campo('dni');
-		return true;
-
-	}
-
 	async cargarUsuariosDisponibles(dniSeleccionado = ''){
 		const selectDni = document.getElementById('dni');
 		try {
@@ -166,141 +142,193 @@ class persona extends AbstractEntidad{
     	return letter == dni.charAt(8);
 	}
 
-	validar_texto_persona(id, minSize, maxSize, formato, opcional=false){
-		const valor = document.getElementById(id).value;
-		if (opcional && valor.trim() === ''){
-			this.dom.mostrar_exito_campo(id);
-			return true;
-		}
-		if (minSize !== null && valor.length < minSize){
-			const codigo = `${id}_min_size_KO`;
-			this.dom.mostrar_error_campo(id, codigo);
-			return codigo;
-		}
-		if (maxSize !== null && valor.length > maxSize){
-			const codigo = `${id}_max_size_KO`;
-			this.dom.mostrar_error_campo(id, codigo);
-			return codigo;
-		}
-		if (formato && !formato.test(valor)){
-			const codigo = `${id}_format_KO`;
-			this.dom.mostrar_error_campo(id, codigo);
-			return codigo;
-		}
-		this.dom.mostrar_exito_campo(id);
-		return true;
-	}
-
-	validar_nombre_foto_guardada(id, obligatorio=false, minNameLength=3){
-		const elemento = document.getElementById(id);
-		const esFichero = elemento.type === 'file';
-		const valor = esFichero
-			? elemento.files[0]?.name || ''
-			: elemento.value.split(/[\\/]/).pop();
-		if (esFichero && obligatorio && !elemento.files.length){
-			const codigo = `${id}_exist_file_KO`;
-			this.dom.mostrar_error_campo(id, codigo);
-			return codigo;
-		}
-		if (valor.trim() === ''){
-			this.dom.mostrar_exito_campo(id);
-			return true;
-		}
-		const partes = /^(.+)\.(jpg|jpeg)$/i.exec(valor);
-		if (!partes){
-			const codigo = `${id}_format_name_file_KO`;
-			this.dom.mostrar_error_campo(id, codigo);
-			return codigo;
-		}
-		if (minNameLength !== null && partes[1].length < minNameLength){
-			const codigo = `${id}_min_name_file_KO`;
-			this.dom.mostrar_error_campo(id, codigo);
-			return codigo;
-		}
-		if (partes[1].length > 15){
-			const codigo = `${id}_max_name_file_KO`;
-			this.dom.mostrar_error_campo(id, codigo);
-			return codigo;
-		}
-		if (!/^[a-zA-Z]+$/.test(partes[1])){
-			const codigo = `${id}_format_name_file_KO`;
-			this.dom.mostrar_error_campo(id, codigo);
-			return codigo;
-		}
-		if (esFichero){
-			if (elemento.files[0].size > 2000000){
-				const codigo = `${id}_max_size_file_KO`;
-				this.dom.mostrar_error_campo(id, codigo);
-				return codigo;
-			}
-			if (elemento.files[0].type !== 'image/jpeg'){
-				const codigo = `${id}_format_KO`;
-				this.dom.mostrar_error_campo(id, codigo);
-				return codigo;
-			}
-		}
-		this.dom.mostrar_exito_campo(id);
-		return true;
-	}
-
 	/**
-		
-		@param 
+		@param
 		@return
-			{string} Error code of field value (fieldname_validationfunction_ko) 
+			{string} Error code of field value (fieldname_validationfunction_ko)
 			or
 			{bool} true due the field value is correct
 
 	*/
 
-	ADD_nombre_persona_validation(){
-		return this.validar_texto_persona('nombre_persona', 2, 45, /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]+$/);
+	//ADD
+
+	ADD_dni_validation(){
+		const dni = document.getElementById('dni').value;
+		if (dni.length < 9){
+			this.dom.mostrar_error_campo('dni', 'dni_min_size_KO');
+			return 'dni_min_size_KO';
+		}
+		if (dni.length > 9){
+			this.dom.mostrar_error_campo('dni', 'dni_max_size_KO');
+			return 'dni_max_size_KO';
+		}
+		if (!this.validations.format('dni', '^[0-9]{8}[A-Z]$')){
+			this.dom.mostrar_error_campo('dni', 'dni_format_KO');
+			return 'dni_format_KO';
+		}
+		if (!this.personalize_dni('dni')){
+			this.dom.mostrar_error_campo('dni', 'dni_personalized_validate_dni_KO');
+			return 'dni_personalized_validate_dni_KO';
+		}
+		this.dom.mostrar_exito_campo('dni');
+		return true;
 	}
 
-	validar_nombre_nuevo_foto_persona(){
-		const nombreFichero = document.getElementById('nuevo_foto_persona').files[0].name;
-		const indiceExtension = nombreFichero.lastIndexOf('.');
-		const nombre = indiceExtension === -1
-			? nombreFichero
-			: nombreFichero.slice(0, indiceExtension);
+	ADD_nombre_persona_validation(){
+		const nombre = document.getElementById('nombre_persona').value;
+		if (nombre.length < 2){
+			this.dom.mostrar_error_campo('nombre_persona', 'nombre_persona_min_size_KO');
+			return 'nombre_persona_min_size_KO';
+		}
+		if (nombre.length > 45){
+			this.dom.mostrar_error_campo('nombre_persona', 'nombre_persona_max_size_KO');
+			return 'nombre_persona_max_size_KO';
+		}
+		if (!this.validations.format('nombre_persona', "^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]+$")){
+			this.dom.mostrar_error_campo('nombre_persona', 'nombre_persona_format_KO');
+			return 'nombre_persona_format_KO';
+		}
+		this.dom.mostrar_exito_campo('nombre_persona');
+		return true;
+	}
 
-		if (nombre.length < 3){
-			this.dom.mostrar_error_campo('nuevo_foto_persona','nuevo_foto_persona_min_name_file_KO');
-			return 'nuevo_foto_persona_min_name_file_KO';
+	ADD_apellidos_persona_validation(){
+		const apellidos = document.getElementById('apellidos_persona').value;
+		if (apellidos.length < 3){
+			this.dom.mostrar_error_campo('apellidos_persona', 'apellidos_persona_min_size_KO');
+			return 'apellidos_persona_min_size_KO';
 		}
-		if (nombre.length > 15){
-			this.dom.mostrar_error_campo('nuevo_foto_persona','nuevo_foto_persona_max_name_file_KO');
-			return 'nuevo_foto_persona_max_name_file_KO';
+		if (apellidos.length > 100){
+			this.dom.mostrar_error_campo('apellidos_persona', 'apellidos_persona_max_size_KO');
+			return 'apellidos_persona_max_size_KO';
 		}
-		if (!(this.validations.format_name_file('nuevo_foto_persona','^[a-zA-Z]{3,15}\\.(jpg|jpeg)$'))){
-			this.dom.mostrar_error_campo('nuevo_foto_persona','nuevo_foto_persona_format_name_file_KO');
-			return 'nuevo_foto_persona_format_name_file_KO';
+		if (!this.validations.format('apellidos_persona', "^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]+$")){
+			this.dom.mostrar_error_campo('apellidos_persona', 'apellidos_persona_format_KO');
+			return 'apellidos_persona_format_KO';
 		}
+		this.dom.mostrar_exito_campo('apellidos_persona');
+		return true;
+	}
+
+	ADD_fechaNacimiento_persona_validation(){
+		const fechaNacimiento = document.getElementById('fechaNacimiento_persona').value;
+		if (fechaNacimiento.length < 10){
+			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_min_size_KO');
+			return 'fechaNacimiento_persona_min_size_KO';
+		}
+		if (fechaNacimiento.length > 10){
+			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_max_size_KO');
+			return 'fechaNacimiento_persona_max_size_KO';
+		}
+		if (!this.validations.format('fechaNacimiento_persona', '^(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[0-2])\\/[0-9]{4}$')){
+			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_format_KO');
+			return 'fechaNacimiento_persona_format_KO';
+		}
+		this.dom.mostrar_exito_campo('fechaNacimiento_persona');
+		return true;
+	}
+
+	ADD_direccion_persona_validation(){
+		const direccion = document.getElementById('direccion_persona').value;
+		if (direccion.length < 10){
+			this.dom.mostrar_error_campo('direccion_persona', 'direccion_persona_min_size_KO');
+			return 'direccion_persona_min_size_KO';
+		}
+		if (direccion.length > 200){
+			this.dom.mostrar_error_campo('direccion_persona', 'direccion_persona_max_size_KO');
+			return 'direccion_persona_max_size_KO';
+		}
+		if (!this.validations.format('direccion_persona', '^[A-Za-z0-9ÁÉÍÓÚÜÑáéíóúüñ .;,\\-/]+$')){
+			this.dom.mostrar_error_campo('direccion_persona', 'direccion_persona_format_KO');
+			return 'direccion_persona_format_KO';
+		}
+		this.dom.mostrar_exito_campo('direccion_persona');
+		return true;
+	}
+
+	ADD_telefono_persona_validation(){
+		const telefono = document.getElementById('telefono_persona').value;
+		if (telefono.length < 9){
+			this.dom.mostrar_error_campo('telefono_persona', 'telefono_persona_min_size_KO');
+			return 'telefono_persona_min_size_KO';
+		}
+		if (telefono.length > 9){
+			this.dom.mostrar_error_campo('telefono_persona', 'telefono_persona_max_size_KO');
+			return 'telefono_persona_max_size_KO';
+		}
+		if (!this.validations.format('telefono_persona', '^[0-9]{9}$')){
+			this.dom.mostrar_error_campo('telefono_persona', 'telefono_persona_format_KO');
+			return 'telefono_persona_format_KO';
+		}
+		this.dom.mostrar_exito_campo('telefono_persona');
+		return true;
+	}
+
+	ADD_email_persona_validation(){
+		const email = document.getElementById('email_persona').value;
+		if (email.length < 5){
+			this.dom.mostrar_error_campo('email_persona', 'email_persona_min_size_KO');
+			return 'email_persona_min_size_KO';
+		}
+		if (email.length > 254){
+			this.dom.mostrar_error_campo('email_persona', 'email_persona_max_size_KO');
+			return 'email_persona_max_size_KO';
+		}
+		if (!this.validations.format(
+			'email_persona',
+			"^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$"
+		)){
+			this.dom.mostrar_error_campo('email_persona', 'email_persona_format_KO');
+			return 'email_persona_format_KO';
+		}
+		this.dom.mostrar_exito_campo('email_persona');
 		return true;
 	}
 
 	ADD_nuevo_foto_persona_validation(){
-
-		if (!(this.validations.exist_file('nuevo_foto_persona'))){
-			this.dom.mostrar_error_campo('nuevo_foto_persona','nuevo_foto_persona_exist_file_KO');
-			return "nuevo_foto_persona_exist_file_KO";
+		if (!this.validations.exist_file('nuevo_foto_persona')){
+			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_exist_file_KO');
+			return 'nuevo_foto_persona_exist_file_KO';
 		}
-		const validacionNombre = this.validar_nombre_nuevo_foto_persona();
-		if (validacionNombre !== true){
-			return validacionNombre;
+		const nombreFichero = document.getElementById('nuevo_foto_persona').files[0].name;
+		const nombreSinExtension = nombreFichero.replace(/\.(jpg|jpeg)$/i, '');
+		if (!this.personalize_nuevo_foto_persona__min_name_file_validation(nombreSinExtension)){
+			return 'nuevo_foto_persona_min_name_file_KO';
 		}
-		if (!(this.validations.max_size_file('nuevo_foto_persona',2000000))){
-			this.dom.mostrar_error_campo('nuevo_foto_persona','nuevo_foto_persona_max_size_file_KO');
-			return "nuevo_foto_persona_max_size_file_KO";
+		if (!this.personalize_nuevo_foto_persona__max_name_file_validation(nombreSinExtension)){
+			return 'nuevo_foto_persona_max_name_file_KO';
 		}
-		if (!(this.validations.type_file('nuevo_foto_persona',['image/jpeg']))){
-			this.dom.mostrar_error_campo('nuevo_foto_persona','nuevo_foto_persona_format_KO');
-			return "nuevo_foto_persona_format_KO";
+		if (!this.validations.format_name_file('nuevo_foto_persona', '^[a-zA-Z]{3,15}\\.(jpg|jpeg)$')){
+			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_format_name_file_KO');
+			return 'nuevo_foto_persona_format_name_file_KO';
+		}
+		if (!this.validations.max_size_file('nuevo_foto_persona', 2000000)){
+			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_max_size_file_KO');
+			return 'nuevo_foto_persona_max_size_file_KO';
+		}
+		if (!this.validations.type_file('nuevo_foto_persona', ['image/jpeg'])){
+			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_type_file_KO');
+			return 'nuevo_foto_persona_type_file_KO';
 		}
 		this.dom.mostrar_exito_campo('nuevo_foto_persona');
 		return true;
+	}
 
+	personalize_nuevo_foto_persona__min_name_file_validation(nombreFichero){
+		if (nombreFichero.length < 3){
+			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_min_name_file_KO');
+			return false;
+		}
+		return true;
+	}
 
+	personalize_nuevo_foto_persona__max_name_file_validation(nombreFichero){
+		if (nombreFichero.length > 15){
+			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_max_name_file_KO');
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -322,7 +350,6 @@ class persona extends AbstractEntidad{
 		set_result.direccion_persona = this.ADD_direccion_persona_validation();
 		set_result.telefono_persona = this.ADD_telefono_persona_validation();
 		set_result.email_persona = this.ADD_email_persona_validation();
-		set_result.foto_persona = this.ADD_foto_persona_validation();
 		set_result.nuevo_foto_persona = this.ADD_nuevo_foto_persona_validation();
 
 		return Object.values(set_result).every(resultado => resultado === true)
@@ -331,56 +358,33 @@ class persona extends AbstractEntidad{
 
 	}
 
+	//
+	//EDIT
+	//
+	EDIT_dni_validation(){
+		return this.ADD_dni_validation();
+	}
+
 	EDIT_nombre_persona_validation(){
 
 		return this.ADD_nombre_persona_validation();
 
 	}
 
-	ADD_apellidos_persona_validation(){
-		return this.validar_texto_persona('apellidos_persona', 3, 100, /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]+$/);
-	}
-
 	EDIT_apellidos_persona_validation(){
 		return this.ADD_apellidos_persona_validation();
-	}
-
-	ADD_fechaNacimiento_persona_validation(){
-		return this.validar_texto_persona(
-			'fechaNacimiento_persona',
-			10,
-			10,
-			/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/[0-9]{4}$/
-		);
 	}
 
 	EDIT_fechaNacimiento_persona_validation(){
 		return this.ADD_fechaNacimiento_persona_validation();
 	}
 
-	ADD_direccion_persona_validation(){
-		return this.validar_texto_persona('direccion_persona', 10, 200, /^[A-Za-z0-9ÁÉÍÓÚÜÑáéíóúüñ .;,\-/]+$/);
-	}
-
 	EDIT_direccion_persona_validation(){
 		return this.ADD_direccion_persona_validation();
 	}
 
-	ADD_telefono_persona_validation(){
-		return this.validar_texto_persona('telefono_persona', 9, 9, /^[0-9]{9}$/);
-	}
-
 	EDIT_telefono_persona_validation(){
 		return this.ADD_telefono_persona_validation();
-	}
-
-	ADD_email_persona_validation(){
-		return this.validar_texto_persona(
-			'email_persona',
-			5,
-			254,
-			/^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$/
-		);
 	}
 
 	EDIT_email_persona_validation(){
@@ -393,17 +397,24 @@ class persona extends AbstractEntidad{
 			this.dom.mostrar_exito_campo('nuevo_foto_persona');
 			return true;
 		}
-		const validacionNombre = this.validar_nombre_nuevo_foto_persona();
-		if (validacionNombre !== true){
-			return validacionNombre;
+		if (!(this.personalize_nuevo_foto_persona__min_name_file_validation(nombreFichero))){
+			return "nuevo_foto_persona_min_name_file_KO";
 		}
+		if (!(this.personalize_nuevo_foto_persona__max_name_file_validation(nombreFichero))){
+			return "nuevo_foto_persona_max_name_file_KO";
+		}
+		if (!(this.validations.format_name_file('nuevo_foto_persona','^[a-zA-Z]{3,15}\\.(jpg|jpeg)$'))){
+			this.dom.mostrar_error_campo('nuevo_foto_persona','nuevo_foto_persona_format_name_file_KO');
+			return "nuevo_foto_persona_format_name_file_KO";
+		}
+
 		if (!(this.validations.max_size_file('nuevo_foto_persona',2000000))){
 			this.dom.mostrar_error_campo('nuevo_foto_persona','nuevo_foto_persona_max_size_file_KO');
 			return "nuevo_foto_persona_max_size_file_KO";
 		}
 		if (!(this.validations.type_file('nuevo_foto_persona',['image/jpeg']))){
-			this.dom.mostrar_error_campo('nuevo_foto_persona','nuevo_foto_persona_format_KO');
-			return "nuevo_foto_persona_format_KO";
+			this.dom.mostrar_error_campo('nuevo_foto_persona','nuevo_foto_persona_type_file_KO');
+			return "nuevo_foto_persona_type_file_KO";
 		}
 		this.dom.mostrar_exito_campo('nuevo_foto_persona');
 		return true;
@@ -430,7 +441,6 @@ class persona extends AbstractEntidad{
 		set_result.direccion_persona = this.EDIT_direccion_persona_validation();
 		set_result.telefono_persona = this.EDIT_telefono_persona_validation();
 		set_result.email_persona = this.EDIT_email_persona_validation();
-		set_result.foto_persona = this.EDIT_foto_persona_validation();
 		set_result.nuevo_foto_persona = this.EDIT_nuevo_foto_persona_validation();
 
 		return Object.values(set_result).every(resultado => resultado === true)
@@ -438,6 +448,8 @@ class persona extends AbstractEntidad{
 			: set_result;
 
 	}
+
+	//SEARCH
 
 	SEARCH_dni_validation(){
 		const dni = document.getElementById('dni').value;
@@ -461,6 +473,146 @@ class persona extends AbstractEntidad{
 		return true;
 	}
 
+
+	SEARCH_nombre_persona_validation(){
+		const nombre = document.getElementById('nombre_persona').value;
+		if (nombre.trim() === ''){
+			this.dom.mostrar_exito_campo('nombre_persona');
+			return true;
+		}
+		if (nombre.length > 45){
+			this.dom.mostrar_error_campo('nombre_persona', 'nombre_persona_max_size_KO');
+			return 'nombre_persona_max_size_KO';
+		}
+		if (!this.validations.format('nombre_persona', "^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]+$")){
+			this.dom.mostrar_error_campo('nombre_persona', 'nombre_persona_format_KO');
+			return 'nombre_persona_format_KO';
+		}
+		this.dom.mostrar_exito_campo('nombre_persona');
+		return true;
+	}
+
+	SEARCH_apellidos_persona_validation(){
+		const apellidos = document.getElementById('apellidos_persona').value;
+		if (apellidos.trim() === ''){
+			this.dom.mostrar_exito_campo('apellidos_persona');
+			return true;
+		}
+		if (apellidos.length > 100){
+			this.dom.mostrar_error_campo('apellidos_persona', 'apellidos_persona_max_size_KO');
+			return 'apellidos_persona_max_size_KO';
+		}
+		if (!this.validations.format('apellidos_persona', "^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]+$")){
+			this.dom.mostrar_error_campo('apellidos_persona', 'apellidos_persona_format_KO');
+			return 'apellidos_persona_format_KO';
+		}
+		this.dom.mostrar_exito_campo('apellidos_persona');
+		return true;
+	}
+
+	SEARCH_fechaNacimiento_persona_validation(){
+		const fechaNacimiento = document.getElementById('fechaNacimiento_persona').value;
+		if (fechaNacimiento.trim() === ''){
+			this.dom.mostrar_exito_campo('fechaNacimiento_persona');
+			return true;
+		}
+		if (fechaNacimiento.length > 10){
+			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_max_size_KO');
+			return 'fechaNacimiento_persona_max_size_KO';
+		}
+		if (!this.validations.format(
+			'fechaNacimiento_persona',
+			'^(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[0-2])\\/[0-9]{4}$'
+		)){
+			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_format_KO');
+			return 'fechaNacimiento_persona_format_KO';
+		}
+		this.dom.mostrar_exito_campo('fechaNacimiento_persona');
+		return true;
+	}
+
+	SEARCH_direccion_persona_validation(){
+		const direccion = document.getElementById('direccion_persona').value;
+		if (direccion.trim() === ''){
+			this.dom.mostrar_exito_campo('direccion_persona');
+			return true;
+		}
+		if (direccion.length > 200){
+			this.dom.mostrar_error_campo('direccion_persona', 'direccion_persona_max_size_KO');
+			return 'direccion_persona_max_size_KO';
+		}
+		if (!this.validations.format('direccion_persona', '^[A-Za-z0-9ÁÉÍÓÚÜÑáéíóúüñ .;,\\-/]+$')){
+			this.dom.mostrar_error_campo('direccion_persona', 'direccion_persona_format_KO');
+			return 'direccion_persona_format_KO';
+		}
+		this.dom.mostrar_exito_campo('direccion_persona');
+		return true;
+	}
+
+	SEARCH_telefono_persona_validation(){
+		const telefono = document.getElementById('telefono_persona').value;
+		if (telefono.trim() === ''){
+			this.dom.mostrar_exito_campo('telefono_persona');
+			return true;
+		}
+		if (telefono.length > 9){
+			this.dom.mostrar_error_campo('telefono_persona', 'telefono_persona_max_size_KO');
+			return 'telefono_persona_max_size_KO';
+		}
+		if (!this.validations.format('telefono_persona', '^[0-9]{9}$')){
+			this.dom.mostrar_error_campo('telefono_persona', 'telefono_persona_format_KO');
+			return 'telefono_persona_format_KO';
+		}
+		this.dom.mostrar_exito_campo('telefono_persona');
+		return true;
+	}
+
+	SEARCH_email_persona_validation(){
+		const email = document.getElementById('email_persona').value;
+		if (email.trim() === ''){
+			this.dom.mostrar_exito_campo('email_persona');
+			return true;
+		}
+		if (email.length > 254){
+			this.dom.mostrar_error_campo('email_persona', 'email_persona_max_size_KO');
+			return 'email_persona_max_size_KO';
+		}
+		if (!this.validations.format(
+			'email_persona',
+			"^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$"
+		)){
+			this.dom.mostrar_error_campo('email_persona', 'email_persona_format_KO');
+			return 'email_persona_format_KO';
+		}
+		this.dom.mostrar_exito_campo('email_persona');
+		return true;
+	}
+
+	SEARCH_foto_persona_validation(){
+		const elemento = document.getElementById('foto_persona');
+		const ruta = elemento.value;
+		if (ruta.trim() === ''){
+			this.dom.mostrar_exito_campo('foto_persona');
+			return true;
+		}
+		const nombreFichero = ruta.split(/[\\/]/).pop();
+		const partes = /^(.+)\.(jpg|jpeg)$/i.exec(nombreFichero);
+		if (!partes){
+			this.dom.mostrar_error_campo('foto_persona', 'foto_persona_format_name_file_KO');
+			return 'foto_persona_format_name_file_KO';
+		}
+		if (partes[1].length > 15){
+			this.dom.mostrar_error_campo('foto_persona', 'foto_persona_max_name_file_KO');
+			return 'foto_persona_max_name_file_KO';
+		}
+		if (!/^[a-zA-Z]+$/.test(partes[1])){
+			this.dom.mostrar_error_campo('foto_persona', 'foto_persona_format_name_file_KO');
+			return 'foto_persona_format_name_file_KO';
+		}
+		this.dom.mostrar_exito_campo('foto_persona');
+		return true;
+	}
+
 	SEARCH_submit_persona(){
 		const set_result = {
 			dni: this.SEARCH_dni_validation(),
@@ -471,7 +623,6 @@ class persona extends AbstractEntidad{
 			telefono_persona: this.SEARCH_telefono_persona_validation(),
 			email_persona: this.SEARCH_email_persona_validation(),
 			foto_persona: this.SEARCH_foto_persona_validation(),
-			nuevo_foto_persona: this.SEARCH_nuevo_foto_persona_validation()
 		};
 		return Object.values(set_result).every(resultado => resultado === true)
 			? true
@@ -695,74 +846,7 @@ class persona extends AbstractEntidad{
 	}
 
 
-	//ADD
-	//
-	//ADD_dni_validation(){return true;}
-	//ADD_nombre_persona_validation(){return true;}
-	ADD_foto_persona_validation(){
-		return this.validar_nombre_foto_guardada('foto_persona', true);
-	}
-	//ADD_nuevo_foto_persona_validation(){return true;}
 
-	//
-	//EDIT
-	//
-	EDIT_dni_validation(){
-		return this.ADD_dni_validation();
-	}
-	//EDIT_nombre_persona_validation(){return true;}
-	EDIT_foto_persona_validation(){
-		return this.validar_nombre_foto_guardada('foto_persona');
-	}
-	//EDIT_nuevo_foto_persona_validation(){return true;}
-
-	//
-	//SEARCH
-	//
-
-	SEARCH_nombre_persona_validation(){
-		return this.validar_texto_persona('nombre_persona', null, 45, /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]+$/, true);
-	}
-
-	SEARCH_apellidos_persona_validation(){
-		return this.validar_texto_persona('apellidos_persona', null, 100, /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .'-]+$/, true);
-	}
-
-	SEARCH_fechaNacimiento_persona_validation(){
-		return this.validar_texto_persona(
-			'fechaNacimiento_persona',
-			null,
-			10,
-			/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/[0-9]{4}$/,
-			true
-		);
-	}
-
-	SEARCH_direccion_persona_validation(){
-		return this.validar_texto_persona('direccion_persona', null, 200, /^[A-Za-z0-9ÁÉÍÓÚÜÑáéíóúüñ .;,\-/]+$/, true);
-	}
-
-	SEARCH_telefono_persona_validation(){
-		return this.validar_texto_persona('telefono_persona', null, 9, /^[0-9]{9}$/, true);
-	}
-
-	SEARCH_email_persona_validation(){
-		return this.validar_texto_persona(
-			'email_persona',
-			null,
-			254,
-			/^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$/,
-			true
-		);
-	}
-
-	SEARCH_foto_persona_validation(){
-		return this.validar_nombre_foto_guardada('foto_persona', false, null);
-	}
-
-	SEARCH_nuevo_foto_persona_validation(){
-		return this.validar_nombre_foto_guardada('nuevo_foto_persona', false, null);
-	}
 
 		
 }

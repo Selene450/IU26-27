@@ -100,10 +100,12 @@ class dom extends dom_table {
 	abrirModalError(errorMsg) {
         document.getElementById('error_action_modal').style.display = 'block';
         document.getElementById('modal_action_overlay').style.display = 'block';
-		//mientras no tenemos multiidioma, el mensaje de error es el codigo de error, en el futuro se traducira
-		//document.getElementById('error_action_msg').innerHTML = errorMsg;
-		//cuando ya tengamos el multiidioma, se pondra la clase del mensaje de error para que se traduzca
-        document.getElementById('error_action_msg').classList.add = errorMsg;
+		const mensaje = document.getElementById('error_action_msg');
+		mensaje.removeAttribute('class');
+		mensaje.textContent = errorMsg || '';
+		if (typeof errorMsg === 'string' && Object.prototype.hasOwnProperty.call(window.traduccion || {}, errorMsg)) {
+			mensaje.classList.add(errorMsg);
+		}
         setLang();
     }
 

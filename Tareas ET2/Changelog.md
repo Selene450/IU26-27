@@ -19,3 +19,7 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Se actualizo los idiomas y deberia estar completo [03/11/2026]
 - Se actualizaron Dom_fields y Validations para que funcionasen los formularios [03/11/2026]
 - Se han corregido test que fallaban al ejecutarse [03/11/2026]
+- Se corrigieron los formatos de las funciones de prueba en persona para encajar con el formato de Rodeiro [04/11/2026]
+- Se eliminaron tests y uebas de nuevo_foto_persona y foto_persona que no tenían utilidad lógica [04/11/2026]
+- Se añadieron las traducciones necesarias para los cambios [04/11/2026]
+- Se volvieron a crear ficheros necesarios de la estrructura eliminados por error [04/11/2026]

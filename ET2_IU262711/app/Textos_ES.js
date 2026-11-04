@@ -60,7 +60,10 @@ var textos_ES = {
     "text_guardado_automatico": "Los cambios se guardan automáticamente al marcar o desmarcar una casilla; no hay que pulsar otro botón.",
     "text_guardando_cambio": "Guardando cambio...",
     "text_cambios_guardados": "Cambio guardado.",
+    "text_cambio_guardado_con_permisos": "Cambio guardado. Se eliminaron también {count} permisos de roles.",
     "text_error_guardar_cambio": "No se pudo guardar el cambio.",
+    "text_error_permiso_sin_rol": "No se pudo identificar el rol asociado; no se ha completado el borrado.",
+    "text_permisos_eliminados_antes_error": " Se eliminaron {count} permisos de roles antes de que fallara la operación.",
 
     // Etiquetas de formularios
     "label_dni": "DNI",
