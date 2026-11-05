@@ -8,6 +8,7 @@ class funcionalidad_accion extends AbstractEntidad {
         this.columnasamostrar = ['id_funcionalidad', 'id_accion'];
         this.mostrarespecial = [];
         this.claves = ['id_funcionalidad', 'id_accion'];
+        this.relaciones = [];
 
         if (esTest !== 'test') {
             document.getElementById('IU_manage_entity').style.display = 'block';
@@ -45,6 +46,7 @@ class funcionalidad_accion extends AbstractEntidad {
             ]);
             this.acciones = acciones;
             this.funcionalidades = funcionalidades;
+            this.relaciones = relaciones;
             this.renderizarMatriz(relaciones);
             this.mostrarEstado('');
         } catch (error) {
@@ -63,7 +65,7 @@ class funcionalidad_accion extends AbstractEntidad {
         return respuesta.resource;
     }
 
-    renderizarMatriz(relaciones) {
+    renderizarMatriz(relaciones, funcionalidades = this.funcionalidades, acciones = this.acciones) {
         const cabecera = document.getElementById('thead_acciones');
         const cuerpo = document.getElementById('tbody_funcionalidades');
         cabecera.replaceChildren();
@@ -76,7 +78,7 @@ class funcionalidad_accion extends AbstractEntidad {
         tituloFuncionalidad.textContent = window.traduccion.text_matriz_funcionalidad;
         this.estilizarCelda(tituloFuncionalidad, true, true);
         filaCabecera.appendChild(tituloFuncionalidad);
-        this.acciones.forEach(accion => {
+        acciones.forEach(accion => {
             const celda = document.createElement('th');
             celda.scope = 'col';
             celda.textContent = accion.nombre_accion || accion.id_accion;
@@ -85,7 +87,7 @@ class funcionalidad_accion extends AbstractEntidad {
         });
         cabecera.appendChild(filaCabecera);
 
-        this.funcionalidades.forEach(funcionalidad => {
+        funcionalidades.forEach(funcionalidad => {
             const fila = document.createElement('tr');
             const titulo = document.createElement('th');
             titulo.scope = 'row';
@@ -93,7 +95,7 @@ class funcionalidad_accion extends AbstractEntidad {
             this.estilizarCelda(titulo, false, true);
             fila.appendChild(titulo);
 
-            this.acciones.forEach(accion => {
+            acciones.forEach(accion => {
                 const celda = document.createElement('td');
                 this.estilizarCelda(celda);
                 const checkbox = document.createElement('input');
@@ -205,6 +207,14 @@ class funcionalidad_accion extends AbstractEntidad {
                 ? window.traduccion.text_cambio_guardado_con_permisos
                     .replace('{count}', String(permisosEliminados))
                 : window.traduccion.text_cambios_guardados;
+            this.relaciones = checkbox.checked
+                ? [...this.relaciones, datos]
+                : this.relaciones.filter(relacion =>
+                    String(this.obtenerIdRelacionado(relacion.id_funcionalidad, 'id_funcionalidad')) !==
+                        String(datos.id_funcionalidad) ||
+                    String(this.obtenerIdRelacionado(relacion.id_accion, 'id_accion')) !==
+                        String(datos.id_accion)
+                );
             this.mostrarEstado(mensajeGuardado);
         } catch (error) {
             checkbox.checked = !checkbox.checked;
@@ -236,12 +246,68 @@ class funcionalidad_accion extends AbstractEntidad {
         }
     }
 
-    // en la matriz solo se muestra el icono TEST; se ocultan ADD, SEARCH y la seleccion de columnas
+    // La matriz admite búsqueda, pero no altas manuales ni selección de columnas.
     ocultarBotonesNoAplicables() {
         document.querySelectorAll('#add_search_columns > *').forEach(elemento => {
-            const esTest = elemento.tagName === 'IMG' && (elemento.getAttribute('src') || '').includes('TEST');
-            elemento.style.display = esTest ? '' : 'none';
+            const src = elemento.tagName === 'IMG' ? elemento.getAttribute('src') || '' : '';
+            elemento.style.display = src.includes('TEST') || src.includes('SEARCH') ? '' : 'none';
         });
+    }
+
+    createForm_SEARCH() {
+        document.getElementById('class_contenido_titulo_form').className =
+            'text_contenido_titulo_form_funcionalidad_accion_SEARCH';
+        document.getElementById('contenedor_IU_form').innerHTML = `
+            <form id="form_iu">
+                <label class="label_id_funcionalidad" for="id_funcionalidad"></label>
+                <input id="id_funcionalidad" name="id_funcionalidad" type="text">
+                <span id="span_error_id_funcionalidad" style="display:none"></span>
+                <a id="error_id_funcionalidad"></a>
+                <label class="label_id_accion" for="id_accion"></label>
+                <input id="id_accion" name="id_accion" type="text">
+                <span id="span_error_id_accion" style="display:none"></span>
+                <a id="error_id_accion"></a>
+                <button id="submit_button" type="submit"><img src="./iconos/SEARCH.png" alt=""></button>
+            </form>`;
+        this.dom.show_element('Div_IU_form', 'block');
+        this.dom.assign_property_value(
+            'form_iu',
+            'onsubmit',
+            'return entidad.dom.validarsubmit(entidad.SEARCH_submit_funcionalidad_accion())'
+        );
+        this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.SEARCH();');
+        this.dom.colocarvalidaciones('form_iu', 'SEARCH');
+        setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
+    }
+
+    SEARCH_submit_funcionalidad_accion() {
+        const resultado = {
+            id_funcionalidad: this.SEARCH_id_funcionalidad_validation(),
+            id_accion: this.SEARCH_id_accion_validation()
+        };
+        return Object.values(resultado).every(valor => valor === true) ? true : resultado;
+    }
+
+    SEARCH() {
+        const filtros = ['id_funcionalidad', 'id_accion'].reduce((resultado, campo) => {
+            const valor = document.getElementById(campo)?.value.trim();
+            if (valor) {
+                resultado[campo] = valor;
+            }
+            return resultado;
+        }, {});
+        const funcionalidades = this.funcionalidades.filter(funcionalidad =>
+            !filtros.id_funcionalidad ||
+            String(funcionalidad.id_funcionalidad).includes(filtros.id_funcionalidad)
+        );
+        const acciones = this.acciones.filter(accion =>
+            !filtros.id_accion || String(accion.id_accion).includes(filtros.id_accion)
+        );
+        this.dom.hide_element('Div_IU_form');
+        this.renderizarMatriz(this.relaciones, funcionalidades, acciones);
+        this.mostrarEstado(
+            funcionalidades.length && acciones.length ? '' : window.traduccion.text_matriz_sin_resultados
+        );
     }
 
     ADD_id_funcionalidad_validation() {

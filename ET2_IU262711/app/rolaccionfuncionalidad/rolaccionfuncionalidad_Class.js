@@ -8,6 +8,8 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         this.columnasamostrar = ['id_rol', 'id_accion', 'id_funcionalidad'];
         this.mostrarespecial = [];
         this.claves = ['id_rol', 'id_accion', 'id_funcionalidad'];
+        this.filtrosMatriz = {};
+        this.permisos = [];
 
         if (esTest !== 'test') {
             document.getElementById('IU_manage_entity').style.display = 'block';
@@ -26,8 +28,8 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         return `
             <section class="relacion-matriz">
                 <div class="selector_rol">
-                    <label class="text_selector_rol" for="id_rol">Rol:</label>
-                    <select id="id_rol" name="id_rol" aria-label="Rol"></select>
+                    <label class="text_selector_rol" for="selector_rol">Rol:</label>
+                    <select id="selector_rol" aria-label="Rol"></select>
                 </div>
                 <div class="contenedor_matriz">
                     <table id="tabla_permisos" class="tabla_matriz">
@@ -49,8 +51,9 @@ class rolaccionfuncionalidad extends AbstractEntidad {
             ]);
             this.acciones = acciones;
             this.funcionalidades = funcionalidades;
+            this.roles = respuestaRoles;
 
-            const selectRol = document.getElementById('id_rol');
+            const selectRol = document.getElementById('selector_rol');
             respuestaRoles.forEach(rol => {
                 const option = document.createElement('option');
                 option.value = rol.id_rol;
@@ -83,7 +86,7 @@ class rolaccionfuncionalidad extends AbstractEntidad {
     }
 
     async cargarMatrizPermisos(idRol) {
-        const selector = document.getElementById('id_rol');
+        const selector = document.getElementById('selector_rol');
         const tabla = document.getElementById('tabla_permisos');
         if (!idRol) {
             tabla.querySelector('thead').innerHTML = '';
@@ -99,7 +102,16 @@ class rolaccionfuncionalidad extends AbstractEntidad {
             const permisos = todosLosPermisos.filter(permiso =>
                 String(this.obtenerIdRelacionado(permiso.id_rol, 'id_rol')) === String(idRol)
             );
-            this.renderizarMatriz(idRol, permisos);
+            this.permisos = permisos;
+            const funcionalidades = this.funcionalidades.filter(funcionalidad =>
+                !this.filtrosMatriz.id_funcionalidad ||
+                String(funcionalidad.id_funcionalidad).includes(this.filtrosMatriz.id_funcionalidad)
+            );
+            const acciones = this.acciones.filter(accion =>
+                !this.filtrosMatriz.id_accion ||
+                String(accion.id_accion).includes(this.filtrosMatriz.id_accion)
+            );
+            this.renderizarMatriz(idRol, permisos, funcionalidades, acciones);
             this.mostrarEstado('');
         } catch (error) {
             this.mostrarError(error);
@@ -108,7 +120,7 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         }
     }
 
-    renderizarMatriz(idRol, permisos) {
+    renderizarMatriz(idRol, permisos, funcionalidades = this.funcionalidades, acciones = this.acciones) {
         const cabecera = document.getElementById('thead_acciones');
         const cuerpo = document.getElementById('tbody_funcionalidades');
         cabecera.replaceChildren();
@@ -121,7 +133,7 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         tituloFuncionalidad.textContent = window.traduccion.text_matriz_funcionalidad;
         this.estilizarCelda(tituloFuncionalidad, true, true);
         filaCabecera.appendChild(tituloFuncionalidad);
-        this.acciones.forEach(accion => {
+        acciones.forEach(accion => {
             const celda = document.createElement('th');
             celda.scope = 'col';
             celda.textContent = accion.nombre_accion || accion.id_accion;
@@ -131,7 +143,7 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         cabecera.appendChild(filaCabecera);
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
 
-        this.funcionalidades.forEach(funcionalidad => {
+        funcionalidades.forEach(funcionalidad => {
             const fila = document.createElement('tr');
             const titulo = document.createElement('th');
             titulo.scope = 'row';
@@ -139,7 +151,7 @@ class rolaccionfuncionalidad extends AbstractEntidad {
             this.estilizarCelda(titulo, false, true);
             fila.appendChild(titulo);
 
-            this.acciones.forEach(accion => {
+            acciones.forEach(accion => {
                 const celda = document.createElement('td');
                 this.estilizarCelda(celda);
                 const checkbox = document.createElement('input');
@@ -188,6 +200,14 @@ class rolaccionfuncionalidad extends AbstractEntidad {
                 this.mostrarError(new Error(respuesta?.code || window.traduccion.text_error_guardar_cambio));
                 return;
             }
+            this.permisos = checkbox.checked
+                ? [...this.permisos, datos]
+                : this.permisos.filter(permiso =>
+                    String(this.obtenerIdRelacionado(permiso.id_rol, 'id_rol')) !== String(datos.id_rol) ||
+                    String(this.obtenerIdRelacionado(permiso.id_funcionalidad, 'id_funcionalidad')) !==
+                        String(datos.id_funcionalidad) ||
+                    String(this.obtenerIdRelacionado(permiso.id_accion, 'id_accion')) !== String(datos.id_accion)
+                );
             this.mostrarEstado(window.traduccion.text_cambios_guardados);
         } catch (error) {
             checkbox.checked = !checkbox.checked;
@@ -219,12 +239,84 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         }
     }
 
-    // en la matriz solo se muestra el icono TEST; se ocultan ADD, SEARCH y la seleccion de columnas
+    // La matriz admite búsqueda, pero no altas manuales ni selección de columnas.
     ocultarBotonesNoAplicables() {
         document.querySelectorAll('#add_search_columns > *').forEach(elemento => {
-            const esTest = elemento.tagName === 'IMG' && (elemento.getAttribute('src') || '').includes('TEST');
-            elemento.style.display = esTest ? '' : 'none';
+            const src = elemento.tagName === 'IMG' ? elemento.getAttribute('src') || '' : '';
+            elemento.style.display = src.includes('TEST') || src.includes('SEARCH') ? '' : 'none';
         });
+    }
+
+    createForm_SEARCH() {
+        document.getElementById('class_contenido_titulo_form').className =
+            'text_contenido_titulo_form_rolaccionfuncionalidad_SEARCH';
+        document.getElementById('contenedor_IU_form').innerHTML = `
+            <form id="form_iu">
+                <label class="label_id_rol" for="id_rol"></label>
+                <input id="id_rol" name="id_rol" type="text">
+                <span id="span_error_id_rol" style="display:none"></span>
+                <a id="error_id_rol"></a>
+                <label class="label_id_accion" for="id_accion"></label>
+                <input id="id_accion" name="id_accion" type="text">
+                <span id="span_error_id_accion" style="display:none"></span>
+                <a id="error_id_accion"></a>
+                <label class="label_id_funcionalidad" for="id_funcionalidad"></label>
+                <input id="id_funcionalidad" name="id_funcionalidad" type="text">
+                <span id="span_error_id_funcionalidad" style="display:none"></span>
+                <a id="error_id_funcionalidad"></a>
+                <button id="submit_button" type="submit"><img src="./iconos/SEARCH.png" alt=""></button>
+            </form>`;
+        this.dom.show_element('Div_IU_form', 'block');
+        this.dom.assign_property_value(
+            'form_iu',
+            'onsubmit',
+            'return entidad.dom.validarsubmit(entidad.SEARCH_submit_rolaccionfuncionalidad())'
+        );
+        this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.SEARCH();');
+        this.dom.colocarvalidaciones('form_iu', 'SEARCH');
+        setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
+    }
+
+    SEARCH_submit_rolaccionfuncionalidad() {
+        const resultado = {
+            id_rol: this.SEARCH_id_rol_validation(),
+            id_accion: this.SEARCH_id_accion_validation(),
+            id_funcionalidad: this.SEARCH_id_funcionalidad_validation()
+        };
+        return Object.values(resultado).every(valor => valor === true) ? true : resultado;
+    }
+
+    async SEARCH() {
+        const idRol = document.getElementById('id_rol')?.value.trim();
+        const rol = idRol
+            ? this.roles.find(registro => String(registro.id_rol) === idRol)
+            : null;
+        const selectRol = document.getElementById('selector_rol');
+        this.dom.hide_element('Div_IU_form');
+        if (idRol && !rol) {
+            this.filtrosMatriz = {};
+            this.renderizarMatriz(selectRol.value, [], [], []);
+            this.mostrarEstado(window.traduccion.text_matriz_sin_resultados);
+            return;
+        }
+
+        if (rol) {
+            selectRol.value = String(rol.id_rol);
+        }
+        this.filtrosMatriz = {
+            id_accion: document.getElementById('id_accion')?.value.trim() || '',
+            id_funcionalidad: document.getElementById('id_funcionalidad')?.value.trim() || ''
+        };
+        await this.cargarMatrizPermisos(selectRol.value);
+        if (!this.acciones.some(accion =>
+            !this.filtrosMatriz.id_accion ||
+            String(accion.id_accion).includes(this.filtrosMatriz.id_accion)
+        ) || !this.funcionalidades.some(funcionalidad =>
+            !this.filtrosMatriz.id_funcionalidad ||
+            String(funcionalidad.id_funcionalidad).includes(this.filtrosMatriz.id_funcionalidad)
+        )) {
+            this.mostrarEstado(window.traduccion.text_matriz_sin_resultados);
+        }
     }
 
     ADD_id_rol_validation() {
