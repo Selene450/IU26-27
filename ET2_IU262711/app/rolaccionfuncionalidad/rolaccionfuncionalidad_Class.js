@@ -10,6 +10,9 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         this.claves = ['id_rol', 'id_accion', 'id_funcionalidad'];
         this.filtrosMatriz = {};
         this.permisos = [];
+        this.roles = [];
+        this.acciones = [];
+        this.funcionalidades = [];
 
         if (esTest !== 'test') {
             document.getElementById('IU_manage_entity').style.display = 'block';
@@ -20,7 +23,7 @@ class rolaccionfuncionalidad extends AbstractEntidad {
             document.getElementById('IU_manage_table').innerHTML = this.manual_form_creation();
             this.dom.hide_element('Div_IU_form');
             setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
-            this.inicializarVista();
+            this.cargaInicial = this.inicializarVista();
         }
     }
 
@@ -247,25 +250,50 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         });
     }
 
-    createForm_SEARCH() {
+    async createForm_SEARCH() {
+        await this.cargaInicial;
         document.getElementById('class_contenido_titulo_form').className =
             'text_contenido_titulo_form_rolaccionfuncionalidad_SEARCH';
         document.getElementById('contenedor_IU_form').innerHTML = `
             <form id="form_iu">
                 <label class="label_id_rol" for="id_rol"></label>
-                <input id="id_rol" name="id_rol" type="text">
+                <select id="id_rol" name="id_rol">
+                    <option value=""></option>
+                </select>
                 <span id="span_error_id_rol" style="display:none"></span>
                 <a id="error_id_rol"></a>
                 <label class="label_id_accion" for="id_accion"></label>
-                <input id="id_accion" name="id_accion" type="text">
+                <select id="id_accion" name="id_accion">
+                    <option value=""></option>
+                </select>
                 <span id="span_error_id_accion" style="display:none"></span>
                 <a id="error_id_accion"></a>
                 <label class="label_id_funcionalidad" for="id_funcionalidad"></label>
-                <input id="id_funcionalidad" name="id_funcionalidad" type="text">
+                <select id="id_funcionalidad" name="id_funcionalidad">
+                    <option value=""></option>
+                </select>
                 <span id="span_error_id_funcionalidad" style="display:none"></span>
                 <a id="error_id_funcionalidad"></a>
                 <button id="submit_button" type="submit"><img src="./iconos/SEARCH.png" alt=""></button>
             </form>`;
+        this.roles.forEach(rol => {
+            const opcion = document.createElement('option');
+            opcion.value = rol.id_rol;
+            opcion.textContent = rol.nombre_rol || rol.rol_name || rol.id_rol;
+            document.getElementById('id_rol').appendChild(opcion);
+        });
+        this.acciones.forEach(accion => {
+            const opcion = document.createElement('option');
+            opcion.value = accion.id_accion;
+            opcion.textContent = accion.nombre_accion || accion.id_accion;
+            document.getElementById('id_accion').appendChild(opcion);
+        });
+        this.funcionalidades.forEach(funcionalidad => {
+            const opcion = document.createElement('option');
+            opcion.value = funcionalidad.id_funcionalidad;
+            opcion.textContent = funcionalidad.nombre_funcionalidad || funcionalidad.id_funcionalidad;
+            document.getElementById('id_funcionalidad').appendChild(opcion);
+        });
         this.dom.show_element('Div_IU_form', 'block');
         this.dom.assign_property_value(
             'form_iu',

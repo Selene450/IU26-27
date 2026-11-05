@@ -11,9 +11,9 @@ var rolaccionfuncionalidad_def_tests = [
     ['rolaccionfuncionalidad', 'id_rol', 'select', 7, 'Validar format de id_rol en  EDIT', 'format', 'EDIT', 'id_rol_format_KO', 'El campo id_rol debe ser un número entero'],
     ['rolaccionfuncionalidad', 'id_rol', 'select', 8, 'Validar id_rol correcto en EDIT', 'valid', 'EDIT', true, 'id_rol correcto'],
     //SEARCH
-    ['rolaccionfuncionalidad', 'id_rol', 'input', 9, 'Validar max_size de id_rol en  SEARCH', 'max_size', 'SEARCH', 'id_rol_max_size_KO', 'El campo id_rol tiene como máximo 11 caracteres'],
-    ['rolaccionfuncionalidad', 'id_rol', 'input', 10, 'Validar format de id_rol en  SEARCH', 'format', 'SEARCH', 'id_rol_format_KO', 'El campo id_rol debe ser un número entero'],
-    ['rolaccionfuncionalidad', 'id_rol', 'input', 11, 'Validar id_rol correcto en SEARCH', 'valid', 'SEARCH', true, 'id_rol correcto'],
+    ['rolaccionfuncionalidad', 'id_rol', 'select', 9, 'Validar max_size de id_rol en  SEARCH', 'max_size', 'SEARCH', 'id_rol_max_size_KO', 'El campo id_rol tiene como máximo 11 caracteres'],
+    ['rolaccionfuncionalidad', 'id_rol', 'select', 10, 'Validar format de id_rol en  SEARCH', 'format', 'SEARCH', 'id_rol_format_KO', 'El campo id_rol debe ser un número entero'],
+    ['rolaccionfuncionalidad', 'id_rol', 'select', 11, 'Validar id_rol correcto en SEARCH', 'valid', 'SEARCH', true, 'id_rol correcto'],
 
     //campo id_accion
     //ADD
@@ -27,9 +27,9 @@ var rolaccionfuncionalidad_def_tests = [
     ['rolaccionfuncionalidad', 'id_accion', 'select', 18, 'Validar format de id_accion en  EDIT', 'format', 'EDIT', 'id_accion_format_KO', 'El campo id_accion debe ser un número entero'],
     ['rolaccionfuncionalidad', 'id_accion', 'select', 19, 'Validar id_accion correcto en EDIT', 'valid', 'EDIT', true, 'id_accion correcto'],
     //SEARCH
-    ['rolaccionfuncionalidad', 'id_accion', 'input', 20, 'Validar max_size de id_accion en SEARCH', 'max_size', 'SEARCH', 'id_accion_max_size_KO', 'El campo id_accion tiene como máximo 11 caracteres'],
-    ['rolaccionfuncionalidad', 'id_accion', 'input', 21, 'Validar format de id_accion en SEARCH', 'format', 'SEARCH', 'id_accion_format_KO', 'El campo id_accion debe ser un número entero'],
-    ['rolaccionfuncionalidad', 'id_accion', 'input', 22, 'Validar id_accion correcto en SEARCH', 'valid', 'SEARCH', true, 'id_accion correcto'],
+    ['rolaccionfuncionalidad', 'id_accion', 'select', 20, 'Validar max_size de id_accion en SEARCH', 'max_size', 'SEARCH', 'id_accion_max_size_KO', 'El campo id_accion tiene como máximo 11 caracteres'],
+    ['rolaccionfuncionalidad', 'id_accion', 'select', 21, 'Validar format de id_accion en SEARCH', 'format', 'SEARCH', 'id_accion_format_KO', 'El campo id_accion debe ser un número entero'],
+    ['rolaccionfuncionalidad', 'id_accion', 'select', 22, 'Validar id_accion correcto en SEARCH', 'valid', 'SEARCH', true, 'id_accion correcto'],
 
     //campo id_funcionalidad
     //ADD
@@ -43,9 +43,9 @@ var rolaccionfuncionalidad_def_tests = [
     ['rolaccionfuncionalidad', 'id_funcionalidad', 'select', 29, 'Validar format de id_funcionalidad en  EDIT', 'format', 'EDIT', 'id_funcionalidad_format_KO', 'El campo id_funcionalidad debe ser un número entero'],
     ['rolaccionfuncionalidad', 'id_funcionalidad', 'select', 30, 'Validar id_funcionalidad correcto en EDIT', 'valid', 'EDIT', true, 'id_funcionalidad correcto'],
     //SEARCH
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 'input', 31, 'Validar max_size de id_funcionalidad en SEARCH', 'max_size', 'SEARCH', 'id_funcionalidad_max_size_KO', 'El campo id_funcionalidad tiene como máximo 11 caracteres'],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 'input', 32, 'Validar format de id_funcionalidad en SEARCH', 'format', 'SEARCH', 'id_funcionalidad_format_KO', 'El campo id_funcionalidad debe ser un número entero'],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 'input', 33, 'Validar id_funcionalidad correcto en SEARCH', 'valid', 'SEARCH', true, 'id_funcionalidad correcto']
+    ['rolaccionfuncionalidad', 'id_funcionalidad', 'select', 31, 'Validar max_size de id_funcionalidad en SEARCH', 'max_size', 'SEARCH', 'id_funcionalidad_max_size_KO', 'El campo id_funcionalidad tiene como máximo 11 caracteres'],
+    ['rolaccionfuncionalidad', 'id_funcionalidad', 'select', 32, 'Validar format de id_funcionalidad en SEARCH', 'format', 'SEARCH', 'id_funcionalidad_format_KO', 'El campo id_funcionalidad debe ser un número entero'],
+    ['rolaccionfuncionalidad', 'id_funcionalidad', 'select', 33, 'Validar id_funcionalidad correcto en SEARCH', 'valid', 'SEARCH', true, 'id_funcionalidad correcto']
 ];
 
 var rolaccionfuncionalidad_pruebas = [
