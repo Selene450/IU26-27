@@ -28,13 +28,15 @@ class accion extends AbstractEntidad {
         };
     }
 
-    manual_form_creation() {
+    manual_form_creation(incluirId = true) {
         var forms_content = `
             <form id="form_iu" action="" method="POST" enctype="multipart/form-data" onsubmit="" class="formulario">
+                ${incluirId ? `
                 <label class="label_id_accion" for="id_accion">ID de acción</label>
                 <input type="text" id="id_accion" name="id_accion">
                 <span id="span_error_id_accion"><a id="error_id_accion"></a></span>
                 <br>
+                ` : ''}
 
                 <label class="label_nombre_accion" for="nombre_accion">Nombre de acción</label>
                 <input type="text" id="nombre_accion" name="nombre_accion">
@@ -167,12 +169,10 @@ class accion extends AbstractEntidad {
     // ==========================================
     ADD_submit_accion() {
         var set_result = {};
-        set_result.id_accion = this.ADD_id_accion_validation();
         set_result.nombre_accion = this.ADD_nombre_accion_validation();
         set_result.descrip_accion = this.ADD_descrip_accion_validation();
 
         let result = (
-            (set_result.id_accion) &
             (set_result.nombre_accion) &
             (set_result.descrip_accion)
         );
@@ -288,7 +288,7 @@ class accion extends AbstractEntidad {
 
     createForm_ADD() {
         this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_accion_ADD');
-        document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
+        document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation(false);
         this.dom.show_element('Div_IU_form', 'block');
 
         this.dom.assign_property_value('form_iu', 'onsubmit', 'return entidad.dom.validarsubmit(entidad.ADD_submit_' + this.nombreentidad + '())');

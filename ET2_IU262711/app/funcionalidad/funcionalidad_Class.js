@@ -28,13 +28,15 @@ class funcionalidad extends AbstractEntidad {
         };
     }
 
-    manual_form_creation() {
+    manual_form_creation(incluirId = true) {
         var forms_content = `
             <form id="form_iu" action="" method="POST" enctype="multipart/form-data" onsubmit="" class="formulario">
+                ${incluirId ? `
                 <label class="label_id_funcionalidad" for="id_funcionalidad">ID de funcionalidad</label>
                 <input type="text" id="id_funcionalidad" name="id_funcionalidad">
                 <span id="span_error_id_funcionalidad"><a id="error_id_funcionalidad"></a></span>
                 <br>
+                ` : ''}
 
                 <label class="label_nombre_funcionalidad" for="nombre_funcionalidad">Nombre de funcionalidad</label>
                 <input type="text" id="nombre_funcionalidad" name="nombre_funcionalidad">
@@ -165,7 +167,6 @@ class funcionalidad extends AbstractEntidad {
 
     ADD_submit_funcionalidad() {
         const resultado = {
-            id_funcionalidad: this.ADD_id_funcionalidad_validation(),
             nombre_funcionalidad: this.ADD_nombre_funcionalidad_validation(),
             descrip_funcionalidad: this.ADD_descrip_funcionalidad_validation()
         };
@@ -235,7 +236,7 @@ class funcionalidad extends AbstractEntidad {
             'class',
             'text_contenido_titulo_form_funcionalidad_ADD'
         );
-        document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
+        document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation(false);
         this.dom.show_element('Div_IU_form', 'block');
         this.dom.assign_property_value(
             'form_iu',

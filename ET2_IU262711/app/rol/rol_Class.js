@@ -28,13 +28,15 @@ class rol extends AbstractEntidad {
         };
     }
 
-    manual_form_creation() {
+    manual_form_creation(incluirId = true) {
         var forms_content = `
             <form id="form_iu" action="" method="POST" enctype="multipart/form-data" onsubmit="" class="formulario">
+                ${incluirId ? `
                 <label class="label_id_rol" for="id_rol">ID de rol</label>
                 <input type="text" id="id_rol" name="id_rol">
                 <span id="span_error_id_rol"><a id="error_id_rol"></a></span>
                 <br>
+                ` : ''}
 
                 <label class="label_rol_name" for="rol_name">Nombre del rol</label>
                 <input type="text" id="rol_name" name="rol_name">
@@ -167,12 +169,10 @@ class rol extends AbstractEntidad {
     // ==========================================
     ADD_submit_rol() {
         var set_result = {};
-        set_result.id_rol = this.ADD_id_rol_validation();
         set_result.rol_name = this.ADD_rol_name_validation();
         set_result.rol_description = this.ADD_rol_description_validation();
 
         let result = (
-            (set_result.id_rol) &
             (set_result.rol_name) &
             (set_result.rol_description)
         );
@@ -302,7 +302,7 @@ class rol extends AbstractEntidad {
 
     createForm_ADD() {
         this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_rol_ADD');
-        document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
+        document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation(false);
         this.dom.show_element('Div_IU_form', 'block');
 
         this.dom.assign_property_value('form_iu', 'onsubmit', 'return entidad.dom.validarsubmit(entidad.ADD_submit_' + this.nombreentidad + '())');
