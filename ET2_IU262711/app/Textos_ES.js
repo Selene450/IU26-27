@@ -258,7 +258,35 @@ var textos_ES = {
     "text_no_hay_acciones": "No hay acciones disponibles.",
     "text_no_hay_funcionalidades": "No hay funcionalidades disponibles.",
     "text_seleccione_funcionalidad": "Seleccione una funcionalidad.",
-    "text_seleccione_accion": "Seleccione una acción."
+    "text_seleccione_accion": "Seleccione una acción.",
+    // ERRORES DEVUELTOS POR EL BACK (campo obligatorio, no existe, otros)
+    "dni_es_nulo_KO": "Debe indicar el DNI.",
+    "nombre_persona_es_nulo_KO": "Debe indicar el nombre.",
+    "apellidos_persona_es_nulo_KO": "Debe indicar los apellidos.",
+    "fechaNacimiento_persona_es_nulo_KO": "Debe indicar la fecha de nacimiento.",
+    "direccion_persona_es_nulo_KO": "Debe indicar la dirección.",
+    "telefono_persona_es_nulo_KO": "Debe indicar el teléfono.",
+    "email_persona_es_nulo_KO": "Debe indicar el email.",
+    "usuario_es_nulo_KO": "Debe indicar el usuario.",
+    "contrasena_es_nulo_KO": "Debe indicar la contraseña.",
+    "id_rol_es_nulo_KO": "Debe indicar el rol.",
+    "rol_name_es_nulo_KO": "Debe indicar el nombre del rol.",
+    "rol_description_es_nulo_KO": "Debe indicar la descripción del rol.",
+    "nombre_accion_es_nulo_KO": "Debe indicar el nombre de la acción.",
+    "descrip_accion_es_nulo_KO": "Debe indicar la descripción de la acción.",
+    "nombre_funcionalidad_es_nulo_KO": "Debe indicar el nombre de la funcionalidad.",
+    "descrip_funcionalidad_es_nulo_KO": "Debe indicar la descripción de la funcionalidad.",
+    "id_accion_es_nulo_KO": "Debe indicar la acción.",
+    "id_funcionalidad_es_nulo_KO": "Debe indicar la funcionalidad.",
+    "dni_NO_EXISTE_en_persona_KO": "La persona indicada no existe.",
+    "id_rol_NO_EXISTE_en_rol_KO": "El rol indicado no existe.",
+    "id_accion_NO_EXISTE_en_accion_KO": "La acción indicada no existe.",
+    "id_funcionalidad_NO_EXISTE_en_funcionalidad_KO": "La funcionalidad indicada no existe.",
+    "id_funcionalidad_accion_NO_EXISTE_en_funcionalidad_accion_KO": "La relación entre funcionalidad y acción no existe.",
+    "permiso_NO_EXISTE_en_rolaccionfuncionalidad_KO": "El permiso indicado no existe.",
+    "SQL_KO": "Se ha producido un error al ejecutar la operación en la base de datos.",
+    "prohibido_edit_rolaccionfuncionalidad": "No se pueden editar los permisos; elimine el permiso y cree uno nuevo.",
+    "funcionalidad_accion_EDIT_forbbiden_KO": "No se puede editar la relación entre funcionalidad y acción."
 };
 
 // WRAPPER PARA setLang (mantiene el idioma en localStorage)

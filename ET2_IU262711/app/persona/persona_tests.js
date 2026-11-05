@@ -125,16 +125,14 @@
     ['persona', 'nuevo_foto_persona', 'file', 87, 'Tipo de fichero nuevo_foto_persona ADD', 'type_file', 'ADD', 'nuevo_foto_persona_type_file_KO', 'Tipo de fichero incorrecto. Debe ser jpg o jpeg'],
 	['persona', 'nuevo_foto_persona', 'file', 88, 'Formato nombre fichero nuevo_foto_persona ADD', 'format_name_file', 'ADD', 'nuevo_foto_persona_format_name_file_KO', 'Nombre de foto incorrecto. Debe ser alfabetico y terminar en .jpg o .jpeg'],
     ['persona', 'nuevo_foto_persona', 'file', 89, 'Tamaño fichero nuevo_foto_persona ADD', 'max_size_file', 'ADD', 'nuevo_foto_persona_max_size_file_KO', 'Tamaño de fichero excesivo. Debe ser menor de 2 MB'],
-	['persona', 'nuevo_foto_persona', 'file', 90, 'Validar formato fichero nuevo_foto_persona ADD', 'format', 'ADD', 'nuevo_foto_persona_format_KO', 'Debe ser un archivo jpg o jpeg'],
     ['persona', 'nuevo_foto_persona', 'file', 91, 'Validar nuevo_foto_persona correcta en ADD', 'valid', 'ADD', true, 'nuevo_foto_persona correcta'],
     //EDIT
-    ['persona', 'nuevo_foto_persona', 'file', 92, 'Existe fichero en nuevo_foto_persona EDIT', 'exist_file', 'EDIT', true, ''],
+    ['persona', 'nuevo_foto_persona', 'file', 92, 'Existe fichero en nuevo_foto_persona EDIT', 'exist_file', 'EDIT', true, 'nuevo_foto_persona es opcional en EDIT: sin fichero es correcto'],
     ['persona', 'nuevo_foto_persona', 'file', 93, 'Minimo nombre fichero nuevo_foto_persona EDIT', 'personalized', 'EDIT', 'nuevo_foto_persona_min_name_file_KO', 'Nombre de foto incorrecto. Debe tener al menos 3 caracteres'],
     ['persona', 'nuevo_foto_persona', 'file', 94, 'Maximo nombre fichero nuevo_foto_persona EDIT', 'personalized', 'EDIT', 'nuevo_foto_persona_max_name_file_KO', 'Nombre de foto incorrecto. Debe tener como maximo 15 caracteres'],
     ['persona', 'nuevo_foto_persona', 'file', 95, 'Formato nombre fichero nuevo_foto_persona EDIT', 'format_name_file', 'EDIT', 'nuevo_foto_persona_format_name_file_KO', 'Nombre de foto incorrecto. Debe ser alfabetico y terminar en .jpg o .jpeg'],
     ['persona', 'nuevo_foto_persona', 'file', 96, 'Tipo de fichero nuevo_foto_persona EDIT', 'type_file', 'EDIT', 'nuevo_foto_persona_type_file_KO', 'Tipo de fichero incorrecto. Debe ser jpg o jpeg'],
     ['persona', 'nuevo_foto_persona', 'file', 97, 'Tamaño fichero nuevo_foto_persona EDIT', 'max_size_file', 'EDIT', 'nuevo_foto_persona_max_size_file_KO', 'Tamaño de fichero excesivo. Debe ser menor de 2 MB'],
-    ['persona', 'nuevo_foto_persona', 'file', 98, 'Validar formato fichero nuevo_foto_persona EDIT', 'format', 'EDIT', 'nuevo_foto_persona_format_KO', 'Debe ser un archivo jpg o jpeg'],
     ['persona', 'nuevo_foto_persona', 'file', 99, 'Validar nuevo_foto_persona correcta en EDIT', 'valid', 'EDIT', true, 'nuevo_foto_persona correcta'],
     
     //Campo foto_persona: nombre del archivo guardado
