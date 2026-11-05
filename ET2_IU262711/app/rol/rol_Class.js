@@ -260,6 +260,7 @@ class rol extends AbstractEntidad {
 
         this.dom.rellenarvaloresform(fila);
         this.dom.colocarvalidaciones('form_iu', 'EDIT');
+        this.dom.assign_property_value('id_rol', 'readonly', 'true');
         this.dom.colocarboton('EDIT');
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
