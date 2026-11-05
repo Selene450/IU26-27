@@ -110,14 +110,16 @@ class persona extends AbstractEntidad {
 		@return {bool} true due the field value is correct
 
 	*/
-	async cargarUsuariosDisponibles(dniSeleccionado = '') {
+	async cargarUsuariosDisponibles(dniSeleccionado = '', incluirOcupados = false) {
 		const selectDni = document.getElementById('dni');
 		selectDni.disabled = true;
 		this.dnisDisponibles = null;
 		try {
 			const [respuestaUsuarios, respuestaPersonas] = await Promise.all([
 				this.access_functions.peticionBackGeneral('', 'usuario', 'SEARCH'),
-				this.access_functions.peticionBackGeneral('', 'persona', 'SEARCH')
+				incluirOcupados
+					? Promise.resolve({ code: 'RECORDSET_VACIO' })
+					: this.access_functions.peticionBackGeneral('', 'persona', 'SEARCH')
 			]);
 			const obtenerRegistros = (respuesta, entidad) => {
 				if (respuesta.code === 'RECORDSET_VACIO') {
@@ -133,16 +135,16 @@ class persona extends AbstractEntidad {
 			const dnisOcupados = new Set(personas
 				.map(persona => String(persona.dni))
 				.filter(dni => dni !== String(dniSeleccionado)));
-			const usuariosDisponibles = usuarios.filter(usuario =>
-				!dnisOcupados.has(String(usuario.dni))
-			);
-			this.dnisDisponibles = new Set(usuariosDisponibles.map(usuario => String(usuario.dni)));
+			const usuariosSeleccionados = incluirOcupados
+				? usuarios
+				: usuarios.filter(usuario => !dnisOcupados.has(String(usuario.dni)));
+			this.dnisDisponibles = new Set(usuariosSeleccionados.map(usuario => String(usuario.dni)));
 
 			const opcionVacia = document.createElement('option');
 			opcionVacia.value = '';
 			opcionVacia.textContent = '';
 			selectDni.replaceChildren(opcionVacia);
-			usuariosDisponibles.forEach(usuario => {
+			usuariosSeleccionados.forEach(usuario => {
 				const opcion = document.createElement('option');
 				opcion.value = usuario.dni;
 				opcion.textContent = usuario.dni;
@@ -571,7 +573,7 @@ class persona extends AbstractEntidad {
 			this.dom.mostrar_exito_campo('dni');
 			return true;
 		}
-		if (!this.validations.max_size('dni', 9)) {
+		if (dni.length > 9) {
 			this.dom.mostrar_error_campo('dni', 'dni_max_size_KO');
 			return 'dni_max_size_KO';
 		}
@@ -917,6 +919,11 @@ class persona extends AbstractEntidad {
 		this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_persona_SEARCH');
 		// limpiar y poner visible el formulario
 		document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
+		const inputDni = document.getElementById('dni');
+		const selectDni = document.createElement('select');
+		selectDni.id = 'dni';
+		selectDni.name = 'dni';
+		inputDni.replaceWith(selectDni);
 		this.dom.show_element('Div_IU_form', 'block');
 
 		// poner onsubmit
@@ -934,6 +941,7 @@ class persona extends AbstractEntidad {
 
 		// poner las validaciones
 		this.dom.colocarvalidaciones('form_iu', 'SEARCH');
+		this.cargarUsuariosDisponibles('', true);
 
 		// colocar boton de submit
 		this.dom.colocarboton('SEARCH');

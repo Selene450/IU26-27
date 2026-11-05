@@ -1,20 +1,20 @@
     var persona_def_tests = [
     //Campo dni
     //ADD
-    ['persona', 'dni', 'input', 1, 'Validar min_size de dni en ADD', 'min_size', 'ADD', 'dni_min_size_KO', 'El DNI debe tener 9 caracteres'],
-    ['persona', 'dni', 'input', 2, 'Validar max_size de dni en ADD', 'max_size', 'ADD', 'dni_max_size_KO', 'El DNI no puede superar los 9 caracteres'],
-    ['persona', 'dni', 'input', 3, 'Validar format de dni en ADD', 'format', 'ADD', 'dni_format_KO', 'El DNI debe tener 8 números seguidos de una letra mayúscula'],
-    ['persona', 'dni', 'input', 4, 'Validar letra de control de dni en ADD', 'personalized', 'ADD', 'dni_personalized_validate_dni_KO', 'La letra de control del DNI no es válida'],
-    ['persona', 'dni', 'input', 5, 'Validar DNI correcto en ADD', 'personalized', 'ADD', true, 'DNI correcto'],
+    ['persona', 'dni', 'select', 1, 'Validar min_size de dni en ADD', 'min_size', 'ADD', 'dni_min_size_KO', 'El DNI debe tener 9 caracteres'],
+    ['persona', 'dni', 'select', 2, 'Validar max_size de dni en ADD', 'max_size', 'ADD', 'dni_max_size_KO', 'El DNI no puede superar los 9 caracteres'],
+    ['persona', 'dni', 'select', 3, 'Validar format de dni en ADD', 'format', 'ADD', 'dni_format_KO', 'El DNI debe tener 8 números seguidos de una letra mayúscula'],
+    ['persona', 'dni', 'select', 4, 'Validar letra de control de dni en ADD', 'personalized', 'ADD', 'dni_personalized_validate_dni_KO', 'La letra de control del DNI no es válida'],
+    ['persona', 'dni', 'select', 5, 'Validar DNI correcto en ADD', 'personalized', 'ADD', true, 'DNI correcto'],
     //EDIT
-    ['persona', 'dni', 'input', 6, 'Validar min_size de dni en EDIT', 'min_size', 'EDIT', 'dni_min_size_KO', 'El DNI debe tener 9 caracteres'],
-    ['persona', 'dni', 'input', 7, 'Validar max_size de dni en EDIT', 'max_size', 'EDIT', 'dni_max_size_KO', 'El DNI no puede superar los 9 caracteres'],
-    ['persona', 'dni', 'input', 8, 'Validar format de dni en EDIT', 'format', 'EDIT', 'dni_format_KO', 'El DNI debe tener 8 números seguidos de una letra mayúscula'],
-    ['persona', 'dni', 'input', 9, 'Validar letra de control de dni en EDIT', 'personalized', 'EDIT', 'dni_personalized_validate_dni_KO', 'La letra de control del DNI no es válida'],
-    ['persona', 'dni', 'input', 10, 'Validar DNI correcto en EDIT', 'personalized', 'EDIT', true, 'DNI correcto'],
+    ['persona', 'dni', 'select', 6, 'Validar min_size de dni en EDIT', 'min_size', 'EDIT', 'dni_min_size_KO', 'El DNI debe tener 9 caracteres'],
+    ['persona', 'dni', 'select', 7, 'Validar max_size de dni en EDIT', 'max_size', 'EDIT', 'dni_max_size_KO', 'El DNI no puede superar los 9 caracteres'],
+    ['persona', 'dni', 'select', 8, 'Validar format de dni en EDIT', 'format', 'EDIT', 'dni_format_KO', 'El DNI debe tener 8 números seguidos de una letra mayúscula'],
+    ['persona', 'dni', 'select', 9, 'Validar letra de control de dni en EDIT', 'personalized', 'EDIT', 'dni_personalized_validate_dni_KO', 'La letra de control del DNI no es válida'],
+    ['persona', 'dni', 'select', 10, 'Validar DNI correcto en EDIT', 'personalized', 'EDIT', true, 'DNI correcto'],
     //SEARCH
-    ['persona', 'dni', 'input', 11, 'Validar max_size de dni en SEARCH', 'max_size', 'SEARCH', 'dni_max_size_KO', 'El campo dni debe tener como maximo 9 caracteres'],
-    ['persona', 'dni', 'input', 12, 'Validar DNI correcto en SEARCH', 'personalized', 'SEARCH', true, 'DNI correcto'],
+    ['persona', 'dni', 'select', 11, 'Validar max_size de dni en SEARCH', 'max_size', 'SEARCH', 'dni_max_size_KO', 'El campo dni debe tener como maximo 9 caracteres'],
+    ['persona', 'dni', 'select', 12, 'Validar DNI correcto en SEARCH', 'personalized', 'SEARCH', true, 'DNI correcto'],
 
     //Campo nombre_persona
     //ADD
