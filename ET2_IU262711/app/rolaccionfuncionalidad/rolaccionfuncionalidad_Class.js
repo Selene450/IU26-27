@@ -347,28 +347,6 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         }
     }
 
-    ADD_id_rol_validation() {
-        const valor = document.querySelector('#contenedor_IU_form #id_rol').value;
-        if (!this.validations.min_size(valor, 1)) {
-            this.dom.mostrar_error_campo('id_rol', 'id_rol_min_size_KO');
-            return 'id_rol_min_size_KO';
-        }
-        if (!this.validations.max_size(valor, 11)) {
-            this.dom.mostrar_error_campo('id_rol', 'id_rol_max_size_KO');
-            return 'id_rol_max_size_KO';
-        }
-        if (!this.validations.format(valor, '^[0-9]+$')) {
-            this.dom.mostrar_error_campo('id_rol', 'id_rol_format_KO');
-            return 'id_rol_format_KO';
-        }
-        this.dom.mostrar_exito_campo('id_rol');
-        return true;
-    }
-
-    EDIT_id_rol_validation() {
-        return this.ADD_id_rol_validation();
-    }
-
     SEARCH_id_rol_validation() {
         const valor = document.querySelector('#contenedor_IU_form #id_rol').value;
         if (!this.validations.max_size(valor, 11)) {
@@ -383,28 +361,6 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         return true;
     }
 
-    ADD_id_accion_validation() {
-        const valor = document.getElementById('id_accion').value;
-        if (!this.validations.min_size(valor, 1)) {
-            this.dom.mostrar_error_campo('id_accion', 'id_accion_min_size_KO');
-            return 'id_accion_min_size_KO';
-        }
-        if (!this.validations.max_size(valor, 11)) {
-            this.dom.mostrar_error_campo('id_accion', 'id_accion_max_size_KO');
-            return 'id_accion_max_size_KO';
-        }
-        if (!this.validations.format(valor, '^[0-9]+$')) {
-            this.dom.mostrar_error_campo('id_accion', 'id_accion_format_KO');
-            return 'id_accion_format_KO';
-        }
-        this.dom.mostrar_exito_campo('id_accion');
-        return true;
-    }
-
-    EDIT_id_accion_validation() {
-        return this.ADD_id_accion_validation();
-    }
-
     SEARCH_id_accion_validation() {
         const valor = document.getElementById('id_accion').value;
         if (!this.validations.max_size(valor, 11)) {
@@ -417,28 +373,6 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         }
         this.dom.mostrar_exito_campo('id_accion');
         return true;
-    }
-
-    ADD_id_funcionalidad_validation() {
-        const valor = document.getElementById('id_funcionalidad').value;
-        if (!this.validations.min_size(valor, 1)) {
-            this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_min_size_KO');
-            return 'id_funcionalidad_min_size_KO';
-        }
-        if (!this.validations.max_size(valor, 11)) {
-            this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_max_size_KO');
-            return 'id_funcionalidad_max_size_KO';
-        }
-        if (!this.validations.format(valor, '^[0-9]+$')) {
-            this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_format_KO');
-            return 'id_funcionalidad_format_KO';
-        }
-        this.dom.mostrar_exito_campo('id_funcionalidad');
-        return true;
-    }
-
-    EDIT_id_funcionalidad_validation() {
-        return this.ADD_id_funcionalidad_validation();
     }
 
     SEARCH_id_funcionalidad_validation() {
