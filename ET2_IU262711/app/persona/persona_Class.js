@@ -473,37 +473,6 @@ class persona extends AbstractEntidad {
 		return this.ADD_email_persona_validation();
 	}
 
-	ADD_foto_persona_validation() {
-		return this.validar_nombre_foto_persona('foto_persona');
-	}
-
-	EDIT_foto_persona_validation() {
-		return this.validar_nombre_foto_persona('foto_persona');
-	}
-
-	validar_nombre_foto_persona(id, opcional = false) {
-		const nombreFichero = document.getElementById(id).value.split(/[\\/]/).pop();
-		if (nombreFichero === '' && opcional) {
-			this.dom.mostrar_exito_campo(id);
-			return true;
-		}
-		const nombreSinExtension = nombreFichero.replace(/\.[^.]*$/, '');
-		if (nombreSinExtension.length < 3) {
-			this.dom.mostrar_error_campo(id, 'foto_persona_min_size_KO');
-			return 'foto_persona_min_size_KO';
-		}
-		if (nombreSinExtension.length > 15) {
-			this.dom.mostrar_error_campo(id, 'foto_persona_max_size_KO');
-			return 'foto_persona_max_size_KO';
-		}
-		if (!/^[a-zA-Z]{3,15}\.(jpg|jpeg)$/i.test(nombreFichero)) {
-			this.dom.mostrar_error_campo(id, 'foto_persona_format_KO');
-			return 'foto_persona_format_KO';
-		}
-		this.dom.mostrar_exito_campo(id);
-		return true;
-	}
-
 	EDIT_nuevo_foto_persona_validation() {
 
 		if (!(this.validations.exist_file('nuevo_foto_persona'))) {

@@ -138,20 +138,10 @@
     ['persona', 'nuevo_foto_persona', 'file', 99, 'Validar nuevo_foto_persona correcta en EDIT', 'valid', 'EDIT', true, 'nuevo_foto_persona correcta'],
     
     //Campo foto_persona: nombre del archivo guardado
-    //ADD
-    ['persona', 'foto_persona', 'input', 100, 'Validar min_size de foto_persona en ADD', 'min_size', 'ADD', 'foto_persona_min_size_KO', 'El nombre de la foto debe tener al menos 3 letras antes de la extension'],
-    ['persona', 'foto_persona', 'input', 101, 'Validar max_size de foto_persona en ADD', 'max_size', 'ADD', 'foto_persona_max_size_KO', 'El nombre de la foto no puede superar las 15 letras antes de la extension'],
-    ['persona', 'foto_persona', 'input', 102, 'Validar formato de foto_persona en ADD', 'format', 'ADD', 'foto_persona_format_KO', 'El nombre de la foto debe contener solo letras y terminar en .jpg o .jpeg'],
-    ['persona', 'foto_persona', 'input', 103, 'Validar foto_persona correcta en ADD', 'valid', 'ADD', true, 'foto_persona correcta'],
-    //EDIT
-    ['persona', 'foto_persona', 'input', 104, 'Validar min_size de foto_persona en EDIT', 'min_size', 'EDIT', 'foto_persona_min_size_KO', 'El nombre de la foto debe tener al menos 3 letras antes de la extension'],
-    ['persona', 'foto_persona', 'input', 105, 'Validar max_size de foto_persona en EDIT', 'max_size', 'EDIT', 'foto_persona_max_size_KO', 'El nombre de la foto no puede superar las 15 letras antes de la extension'],
-    ['persona', 'foto_persona', 'input', 106, 'Validar formato de foto_persona en EDIT', 'format', 'EDIT', 'foto_persona_format_KO', 'El nombre de la foto debe contener solo letras y terminar en .jpg o .jpeg'],
-    ['persona', 'foto_persona', 'input', 107, 'Validar foto_persona correcta en EDIT', 'valid', 'EDIT', true, 'foto_persona correcta'],
     //SEARCH
-    ['persona', 'foto_persona', 'input', 108, 'Validar max_size de foto_persona en SEARCH', 'max_size', 'SEARCH', 'foto_persona_max_size_KO', 'El nombre de la foto no puede superar las 15 letras antes de la extension'],
-    ['persona', 'foto_persona', 'input', 109, 'Validar formato de foto_persona en SEARCH', 'format', 'SEARCH', 'foto_persona_format_KO', 'El nombre de la foto debe contener solo letras y terminar en .jpg o .jpeg'],
-    ['persona', 'foto_persona', 'input', 110, 'Validar foto_persona correcta en SEARCH', 'valid', 'SEARCH', true, 'foto_persona correcta'],
+    ['persona', 'foto_persona', 'input', 100, 'Validar max_size de foto_persona en SEARCH', 'max_size', 'SEARCH', 'foto_persona_max_size_KO', 'El nombre de la foto no puede superar las 15 letras antes de la extension'],
+    ['persona', 'foto_persona', 'input', 101, 'Validar formato de foto_persona en SEARCH', 'format', 'SEARCH', 'foto_persona_format_KO', 'El nombre de la foto debe contener solo letras y terminar en .jpg o .jpeg'],
+    ['persona', 'foto_persona', 'input', 102, 'Validar foto_persona correcta en SEARCH', 'valid', 'SEARCH', true, 'foto_persona correcta'],
 ];
 
 var persona_pruebas = [
@@ -362,19 +352,9 @@ var persona_pruebas = [
     ['persona', 'nuevo_foto_persona', 99, 168, 'EDIT', {nuevo_foto_persona: {format_name_file: 'foto.jpg', type_file: 'image/jpeg', max_size_file: 200000}},true],
     
     //foto_persona
-    //ADD
-    ['persona', 'foto_persona', 100, 169, 'ADD', {foto_persona: 'ab.jpg'},'foto_persona_min_size_KO'],
-    ['persona', 'foto_persona', 101, 170, 'ADD', {foto_persona: 'a'.repeat(16) + '.jpg'},'foto_persona_max_size_KO'],
-    ['persona', 'foto_persona', 102, 171, 'ADD', {foto_persona: 'foto123.jpg'},'foto_persona_format_KO'],
-    ['persona', 'foto_persona', 103, 172, 'ADD', {foto_persona: 'abc.jpg'},true],
-    //EDIT
-    ['persona', 'foto_persona', 104, 173, 'EDIT', {foto_persona: 'ab.jpg'},'foto_persona_min_size_KO'],
-    ['persona', 'foto_persona', 105, 174, 'EDIT', {foto_persona: 'a'.repeat(16) + '.jpg'},'foto_persona_max_size_KO'],
-    ['persona', 'foto_persona', 106, 175, 'EDIT', {foto_persona: 'foto123.jpg'},'foto_persona_format_KO'],
-    ['persona', 'foto_persona', 107, 176, 'EDIT', {foto_persona: 'abc.jpg'},true],
     //SEARCH
-    ['persona', 'foto_persona', 108, 177, 'SEARCH', {foto_persona: 'a'.repeat(16) + '.jpg'},'foto_persona_max_size_KO'],
-    ['persona', 'foto_persona', 109, 178, 'SEARCH', {foto_persona: 'foto123.jpg'},'foto_persona_format_KO'],
-    ['persona', 'foto_persona', 110, 179, 'SEARCH', {foto_persona: ''},true],
-    ['persona', 'foto_persona', 110, 180, 'SEARCH', {foto_persona: 'abc.jpg'},true],
+    ['persona', 'foto_persona', 100, 169, 'SEARCH', {foto_persona: 'a'.repeat(16) + '.jpg'},'foto_persona_max_size_KO'],
+    ['persona', 'foto_persona', 101, 170, 'SEARCH', {foto_persona: 'foto123.jpg'},'foto_persona_format_KO'],
+    ['persona', 'foto_persona', 102, 171, 'SEARCH', {foto_persona: ''},true],
+    ['persona', 'foto_persona', 102, 172, 'SEARCH', {foto_persona: 'abc.jpg'},true],
 ];
