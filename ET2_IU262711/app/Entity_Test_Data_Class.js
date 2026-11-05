@@ -9,13 +9,27 @@ class entity_Test_Data extends Data_Test{
     }
 
     data_test_data(){
-        this.dom = this.entidad.dom;
-        const resultados = super.data_test_data();
-        const traduccionExito = window.traduccion.text_test_validation_success;
-        return resultados.map(resultado => resultado.resultadoprueba === true
-            ? {...resultado, traduccionError: traduccionExito}
-            : resultado
-        );
+        const contenedorOriginal = document.getElementById('contenedor_IU_form');
+        if (!contenedorOriginal?.parentNode){
+            throw new Error('No se encontró el contenedor del formulario para ejecutar los tests.');
+        }
+
+        const contenedorPruebas = document.createElement('div');
+        contenedorPruebas.id = 'contenedor_IU_form';
+        contenedorPruebas.hidden = true;
+        contenedorOriginal.parentNode.insertBefore(contenedorPruebas, contenedorOriginal);
+
+        try {
+            this.dom = this.entidad.dom;
+            const resultados = super.data_test_data();
+            const traduccionExito = window.traduccion.text_test_validation_success;
+            return resultados.map(resultado => resultado.resultadoprueba === true
+                ? {...resultado, traduccionError: traduccionExito}
+                : resultado
+            );
+        } finally {
+            contenedorPruebas.remove();
+        }
     }
 
     data_test_class(){
