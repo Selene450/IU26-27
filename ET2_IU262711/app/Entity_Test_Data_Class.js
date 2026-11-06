@@ -60,9 +60,9 @@ class entity_Test_Data extends Data_Test{
         const incorrectos = resultados.length - correctos;
         const documento = ventana.document;
 
-        documento.title = `${window.traduccion.text_test_resultados_titulo} - ${this.entidad.nombreentidad}`;
         documento.head.innerHTML = '';
         documento.body.innerHTML = '';
+        documento.title = `${window.traduccion.text_test_resultados_titulo} - ${this.entidad.nombreentidad}`;
 
         const titulo = documento.createElement('h1');
         titulo.textContent = `${window.traduccion.text_test_resultados_titulo}: ${this.entidad.nombreentidad}`;
