@@ -226,30 +226,6 @@ var textos_ES = {
     "text_error_operacion_no_permitida": "Operación no permitida.",
 
     // CÓDIGOS DEL BACK Y TEXTOS DE TESTS
-    "RECORDSET_VACIO": "No se han encontrado elementos que coincidan con la búsqueda.",
-    "RECORDSET_DATOS": "Datos recuperados correctamente.",
-    "text_error_cargar_usuarios": "No se pudieron cargar los usuarios.",
-    "text_error_cargar_roles": "No se pudieron cargar los roles.",
-    "text_test_ventana_bloqueada": "No se pudo abrir la ventana de resultados. Permite las ventanas emergentes para ejecutar los tests.",
-    "text_test_sin_pruebas": "No hay pruebas definidas para esta entidad.",
-    "text_test_resultados_titulo": "Resultados de tests",
-    "text_test_total": "Total",
-    "text_test_correctos": "Correctos",
-    "text_test_incorrectos": "Incorrectos",
-
-    "text_cargando": "Cargando...",
-    "text_guardando": "Guardando...",
-    "text_eliminando": "Eliminando...",
-    "text_buscando": "Buscando...",
-    "text_actualizando": "Actualizando...",
-    "text_no_hay_datos": "No hay datos para mostrar.",
-    "text_confirmar_eliminacion": "¿Está seguro de que desea eliminar este registro?",
-    "text_operacion_correcta": "Operación realizada correctamente.",
-    "text_cerrar": "Cerrar",
-    "text_cancelar": "Cancelar",
-    "text_aceptar": "Aceptar",
-    "text_si": "Sí",
-    "text_no": "No",
     "text_test_validation_success": "Validación correcta.",
 
     // TEXTOS DE LA MATRIZ (funcionalidad_accion)

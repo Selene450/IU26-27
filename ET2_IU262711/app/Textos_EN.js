@@ -226,30 +226,6 @@ var textos_EN = {
     "text_error_operacion_no_permitida": "Operation not allowed.",
 
     // CÓDIGOS DEL BACK Y TEXTOS DE TESTS
-    "RECORDSET_VACIO": "No items match the search.",
-    "RECORDSET_DATOS": "Data retrieved successfully.",
-    "text_error_cargar_usuarios": "Could not load users.",
-    "text_error_cargar_roles": "Could not load roles.",
-    "text_test_ventana_bloqueada": "The results window could not be opened. Allow pop-ups to run the tests.",
-    "text_test_sin_pruebas": "No tests are defined for this entity.",
-    "text_test_resultados_titulo": "Test results",
-    "text_test_total": "Total",
-    "text_test_correctos": "Passed",
-    "text_test_incorrectos": "Failed",
-
-    "text_cargando": "Loading...",
-    "text_guardando": "Saving...",
-    "text_eliminando": "Deleting...",
-    "text_buscando": "Searching...",
-    "text_actualizando": "Updating...",
-    "text_no_hay_datos": "No data to display.",
-    "text_confirmar_eliminacion": "Are you sure you want to delete this record?",
-    "text_operacion_correcta": "Operation completed successfully.",
-    "text_cerrar": "Close",
-    "text_cancelar": "Cancel",
-    "text_aceptar": "Accept",
-    "text_si": "Yes",
-    "text_no": "No",
     "text_test_validation_success": "Validation passed.",
 
     // MATRIX TEXTS (funcionalidad_accion)
