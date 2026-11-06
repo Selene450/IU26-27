@@ -185,6 +185,7 @@ var textos_ES = {
     "fechaNacimiento_persona_max_size_KO": "La fecha de nacimiento no puede superar los 10 caracteres.",
     "fechaNacimiento_persona_format_KO": "La fecha de nacimiento debe tener el formato dd/mm/aaaa.",
     "fechaNacimiento_persona_personalized_KO": "La fecha introducida no existe en el calendario.",
+    "fechaNacimiento_persona_future_KO": "La fecha de nacimiento no puede ser futura.",
     "direccion_persona_min_size_KO": "La dirección debe tener al menos 10 caracteres.",
     "direccion_persona_max_size_KO": "La dirección no puede superar los 200 caracteres.",
     "direccion_persona_format_KO": "La dirección contiene caracteres no permitidos.",

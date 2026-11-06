@@ -271,14 +271,10 @@ class funcionalidad_accion extends AbstractEntidad {
                 <select id="id_funcionalidad" name="id_funcionalidad">
                     <option value=""></option>
                 </select>
-                <span id="span_error_id_funcionalidad" style="display:none"></span>
-                <a id="error_id_funcionalidad"></a>
                 <label class="label_id_accion" for="id_accion"></label>
                 <select id="id_accion" name="id_accion">
                     <option value=""></option>
                 </select>
-                <span id="span_error_id_accion" style="display:none"></span>
-                <a id="error_id_accion"></a>
                 <button id="submit_button" type="submit"><img src="./iconos/SEARCH.png" alt=""></button>
             </form>`;
         this.funcionalidades.forEach(funcionalidad => {
@@ -297,19 +293,9 @@ class funcionalidad_accion extends AbstractEntidad {
         this.dom.assign_property_value(
             'form_iu',
             'onsubmit',
-            'return entidad.dom.validarsubmit(entidad.SEARCH_submit_funcionalidad_accion())'
+            'entidad.SEARCH(); return false;'
         );
-        this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.SEARCH();');
-        this.dom.colocarvalidaciones('form_iu', 'SEARCH');
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
-    }
-
-    SEARCH_submit_funcionalidad_accion() {
-        const resultado = {
-            id_funcionalidad: this.SEARCH_id_funcionalidad_validation(),
-            id_accion: this.SEARCH_id_accion_validation()
-        };
-        return Object.values(resultado).every(valor => valor === true) ? true : resultado;
     }
 
     SEARCH() {
@@ -332,35 +318,5 @@ class funcionalidad_accion extends AbstractEntidad {
         this.mostrarEstado(
             funcionalidades.length && acciones.length ? '' : window.traduccion.text_matriz_sin_resultados
         );
-    }
-
-
-    SEARCH_id_funcionalidad_validation() {
-        const valor = document.getElementById('id_funcionalidad').value;
-        if (!this.validations.max_size(valor, 11)) {
-            this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_max_size_KO');
-            return 'id_funcionalidad_max_size_KO';
-        }
-        if (valor.trim() !== '' && !this.validations.format(valor, '^[0-9]+$')) {
-            this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_format_KO');
-            return 'id_funcionalidad_format_KO';
-        }
-        this.dom.mostrar_exito_campo('id_funcionalidad');
-        return true;
-    }
-
-
-    SEARCH_id_accion_validation() {
-        const valor = document.getElementById('id_accion').value;
-        if (!this.validations.max_size(valor, 11)) {
-            this.dom.mostrar_error_campo('id_accion', 'id_accion_max_size_KO');
-            return 'id_accion_max_size_KO';
-        }
-        if (valor.trim() !== '' && !this.validations.format(valor, '^[0-9]+$')) {
-            this.dom.mostrar_error_campo('id_accion', 'id_accion_format_KO');
-            return 'id_accion_format_KO';
-        }
-        this.dom.mostrar_exito_campo('id_accion');
-        return true;
     }
 }

@@ -260,20 +260,14 @@ class rolaccionfuncionalidad extends AbstractEntidad {
                 <select id="id_rol" name="id_rol">
                     <option value=""></option>
                 </select>
-                <span id="span_error_id_rol" style="display:none"></span>
-                <a id="error_id_rol"></a>
                 <label class="label_id_accion" for="id_accion"></label>
                 <select id="id_accion" name="id_accion">
                     <option value=""></option>
                 </select>
-                <span id="span_error_id_accion" style="display:none"></span>
-                <a id="error_id_accion"></a>
                 <label class="label_id_funcionalidad" for="id_funcionalidad"></label>
                 <select id="id_funcionalidad" name="id_funcionalidad">
                     <option value=""></option>
                 </select>
-                <span id="span_error_id_funcionalidad" style="display:none"></span>
-                <a id="error_id_funcionalidad"></a>
                 <button id="submit_button" type="submit"><img src="./iconos/SEARCH.png" alt=""></button>
             </form>`;
         this.roles.forEach(rol => {
@@ -298,20 +292,9 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         this.dom.assign_property_value(
             'form_iu',
             'onsubmit',
-            'return entidad.dom.validarsubmit(entidad.SEARCH_submit_rolaccionfuncionalidad())'
+            'entidad.SEARCH(); return false;'
         );
-        this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.SEARCH();');
-        this.dom.colocarvalidaciones('form_iu', 'SEARCH');
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
-    }
-
-    SEARCH_submit_rolaccionfuncionalidad() {
-        const resultado = {
-            id_rol: this.SEARCH_id_rol_validation(),
-            id_accion: this.SEARCH_id_accion_validation(),
-            id_funcionalidad: this.SEARCH_id_funcionalidad_validation()
-        };
-        return Object.values(resultado).every(valor => valor === true) ? true : resultado;
     }
 
     async SEARCH() {
@@ -345,47 +328,5 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         )) {
             this.mostrarEstado(window.traduccion.text_matriz_sin_resultados);
         }
-    }
-
-    SEARCH_id_rol_validation() {
-        const valor = document.querySelector('#contenedor_IU_form #id_rol').value;
-        if (!this.validations.max_size(valor, 11)) {
-            this.dom.mostrar_error_campo('id_rol', 'id_rol_max_size_KO');
-            return 'id_rol_max_size_KO';
-        }
-        if (valor.trim() !== '' && !this.validations.format(valor, '^[0-9]+$')) {
-            this.dom.mostrar_error_campo('id_rol', 'id_rol_format_KO');
-            return 'id_rol_format_KO';
-        }
-        this.dom.mostrar_exito_campo('id_rol');
-        return true;
-    }
-
-    SEARCH_id_accion_validation() {
-        const valor = document.getElementById('id_accion').value;
-        if (!this.validations.max_size(valor, 11)) {
-            this.dom.mostrar_error_campo('id_accion', 'id_accion_max_size_KO');
-            return 'id_accion_max_size_KO';
-        }
-        if (valor.trim() !== '' && !this.validations.format(valor, '^[0-9]+$')) {
-            this.dom.mostrar_error_campo('id_accion', 'id_accion_format_KO');
-            return 'id_accion_format_KO';
-        }
-        this.dom.mostrar_exito_campo('id_accion');
-        return true;
-    }
-
-    SEARCH_id_funcionalidad_validation() {
-        const valor = document.getElementById('id_funcionalidad').value;
-        if (!this.validations.max_size(valor, 11)) {
-            this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_max_size_KO');
-            return 'id_funcionalidad_max_size_KO';
-        }
-        if (valor.trim() !== '' && !this.validations.format(valor, '^[0-9]+$')) {
-            this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_format_KO');
-            return 'id_funcionalidad_format_KO';
-        }
-        this.dom.mostrar_exito_campo('id_funcionalidad');
-        return true;
     }
 }

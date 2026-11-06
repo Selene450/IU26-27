@@ -185,6 +185,7 @@ var textos_EN = {
     "fechaNacimiento_persona_max_size_KO": "The date of birth cannot exceed 10 characters.",
     "fechaNacimiento_persona_format_KO": "The date of birth must be in dd/mm/yyyy format.",
     "fechaNacimiento_persona_personalized_KO": "The entered date does not exist on the calendar.",
+    "fechaNacimiento_persona_future_KO": "The date of birth cannot be in the future.",
     "direccion_persona_min_size_KO": "The address must have at least 10 characters.",
     "direccion_persona_max_size_KO": "The address cannot exceed 200 characters.",
     "direccion_persona_format_KO": "The address contains invalid characters.",

@@ -45,6 +45,12 @@ class entity_dom_fields extends dom_fields{
                 element.value = valorSeleccionado;
                 this.colocarelemento(element, contenedor);
                 break;
+            case 'date': {
+                const campoFecha = this.createInput(nombrecampo, 'date');
+                campoFecha.value = valores[nombrecampo] ?? '';
+                this.colocarelemento(campoFecha, contenedor);
+                break;
+            }
             case 'input':
             case 'file':
             case 'submit':

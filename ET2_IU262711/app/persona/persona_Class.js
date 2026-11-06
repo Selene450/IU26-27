@@ -50,7 +50,7 @@ class persona extends AbstractEntidad {
 			<form id = 'form_iu' action="" method="POST" enctype="multipart/form-data" onsubmit="" class='formulario'>
 
 				<label class="label_dni">dni</label>
-				<input type='text' id='dni' name='dni'></input>
+				<input type='select' id='dni' name='dni'></input>
 				<span id="span_error_dni"><a id="error_dni"></a></span>
 				<br>
 				
@@ -174,21 +174,8 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
-	/**
-	 * 
-	 * @param {string} id id of the DNI field to validate
-	 * @returns {bool} true if the dni is valid or false if the dni is not valid
-	 */
-	personalize_dni(id) {
-
-		const dni = document.getElementById(id).value;
-		const dni_letters = "TRWAGMYFPDXBNJZSQVHLCKE";
-		const letter = dni_letters.charAt(parseInt(dni, 10) % 23);
-		return letter == dni.charAt(8);
-	}
-
 	personalize_fechaNacimiento_persona(fechaNacimiento) {
-		const partes = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(fechaNacimiento);
+		const partes = /^(0[1-9]|[12]\d|3[01])\/(0[1-9]|1[0-2])\/(\d{4})$/.exec(fechaNacimiento);
 		if (!partes) {
 			return false;
 		}
@@ -197,7 +184,19 @@ class persona extends AbstractEntidad {
 		const anio = Number(partes[3]);
 		const diasPorMes = [31, (anio % 400 === 0 || (anio % 4 === 0 && anio % 100 !== 0)) ? 29 : 28,
 			31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-		return mes >= 1 && mes <= 12 && dia >= 1 && dia <= diasPorMes[mes - 1];
+		return dia <= diasPorMes[mes - 1];
+	}
+
+	personalize_fechaNacimiento_persona_no_futura(fechaNacimiento) {
+		const partes = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(fechaNacimiento);
+		if (!partes || !this.personalize_fechaNacimiento_persona(fechaNacimiento)) {
+			return false;
+		}
+		const [, dia, mes, anio] = partes;
+		const fechaISO = `${anio}-${mes}-${dia}`;
+		const hoy = new Date();
+		const hoyISO = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-${String(hoy.getDate()).padStart(2, '0')}`;
+		return fechaISO <= hoyISO;
 	}
 
 	personalize_telefono_persona(telefono) {
@@ -216,23 +215,6 @@ class persona extends AbstractEntidad {
 	//ADD
 
 	ADD_dni_validation() {
-		const dni = document.getElementById('dni').value;
-		if (dni.length < 9) {
-			this.dom.mostrar_error_campo('dni', 'dni_min_size_KO');
-			return 'dni_min_size_KO';
-		}
-		if (dni.length > 9) {
-			this.dom.mostrar_error_campo('dni', 'dni_max_size_KO');
-			return 'dni_max_size_KO';
-		}
-		if (!this.validations.format('dni', '^[0-9]{8}[A-Z]$')) {
-			this.dom.mostrar_error_campo('dni', 'dni_format_KO');
-			return 'dni_format_KO';
-		}
-		if (!this.personalize_dni('dni')) {
-			this.dom.mostrar_error_campo('dni', 'dni_personalized_validate_dni_KO');
-			return 'dni_personalized_validate_dni_KO';
-		}
 		if (!this.validarDniPersonaDisponible()) {
 			return 'dni_persona_ocupado_KO';
 		}
@@ -278,12 +260,10 @@ class persona extends AbstractEntidad {
 
 	ADD_fechaNacimiento_persona_validation() {
 		const campoFecha = document.getElementById('fechaNacimiento_persona');
-		if (campoFecha.type === 'date') {
-			const fechaOriginal = campoFecha.value;
-			campoFecha.type = 'text';
-			campoFecha.value = fechaOriginal ? this.cambiarformatoFecha(fechaOriginal) : fechaOriginal;
-		}
-		const fechaNacimiento = campoFecha.value;
+		const esSelectorFecha = campoFecha.type === 'date';
+		const fechaNacimiento = esSelectorFecha && campoFecha.value
+			? this.cambiarformatoFecha(campoFecha.value)
+			: campoFecha.value;
 		if (fechaNacimiento.length < 10) {
 			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_min_size_KO');
 			return 'fechaNacimiento_persona_min_size_KO';
@@ -292,16 +272,21 @@ class persona extends AbstractEntidad {
 			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_max_size_KO');
 			return 'fechaNacimiento_persona_max_size_KO';
 		}
-		if (!this.validations.format(
-			'fechaNacimiento_persona',
-			'^(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[0-2])\\/[0-9]{4}$'
-		)) {
+		const formatoFecha = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/[0-9]{4}$/;
+		const formatoValido = esSelectorFecha
+			? formatoFecha.test(fechaNacimiento)
+			: this.validations.format('fechaNacimiento_persona', formatoFecha.source);
+		if (!formatoValido) {
 			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_format_KO');
 			return 'fechaNacimiento_persona_format_KO';
 		}
 		if (!this.personalize_fechaNacimiento_persona(fechaNacimiento)) {
 			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_personalized_KO');
 			return 'fechaNacimiento_persona_personalized_KO';
+		}
+		if (!this.personalize_fechaNacimiento_persona_no_futura(fechaNacimiento)) {
+			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_future_KO');
+			return 'fechaNacimiento_persona_future_KO';
 		}
 		this.dom.mostrar_exito_campo('fechaNacimiento_persona');
 		return true;
@@ -535,26 +520,6 @@ class persona extends AbstractEntidad {
 
 	//SEARCH
 
-	SEARCH_dni_validation() {
-		const campoDni = document.getElementById('dni');
-		const dni = campoDni.value;
-		if (dni.trim() === '') {
-			this.dom.mostrar_exito_campo('dni');
-			return true;
-		}
-		if (dni.length > 9) {
-			this.dom.mostrar_error_campo('dni', 'dni_max_size_KO');
-			return 'dni_max_size_KO';
-		}
-		if (!/^(?:[0-9]{1,9}|[0-9]{1,8}[A-Za-z])$/.test(dni)) {
-			this.dom.mostrar_error_campo('dni', 'dni_format_KO');
-			return 'dni_format_KO';
-		}
-		campoDni.value = dni.toUpperCase();
-		this.dom.mostrar_exito_campo('dni');
-		return true;
-	}
-
 	async SEARCH() {
 		const respuesta = await this.access_functions.peticionBackGeneral('', this.nombreentidad, 'SEARCH');
 		let registros;
@@ -634,12 +599,10 @@ class persona extends AbstractEntidad {
 
 	SEARCH_fechaNacimiento_persona_validation() {
 		const campoFecha = document.getElementById('fechaNacimiento_persona');
-		if (campoFecha.type === 'date') {
-			const fechaOriginal = campoFecha.value;
-			campoFecha.type = 'text';
-			campoFecha.value = fechaOriginal ? this.cambiarformatoFecha(fechaOriginal) : fechaOriginal;
-		}
-		const fechaNacimiento = campoFecha.value;
+		const esSelectorFecha = campoFecha.type === 'date';
+		const fechaNacimiento = esSelectorFecha && campoFecha.value
+			? this.cambiarformatoFecha(campoFecha.value)
+			: campoFecha.value;
 		if (fechaNacimiento.trim() === '') {
 			this.dom.mostrar_exito_campo('fechaNacimiento_persona');
 			return true;
@@ -648,16 +611,21 @@ class persona extends AbstractEntidad {
 			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_max_size_KO');
 			return 'fechaNacimiento_persona_max_size_KO';
 		}
-		if (!this.validations.format(
-			'fechaNacimiento_persona',
-			'^(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[0-2])\\/[0-9]{4}$'
-		)) {
+		const formatoFecha = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/[0-9]{4}$/;
+		const formatoValido = esSelectorFecha
+			? formatoFecha.test(fechaNacimiento)
+			: this.validations.format('fechaNacimiento_persona', formatoFecha.source);
+		if (!formatoValido) {
 			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_format_KO');
 			return 'fechaNacimiento_persona_format_KO';
 		}
 		if (!this.personalize_fechaNacimiento_persona(fechaNacimiento)) {
 			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_personalized_KO');
 			return 'fechaNacimiento_persona_personalized_KO';
+		}
+		if (!this.personalize_fechaNacimiento_persona_no_futura(fechaNacimiento)) {
+			this.dom.mostrar_error_campo('fechaNacimiento_persona', 'fechaNacimiento_persona_future_KO');
+			return 'fechaNacimiento_persona_future_KO';
 		}
 		this.dom.mostrar_exito_campo('fechaNacimiento_persona');
 		return true;
@@ -749,7 +717,6 @@ class persona extends AbstractEntidad {
 
 	SEARCH_submit_persona() {
 		const set_result = {
-			dni: this.SEARCH_dni_validation(),
 			nombre_persona: this.SEARCH_nombre_persona_validation(),
 			apellidos_persona: this.SEARCH_apellidos_persona_validation(),
 			fechaNacimiento_persona: this.SEARCH_fechaNacimiento_persona_validation(),
@@ -788,9 +755,6 @@ class persona extends AbstractEntidad {
 		//activar el link al fichero
 		this.dom.assign_property_value('link_foto_persona', 'href', 'http://193.147.87.202/ET2/filesuploaded/files_foto_persona/' + fila.foto_persona);
 
-		// modificar presentacion (en este caso concreto para fecha)
-		fila.fechaNacimiento_persona = this.cambiarformatoFecha(fila.fechaNacimiento_persona);
-
 		// rellenar valores
 		this.dom.rellenarvaloresform(fila);
 		this.cargarUsuariosDisponibles(fila.dni);
@@ -822,9 +786,6 @@ class persona extends AbstractEntidad {
 		this.dom.hide_element_form('nuevo_foto_persona');
 		this.dom.assign_property_value('link_foto_persona', 'href', 'http://193.147.87.202/ET2/filesuploaded/files_foto_persona/' + fila.foto_persona);
 
-		// modificar presentacion (en este caso concreto para fecha)
-		fila.fechaNacimiento_persona = this.cambiarformatoFecha(fila.fechaNacimiento_persona);
-
 		// rellenar valores
 		this.dom.rellenarvaloresform(fila);
 
@@ -851,9 +812,6 @@ class persona extends AbstractEntidad {
 		// poner no visible el campo nuevo_foto_persona (solo se puede ver el nombre de fichero)
 		this.dom.hide_element_form('nuevo_foto_persona');
 		this.dom.assign_property_value('link_foto_persona', 'href', 'http://193.147.87.202/ET2/filesuploaded/files_foto_persona/' + fila.foto_persona);
-
-		// modificar presentacion (en este caso concreto para fecha)
-		fila.fechaNacimiento_persona = this.cambiarformatoFecha(fila.fechaNacimiento_persona);
 
 		// rellenar valores
 		this.dom.rellenarvaloresform(fila);
@@ -933,6 +891,7 @@ class persona extends AbstractEntidad {
 
 		// poner las validaciones
 		this.dom.colocarvalidaciones('form_iu', 'SEARCH');
+		document.getElementById('dni').removeAttribute('onchange');
 		this.cargarUsuariosDisponibles('', true);
 
 		// colocar boton de submit

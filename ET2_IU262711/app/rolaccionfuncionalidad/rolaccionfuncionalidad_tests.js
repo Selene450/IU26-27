@@ -1,41 +1,7 @@
 var rolaccionfuncionalidad_def_tests = [
-    ['rolaccionfuncionalidad', 'id_rol', 'select', 1, 'Validar max_size de id_rol en SEARCH', 'max_size', 'SEARCH', 'id_rol_max_size_KO', 'El campo id_rol tiene como máximo 11 caracteres'],
-    ['rolaccionfuncionalidad', 'id_rol', 'select', 2, 'Validar format de id_rol en SEARCH', 'format', 'SEARCH', 'id_rol_format_KO', 'El campo id_rol debe ser un número entero'],
-    ['rolaccionfuncionalidad', 'id_rol', 'select', 3, 'Validar id_rol correcto en SEARCH', 'valid', 'SEARCH', true, 'id_rol correcto'],
-    ['rolaccionfuncionalidad', 'id_accion', 'select', 4, 'Validar max_size de id_accion en SEARCH', 'max_size', 'SEARCH', 'id_accion_max_size_KO', 'El campo id_accion tiene como máximo 11 caracteres'],
-    ['rolaccionfuncionalidad', 'id_accion', 'select', 5, 'Validar format de id_accion en SEARCH', 'format', 'SEARCH', 'id_accion_format_KO', 'El campo id_accion debe ser un número entero'],
-    ['rolaccionfuncionalidad', 'id_accion', 'select', 6, 'Validar id_accion correcto en SEARCH', 'valid', 'SEARCH', true, 'id_accion correcto'],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 'select', 7, 'Validar max_size de id_funcionalidad en SEARCH', 'max_size', 'SEARCH', 'id_funcionalidad_max_size_KO', 'El campo id_funcionalidad tiene como máximo 11 caracteres'],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 'select', 8, 'Validar format de id_funcionalidad en SEARCH', 'format', 'SEARCH', 'id_funcionalidad_format_KO', 'El campo id_funcionalidad debe ser un número entero'],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 'select', 9, 'Validar id_funcionalidad correcto en SEARCH', 'valid', 'SEARCH', true, 'id_funcionalidad correcto']
+
 ];
 
 var rolaccionfuncionalidad_pruebas = [
-    ['rolaccionfuncionalidad', 'id_rol', 1, 1, 'SEARCH', {'id_rol': '123456789012'}, 'id_rol_max_size_KO'],
-    ['rolaccionfuncionalidad', 'id_rol', 2, 2, 'SEARCH', {'id_rol': 'abc'}, 'id_rol_format_KO'],
-    ['rolaccionfuncionalidad', 'id_rol', 2, 3, 'SEARCH', {'id_rol': '12,3'}, 'id_rol_format_KO'],
-    ['rolaccionfuncionalidad', 'id_rol', 2, 4, 'SEARCH', {'id_rol': '123@'}, 'id_rol_format_KO'],
-    ['rolaccionfuncionalidad', 'id_rol', 3, 5, 'SEARCH', {'id_rol': ''}, true],
-    ['rolaccionfuncionalidad', 'id_rol', 3, 6, 'SEARCH', {'id_rol': ' '}, true],
-    ['rolaccionfuncionalidad', 'id_rol', 3, 7, 'SEARCH', {'id_rol': '1'}, true],
-    ['rolaccionfuncionalidad', 'id_rol', 3, 8, 'SEARCH', {'id_rol': '12345678901'}, true],
-    ['rolaccionfuncionalidad', 'id_rol', 3, 9, 'SEARCH', {'id_rol': '123'}, true],
-    ['rolaccionfuncionalidad', 'id_accion', 4, 10, 'SEARCH', {'id_accion': '123456789012'}, 'id_accion_max_size_KO'],
-    ['rolaccionfuncionalidad', 'id_accion', 5, 11, 'SEARCH', {'id_accion': 'abc'}, 'id_accion_format_KO'],
-    ['rolaccionfuncionalidad', 'id_accion', 5, 12, 'SEARCH', {'id_accion': '12,3'}, 'id_accion_format_KO'],
-    ['rolaccionfuncionalidad', 'id_accion', 5, 13, 'SEARCH', {'id_accion': '123@'}, 'id_accion_format_KO'],
-    ['rolaccionfuncionalidad', 'id_accion', 6, 14, 'SEARCH', {'id_accion': ''}, true],
-    ['rolaccionfuncionalidad', 'id_accion', 6, 15, 'SEARCH', {'id_accion': ' '}, true],
-    ['rolaccionfuncionalidad', 'id_accion', 6, 16, 'SEARCH', {'id_accion': '1'}, true],
-    ['rolaccionfuncionalidad', 'id_accion', 6, 17, 'SEARCH', {'id_accion': '12345678901'}, true],
-    ['rolaccionfuncionalidad', 'id_accion', 6, 18, 'SEARCH', {'id_accion': '123'}, true],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 7, 19, 'SEARCH', {'id_funcionalidad': '123456789012'}, 'id_funcionalidad_max_size_KO'],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 8, 20, 'SEARCH', {'id_funcionalidad': 'abc'}, 'id_funcionalidad_format_KO'],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 8, 21, 'SEARCH', {'id_funcionalidad': '12,3'}, 'id_funcionalidad_format_KO'],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 8, 22, 'SEARCH', {'id_funcionalidad': '123@'}, 'id_funcionalidad_format_KO'],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 9, 23, 'SEARCH', {'id_funcionalidad': ''}, true],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 9, 24, 'SEARCH', {'id_funcionalidad': ' '}, true],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 9, 25, 'SEARCH', {'id_funcionalidad': '1'}, true],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 9, 26, 'SEARCH', {'id_funcionalidad': '12345678901'}, true],
-    ['rolaccionfuncionalidad', 'id_funcionalidad', 9, 27, 'SEARCH', {'id_funcionalidad': '123'}, true]
+
 ];

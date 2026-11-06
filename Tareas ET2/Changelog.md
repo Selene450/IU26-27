@@ -25,4 +25,6 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Se volvieron a crear ficheros necesarios de la estrructura eliminados por error [04/11/2026]
 - Se corrigieron errores de muestra de iconos [05/11/2026]
 - Se corrigió la gestión de los select en las pruebas, antes saltaba solo id_entidad_min_size_KO en las entidades débiles independientemente del id proporcionado [05/11/2026]
-- Se cambió el tipo de dato del formulario de persona fechaNacimiento a date y para la persistencia del formato pedido se usó la función que venía dada en la arquitectura de Rodeiro [05/11/2026] 
+- Se cambió el tipo de dato del formulario de persona fechaNacimiento a date y para la persistencia del formato pedido se usó la función que venía dada en la arquitectura de Rodeiro [05/11/2026]
+- Se ajustaron las validaciones de fecha de nacimiento al formato dd/mm/aaaa, se impidieron fechas futuras y se adaptaron y renumeraron sus pruebas para usar controles date [06/11/2026]
+- Se eliminaron las validaciones de texto innecesarias para los select de DNI y las búsquedas de las entidades funcionalidad_accion y rolaccionfuncionalidad [06/11/2026]
