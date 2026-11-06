@@ -408,7 +408,17 @@ class usuario extends AbstractEntidad {
         this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.DELETE();');
         this.dom.assign_property_value('form_iu', 'onsubmit', 'entidad.DELETE(); return false;');
         this.dom.rellenarvaloresform(fila);
-        this.cargarRoles(fila.id_rol);
+        // el select no admite readonly: se deja solo la opcion seleccionada para que no se pueda cambiar y siga enviandose
+        this.cargarRoles(fila.id_rol).then(() => {
+            const selectRol = document.getElementById('id_rol');
+            if (selectRol) {
+                Array.from(selectRol.options).forEach(opcion => {
+                    if (opcion.value !== selectRol.value) {
+                        opcion.remove();
+                    }
+                });
+            }
+        });
         this.dom.colocartodosreadonly('form_iu');
         this.dom.colocarboton('DELETE');
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');

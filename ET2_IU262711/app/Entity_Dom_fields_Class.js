@@ -32,12 +32,36 @@ class entity_dom_fields extends dom_fields{
     }
 
     /**
+     * igual que dom_form.colocarboton, pero bloquea el boton de submit en cuanto el formulario se envia
+     * para que un doble clic no mande dos peticiones. Se libera al mostrarse un error del back
+     * (el formulario sigue abierto) o pasados 15 segundos por seguridad.
+     * @param {string} accion accion a realizar
+     */
+    colocarboton(accion){
+        super.colocarboton(accion);
+        const formulario = document.getElementById('form_iu');
+        const boton = document.getElementById('submit_button');
+        formulario.addEventListener('submit', evento => {
+            // si la validacion del onsubmit lo ha cancelado no se envia nada; DELETE no valida y cancela porque llama a entidad.DELETE() directamente
+            if (evento.defaultPrevented && accion !== 'DELETE') {
+                return;
+            }
+            boton.disabled = true;
+            setTimeout(() => { boton.disabled = false; }, 15000);
+        });
+    }
+
+    /**
      * abre el modal de error. Si el mensaje es un codigo de traduccion se pone como class para que setLang() lo traduzca
      * @param {string} errorMsg codigo de error o texto
      */
     abrirModalError(errorMsg) {
         document.getElementById('error_action_modal').style.display = 'block';
         document.getElementById('modal_action_overlay').style.display = 'block';
+        const botonEnvio = document.getElementById('submit_button');
+        if (botonEnvio) {
+            botonEnvio.disabled = false;
+        }
         const mensaje = document.getElementById('error_action_msg');
         mensaje.removeAttribute('class');
         mensaje.textContent = errorMsg || '';
