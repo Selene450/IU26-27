@@ -394,7 +394,45 @@ class rol extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+
     /**
+     * Muestra los roles sin incrustar los datos de las filas en código HTML.
+     * @param {Array<Object>} datos Filas devueltas por la búsqueda
+     * @param {Array<string>} mostrarespecial Campos que requieren transformación para mostrarse
+     * @returns {void}
+     */
+    crearTablaDatos(datos, mostrarespecial) {
+        const filasOriginales = datos.map(fila => ({...fila}));
+        const filasTabla = datos.map(fila => ({...fila}));
+        const acciones = {
+            EDIT: fila => this.createForm_EDIT(fila),
+            DELETE: fila => this.createForm_DELETE(fila),
+            SHOWCURRENT: fila => this.createForm_SHOWCURRENT(fila)
+        };
+
+        filasTabla.forEach((fila, indice) => {
+            mostrarespecial.forEach(campo => {
+                if (Object.prototype.hasOwnProperty.call(fila, campo)) {
+                    fila[campo] = this.cambiarmostrarespecial(campo, fila[campo]);
+                }
+            });
+            fila.EDIT = `<img id="botonEDIT" data-row-action="EDIT" data-row-index="${indice}" src="./iconos/EDIT.png">`;
+            fila.DELETE = `<img id="botonDELETE" data-row-action="DELETE" data-row-index="${indice}" src="./iconos/DELETE.png">`;
+            fila.SHOWCURRENT = `<img id="botonSHOWCURRENT" data-row-action="SHOWCURRENT" data-row-index="${indice}" src="./iconos/SHOWCURRENT.png">`;
+        });
+
+        this.dom.showData('IU_manage_table', filasTabla);
+        document.querySelectorAll('#IU_manage_table [data-row-action]').forEach(boton => {
+            const accion = boton.dataset.rowAction;
+            const indice = Number(boton.dataset.rowIndex);
+            boton.addEventListener('click', () => acciones[accion](filasOriginales[indice]));
+        });
+        this.dom.crearSeleccionablecolumnas(this.columnasamostrar, this.atributos);
+        this.dom.mostrarocultarcolumnas(this.columnasamostrar, this.atributos);
+        setLang();
+    }
+
+/**
      * Devuelve el valor a mostrar en la tabla para una columna de `mostrarespecial`, en lugar del valor real de la tupla.
      * @param {string} columna Nombre de la columna
      * @param {*} valor Valor real de la tupla

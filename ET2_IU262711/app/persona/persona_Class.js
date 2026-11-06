@@ -1111,6 +1111,44 @@ class persona extends AbstractEntidad {
 
 	}
 
+
+	/**
+	 * Muestra las personas sin incrustar los datos de las filas en código HTML.
+	 * @param {Array<Object>} datos Filas devueltas por la búsqueda
+	 * @param {Array<string>} mostrarespecial Campos que requieren transformación para mostrarse
+	 * @returns {void}
+	 */
+	crearTablaDatos(datos, mostrarespecial) {
+		const filasOriginales = datos.map(fila => ({...fila}));
+		const filasTabla = datos.map(fila => ({...fila}));
+		const acciones = {
+			EDIT: fila => this.createForm_EDIT(fila),
+			DELETE: fila => this.createForm_DELETE(fila),
+			SHOWCURRENT: fila => this.createForm_SHOWCURRENT(fila)
+		};
+
+		filasTabla.forEach((fila, indice) => {
+			mostrarespecial.forEach(campo => {
+				if (Object.prototype.hasOwnProperty.call(fila, campo)) {
+					fila[campo] = this.cambiarmostrarespecial(campo, fila[campo]);
+				}
+			});
+			fila.EDIT = `<img id="botonEDIT" data-row-action="EDIT" data-row-index="${indice}" src="./iconos/EDIT.png">`;
+			fila.DELETE = `<img id="botonDELETE" data-row-action="DELETE" data-row-index="${indice}" src="./iconos/DELETE.png">`;
+			fila.SHOWCURRENT = `<img id="botonSHOWCURRENT" data-row-action="SHOWCURRENT" data-row-index="${indice}" src="./iconos/SHOWCURRENT.png">`;
+		});
+
+		this.dom.showData('IU_manage_table', filasTabla);
+		document.querySelectorAll('#IU_manage_table [data-row-action]').forEach(boton => {
+			const accion = boton.dataset.rowAction;
+			const indice = Number(boton.dataset.rowIndex);
+			boton.addEventListener('click', () => acciones[accion](filasOriginales[indice]));
+		});
+		this.dom.crearSeleccionablecolumnas(this.columnasamostrar, this.atributos);
+		this.dom.mostrarocultarcolumnas(this.columnasamostrar, this.atributos);
+		setLang();
+	}
+
 	/**
 	 * transforma el valor de la columna a mostrar en la tabla de datos de la entidad del back
 	 * 
