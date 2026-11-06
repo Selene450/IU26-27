@@ -31,7 +31,7 @@ class rolaccionfuncionalidad extends AbstractEntidad {
             document.getElementById('IU_manage_table').className = '';
             document.getElementById('IU_manage_table').innerHTML = this.manual_form_creation();
             this.dom.hide_element('Div_IU_form');
-            setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
+            setLang();
             this.cargaInicial = this.inicializarVista();
         }
     }
@@ -180,7 +180,7 @@ class rolaccionfuncionalidad extends AbstractEntidad {
             filaCabecera.appendChild(celda);
         });
         cabecera.appendChild(filaCabecera);
-        setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
+        setLang();
 
         funcionalidades.forEach(funcionalidad => {
             const fila = document.createElement('tr');
@@ -248,7 +248,7 @@ class rolaccionfuncionalidad extends AbstractEntidad {
             );
             if (!respuesta || !respuesta.ok) {
                 checkbox.checked = !checkbox.checked;
-                this.mostrarError(new Error(respuesta?.code || window.traduccion.text_error_guardar_cambio));
+                this.mostrarError(new Error(respuesta?.code || window.traduccion.text_error_guardar_cambio), false);
                 return;
             }
             this.permisos = checkbox.checked
@@ -262,7 +262,7 @@ class rolaccionfuncionalidad extends AbstractEntidad {
             this.mostrarEstado(window.traduccion.text_cambios_guardados);
         } catch (error) {
             checkbox.checked = !checkbox.checked;
-            this.mostrarError(error);
+            this.mostrarError(error, false);
         } finally {
             checkbox.disabled = false;
         }
@@ -280,13 +280,14 @@ class rolaccionfuncionalidad extends AbstractEntidad {
     /**
      * Muestra un error de carga o de guardado sobre la matriz.
      * @param {Error|string} error Error recibido
+     * @param {boolean} [conservarEstado=true] Si es false, el mensaje solo se muestra en el modal y no se deja escrito bajo la matriz
      * @returns {void}
      */
-    mostrarError(error) {
+    mostrarError(error, conservarEstado = true) {
         const mensaje = error.status
             ? `${window.traduccion.text_error_conexion} (${error.status})`
             : (window.traduccion[error.message] || error.message || window.traduccion.text_error_cargar_permisos);
-        this.mostrarEstado(mensaje);
+        this.mostrarEstado(conservarEstado ? mensaje : '');
         document.getElementById('error_action_msg').textContent = mensaje;
         this.dom.abrirModalError(mensaje);
     }
@@ -367,7 +368,7 @@ class rolaccionfuncionalidad extends AbstractEntidad {
             'onsubmit',
             'entidad.SEARCH(); return false;'
         );
-        setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
+        setLang();
     }
 
     /**

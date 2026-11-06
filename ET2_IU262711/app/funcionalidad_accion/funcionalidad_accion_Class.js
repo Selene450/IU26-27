@@ -30,7 +30,7 @@ class funcionalidad_accion extends AbstractEntidad {
             document.getElementById('IU_manage_table').className = '';
             document.getElementById('IU_manage_table').innerHTML = this.manual_form_creation();
             this.dom.hide_element('Div_IU_form');
-            setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
+            setLang();
             this.cargaInicial = this.inicializarVista();
         }
     }
@@ -151,7 +151,7 @@ class funcionalidad_accion extends AbstractEntidad {
             });
             cuerpo.appendChild(fila);
         });
-        setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
+        setLang();
     }
 
     /**
@@ -267,7 +267,7 @@ class funcionalidad_accion extends AbstractEntidad {
             this.mostrarEstado(mensajeGuardado);
         } catch (error) {
             checkbox.checked = !checkbox.checked;
-            this.mostrarError(error);
+            this.mostrarError(error, false);
         } finally {
             checkbox.disabled = false;
         }
@@ -285,13 +285,14 @@ class funcionalidad_accion extends AbstractEntidad {
     /**
      * Muestra un error de carga o de guardado sobre la matriz.
      * @param {Error|string} error Error recibido
+     * @param {boolean} [conservarEstado=true] Si es false, el mensaje solo se muestra en el modal y no se deja escrito bajo la matriz
      * @returns {void}
      */
-    mostrarError(error) {
+    mostrarError(error, conservarEstado = true) {
         const mensaje = error.status
             ? `${window.traduccion.text_error_conexion} (${error.status})`
             : (window.traduccion[error.message] || error.message || window.traduccion.text_error_cargar_relaciones);
-        this.mostrarEstado(mensaje);
+        this.mostrarEstado(conservarEstado ? mensaje : '');
         document.getElementById('error_action_msg').textContent = mensaje;
         this.dom.abrirModalError(mensaje);
     }
@@ -365,7 +366,7 @@ class funcionalidad_accion extends AbstractEntidad {
             'onsubmit',
             'entidad.SEARCH(); return false;'
         );
-        setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
+        setLang();
     }
 
     /**
