@@ -75,6 +75,7 @@ var textos_ES = {
     // TEXTOS DE LA MATRIZ (funcionalidad_accion / rolaccionfuncionalidad)
     "text_selector_rol": "Rol:",
     "text_matriz_funcionalidad": "Funcionalidad",
+    "text_matriz_sin_resultados": "No hay funcionalidades o acciones que coincidan con la búsqueda.",
     "text_sin_roles": "No hay roles disponibles.",
     "text_seleccione_rol": "Selecciona un rol para ver sus permisos.",
     "text_cargando_permisos": "Cargando permisos...",

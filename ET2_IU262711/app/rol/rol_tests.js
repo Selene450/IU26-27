@@ -114,10 +114,10 @@ var rol_pruebas = [
     ['rol', 'rol_description', 25, 55, 'SEARCH', {'rol_description': 'a'.repeat(200)}, true],
     ['rol', 'rol_description', 25, 56, 'SEARCH', {'rol_description': 'Rol ñ, acción.'}, true],
     ['rol', 'rol_description', 25, 57, 'SEARCH', {'rol_description': 'Rol con acceso total al sistema'}, true],
-    ['rol', 'rol_description', 17, 58, 'ADD', {'rol_description': 'Descripción: edición, búsqueda y gestión (niñez).'}, true],
+    ['rol', 'rol_description', 18, 58, 'ADD', {'rol_description': 'Descripción: edición, búsqueda y gestión (niñez).'}, true],
     ['rol', 'rol_description', 17, 59, 'ADD', {'rol_description': 'Acceso nivel 2'}, 'rol_description_format_KO'],
-    ['rol', 'rol_description', 21, 60, 'EDIT', {'rol_description': 'Descripción: edición, búsqueda y gestión (niñez).'}, true],
+    ['rol', 'rol_description', 22, 60, 'EDIT', {'rol_description': 'Descripción: edición, búsqueda y gestión (niñez).'}, true],
     ['rol', 'rol_description', 21, 61, 'EDIT', {'rol_description': 'Acceso nivel 2'}, 'rol_description_format_KO'],
-    ['rol', 'rol_description', 24, 62, 'SEARCH', {'rol_description': 'Descripción: edición, búsqueda y gestión (niñez).'}, true],
+    ['rol', 'rol_description', 25, 62, 'SEARCH', {'rol_description': 'Descripción: edición, búsqueda y gestión (niñez).'}, true],
     ['rol', 'rol_description', 24, 63, 'SEARCH', {'rol_description': 'Acceso nivel 2'}, 'rol_description_format_KO']
 ];

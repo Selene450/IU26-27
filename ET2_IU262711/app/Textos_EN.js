@@ -75,6 +75,7 @@ var textos_EN = {
     // MATRIX TEXTS (funcionalidad_accion / rolaccionfuncionalidad)
     "text_selector_rol": "Role:",
     "text_matriz_funcionalidad": "Functionality",
+    "text_matriz_sin_resultados": "There are no functionalities or actions matching the search.",
     "text_sin_roles": "No roles available.",
     "text_seleccione_rol": "Select a role to see its permissions.",
     "text_cargando_permisos": "Loading permissions...",
