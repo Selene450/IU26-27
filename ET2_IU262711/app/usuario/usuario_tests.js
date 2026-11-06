@@ -47,20 +47,7 @@ var usuario_def_tests = [
     ['usuario', 'contrasena', 'input', 34, "Validar contraseña correcta en SEARCH", "valid", "SEARCH", true, "contrasena correcta"],
     
     //campo id_rol
-    //ADD
-    ['usuario', 'id_rol', 'select', 35, 'Validar min_size de id_rol en  ADD', 'min_size', 'ADD', 'id_rol_min_size_KO', 'El campo id_rol debe tener al menos 1 caracter'],
-    ['usuario', 'id_rol', 'select', 36, 'Validar max_size de id_rol en  ADD', 'max_size', 'ADD', 'id_rol_max_size_KO', 'El campo id_rol debe tener como máximo 11 caracteres'],
-    ['usuario', 'id_rol', 'select', 37, 'Validar formato de id_rol en  ADD', 'format', 'ADD', 'id_rol_format_KO', 'El campo id_rol debe ser un numero entero'],
-    ['usuario', 'id_rol', 'select', 38, 'Validar id_rol correcto en ADD', 'valid', 'ADD', true, 'id_rol correcto'],
-    //EDIT
-    ['usuario', 'id_rol', 'select', 39, 'Validar min_size de id_rol en  EDIT', 'min_size', 'EDIT', 'id_rol_min_size_KO', 'El campo id_rol debe tener al menos 1 caracter'],
-    ['usuario', 'id_rol', 'select', 40, 'Validar max_size de id_rol en  EDIT', 'max_size', 'EDIT', 'id_rol_max_size_KO', 'El campo id_rol debe tener como máximo 11 caracteres'],
-    ['usuario', 'id_rol', 'select', 41, 'Validar formato de id_rol en  EDIT', 'format', 'EDIT', 'id_rol_format_KO', 'El campo id_rol debe ser un numero entero'],
-    ['usuario', 'id_rol', 'select', 42, 'Validar id_rol correcto en EDIT', 'valid', 'EDIT', true, 'id_rol correcto'],
-    //SEARCH
-    ['usuario', 'id_rol', 'input', 43, 'Validar max_size de id_rol en  SEARCH', 'max_size', 'SEARCH', 'id_rol_max_size_KO', 'El campo id_rol tiene como máximo 11 caracteres'],
-    ['usuario', 'id_rol', 'input', 44, 'Validar formato de id_rol en  SEARCH', 'format', 'SEARCH', 'id_rol_format_KO', 'El campo id_rol debe ser un numero entero'],
-    ['usuario', 'id_rol', 'input', 45, 'Validar id_rol correcto en SEARCH', 'valid', 'SEARCH', true, 'id_rol correcto']
+    //Ya se valida todo en la clase Rol
 ];
 var usuario_pruebas = [
     //dni
@@ -169,37 +156,5 @@ var usuario_pruebas = [
     ['usuario', 'contrasena', 34, 92, 'SEARCH', { 'contrasena': 'abcdefgh' },true],
     ['usuario', 'contrasena', 34, 93, 'SEARCH', { 'contrasena': 'a'.repeat(45) },true],
     //id_rol
-    //ADD
-    ['usuario', 'id_rol', 35, 94, 'ADD', { 'id_rol': '' },'id_rol_min_size_KO'],
-    ['usuario', 'id_rol', 36, 95, 'ADD', { 'id_rol': '123456789012' },'id_rol_max_size_KO'],
-    ['usuario', 'id_rol', 37, 96, 'ADD', { 'id_rol': 'abc' },'id_rol_format_KO'],
-    ['usuario', 'id_rol', 37, 97, 'ADD', { 'id_rol': '12,3' },'id_rol_format_KO'],
-    ['usuario', 'id_rol', 37, 98, 'ADD', { 'id_rol': ' ' },'id_rol_format_KO'],
-    ['usuario', 'id_rol', 37, 99, 'ADD', { 'id_rol': ' 1234' },'id_rol_format_KO'],
-    ['usuario', 'id_rol', 37, 100, 'ADD', { 'id_rol': '1234 ' },'id_rol_format_KO'],
-    ['usuario', 'id_rol', 38, 101, 'ADD', { 'id_rol': '1234' },true],
-    ['usuario', 'id_rol', 38, 102, 'ADD', { 'id_rol': '1' },true],
-    ['usuario', 'id_rol', 38, 103, 'ADD', { 'id_rol': '1'.repeat(11) },true],
-    //EDIT
-    ['usuario', 'id_rol', 39, 104, 'EDIT', { 'id_rol': '' },'id_rol_min_size_KO'],
-    ['usuario', 'id_rol', 40, 105, 'EDIT', { 'id_rol': '123456789012' },'id_rol_max_size_KO'],
-    ['usuario', 'id_rol', 41, 106, 'EDIT', { 'id_rol': 'abc' },'id_rol_format_KO'],
-    ['usuario', 'id_rol', 41, 107, 'EDIT', { 'id_rol': '12,3' },'id_rol_format_KO'],
-    ['usuario', 'id_rol', 41, 108, 'EDIT', { 'id_rol': ' ' },'id_rol_format_KO'],
-    ['usuario', 'id_rol', 41, 109, 'EDIT', { 'id_rol': ' 1234' },'id_rol_format_KO'],
-    ['usuario', 'id_rol', 41, 110, 'EDIT', { 'id_rol': '1234 ' },'id_rol_format_KO'],
-    ['usuario', 'id_rol', 42, 111, 'EDIT', { 'id_rol': '1234' },true],
-    ['usuario', 'id_rol', 42, 112, 'EDIT', { 'id_rol': '1' },true],
-    ['usuario', 'id_rol', 42, 113, 'EDIT', { 'id_rol': '1'.repeat(11) },true],
-    //SEARCH
-    ['usuario', 'id_rol', 43, 114, 'SEARCH', { 'id_rol': '123456789012' },'id_rol_max_size_KO'],
-    ['usuario', 'id_rol', 44, 115, 'SEARCH', { 'id_rol': 'abc' },'id_rol_format_KO'],
-    ['usuario', 'id_rol', 44, 116, 'SEARCH', { 'id_rol': '12,3' },'id_rol_format_KO'],
-    ['usuario', 'id_rol', 44, 117, 'SEARCH', { 'id_rol': ' 1234' },'id_rol_format_KO'],
-    ['usuario', 'id_rol', 44, 118, 'SEARCH', { 'id_rol': '1234 ' },'id_rol_format_KO'],
-    ['usuario', 'id_rol', 45, 119, 'SEARCH', { 'id_rol': '' },true],
-    ['usuario', 'id_rol', 45, 120, 'SEARCH', { 'id_rol': ' ' },true],
-    ['usuario', 'id_rol', 45, 121, 'SEARCH', { 'id_rol': '1234' },true],
-    ['usuario', 'id_rol', 45, 122, 'SEARCH', { 'id_rol': '1' },true],
-    ['usuario', 'id_rol', 45, 123, 'SEARCH', { 'id_rol': '1'.repeat(11) },true],
+    //Ya se valida todo en la clase Rol
 ];
