@@ -659,7 +659,7 @@ class persona extends AbstractEntidad {
 			this.dom.mostrar_error_campo('telefono_persona', 'telefono_persona_max_size_KO');
 			return 'telefono_persona_max_size_KO';
 		}
-		if (!this.validations.format('telefono_persona', '^[0-9]{9}$')) {
+		if (!this.validations.format('telefono_persona', '^[0-9]{1,9}$')) {
 			this.dom.mostrar_error_campo('telefono_persona', 'telefono_persona_format_KO');
 			return 'telefono_persona_format_KO';
 		}
@@ -677,19 +677,22 @@ class persona extends AbstractEntidad {
 			this.dom.mostrar_error_campo('email_persona', 'email_persona_max_size_KO');
 			return 'email_persona_max_size_KO';
 		}
-		if (!this.validations.format(
-			'email_persona',
-			"^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$"
-		)) {
-			this.dom.mostrar_error_campo('email_persona', 'email_persona_format_KO');
-			return 'email_persona_format_KO';
-		}
 		this.dom.mostrar_exito_campo('email_persona');
 		return true;
 	}
 
 	SEARCH_foto_persona_validation() {
-		return this.personalize_validar_nombre_foto_persona('foto_persona', true);
+		const foto = document.getElementById('foto_persona').value.trim();
+		if (foto === '') {
+			this.dom.mostrar_exito_campo('foto_persona');
+			return true;
+		}
+		if (foto.length > 20) {
+			this.dom.mostrar_error_campo('foto_persona', 'foto_persona_max_size_KO');
+			return 'foto_persona_max_size_KO';
+		}
+		this.dom.mostrar_exito_campo('foto_persona');
+		return true;
 	}
 
 	personalize_validar_nombre_foto_persona(id, opcional = false) {

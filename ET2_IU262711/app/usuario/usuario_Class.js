@@ -184,9 +184,6 @@ class usuario extends AbstractEntidad {
         return true;
     }
 
-    // ==========================================
-    // VALIDACIONES DE ID_ROL
-    // ==========================================
     async cargarRoles(idRolSeleccionado = '') {
         const selectRol = document.getElementById('id_rol');
         const idRol = idRolSeleccionado && typeof idRolSeleccionado === 'object'
@@ -219,42 +216,6 @@ class usuario extends AbstractEntidad {
         }
     }
 
-    ADD_id_rol_validation() {
-        const idRol = document.getElementById('id_rol').value;
-        if (idRol.length < 1) {
-            this.dom.mostrar_error_campo('id_rol', 'id_rol_min_size_KO');
-            return 'id_rol_min_size_KO';
-        }
-        if (idRol.length > 11) {
-            this.dom.mostrar_error_campo('id_rol', 'id_rol_max_size_KO');
-            return 'id_rol_max_size_KO';
-        }
-        if (!this.validations.format('id_rol', '^[0-9]+$')) {
-            this.dom.mostrar_error_campo('id_rol', 'id_rol_format_KO');
-            return 'id_rol_format_KO';
-        }
-        this.dom.mostrar_exito_campo('id_rol');
-        return true;
-    }
-
-    EDIT_id_rol_validation() {
-        return this.ADD_id_rol_validation();
-    }
-
-    SEARCH_id_rol_validation() {
-        if (!this.validations.max_size('id_rol', 11)) {
-            this.dom.mostrar_error_campo('id_rol', 'id_rol_max_size_KO');
-            return 'id_rol_max_size_KO';
-        }
-        const idRol = document.getElementById('id_rol').value;
-        if (idRol.trim() !== '' && !this.validations.format('id_rol', '^[0-9]+$')) {
-            this.dom.mostrar_error_campo('id_rol', 'id_rol_format_KO');
-            return 'id_rol_format_KO';
-        }
-        this.dom.mostrar_exito_campo('id_rol');
-        return true;
-    }
-
     // ==========================================
     // MÉTODOS DE SUBMIT
     // ==========================================
@@ -263,13 +224,11 @@ class usuario extends AbstractEntidad {
         set_result.dni = this.ADD_dni_validation();
         set_result.usuario = this.ADD_usuario_validation();
         set_result.contrasena = this.ADD_contrasena_validation();
-        set_result.id_rol = this.ADD_id_rol_validation();
 
         let result = (
             (set_result.dni) &
             (set_result.usuario) &
-            (set_result.contrasena) &
-            (set_result.id_rol)
+            (set_result.contrasena)
         );
         return Boolean(result) === true ? true : set_result;
     }
@@ -279,13 +238,11 @@ class usuario extends AbstractEntidad {
         set_result.dni = this.EDIT_dni_validation();
         set_result.usuario = this.EDIT_usuario_validation();
         set_result.contrasena = this.EDIT_contrasena_validation();
-        set_result.id_rol = this.EDIT_id_rol_validation();
 
         let result = (
             (set_result.dni) &
             (set_result.usuario) &
-            (set_result.contrasena) &
-            (set_result.id_rol)
+            (set_result.contrasena)
         );
         return Boolean(result) === true ? true : set_result;
     }
@@ -295,13 +252,11 @@ class usuario extends AbstractEntidad {
         set_result.dni = this.SEARCH_dni_validation();
         set_result.usuario = this.SEARCH_usuario_validation();
         set_result.contrasena = this.SEARCH_contrasena_validation();
-        set_result.id_rol = this.SEARCH_id_rol_validation();
 
         let result = (
             (set_result.dni) &
             (set_result.usuario) &
-            (set_result.contrasena) &
-            (set_result.id_rol)
+            (set_result.contrasena)
         );
         return Boolean(result) === true ? true : set_result;
     }
@@ -360,6 +315,7 @@ class usuario extends AbstractEntidad {
         this.dom.rellenarvaloresform(fila);
         this.cargarRoles(fila.id_rol);
         this.dom.colocarvalidaciones('form_iu', 'EDIT');
+        document.getElementById('id_rol').removeAttribute('onchange');
         this.dom.colocarboton('EDIT');
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
@@ -399,6 +355,7 @@ class usuario extends AbstractEntidad {
         this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.ADD();');
 
         this.dom.colocarvalidaciones('form_iu', 'ADD');
+        document.getElementById('id_rol').removeAttribute('onchange');
         this.cargarRoles();
         this.dom.colocarboton('ADD');
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
@@ -406,16 +363,15 @@ class usuario extends AbstractEntidad {
 
     createForm_SEARCH() {
         this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_usuario_SEARCH');
-        document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation().replace(
-            '<select id="id_rol" name="id_rol"></select>',
-            '<input type="text" id="id_rol" name="id_rol">'
-        );
+        document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
         this.dom.show_element('Div_IU_form', 'block');
 
         this.dom.assign_property_value('form_iu', 'onsubmit', 'return entidad.dom.validarsubmit(entidad.SEARCH_submit_' + this.nombreentidad + '())');
         this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.SEARCH();');
 
         this.dom.colocarvalidaciones('form_iu', 'SEARCH');
+        document.getElementById('id_rol').removeAttribute('onchange');
+        this.cargarRoles();
         this.dom.colocarboton('SEARCH');
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
