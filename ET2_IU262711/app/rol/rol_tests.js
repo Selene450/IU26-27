@@ -114,9 +114,9 @@ var rol_pruebas = [
     //SEARCH
     ['rol', 'rol_description', 23, 55, 'SEARCH', {'rol_description': 'a'.repeat(201)}, 'rol_description_max_size_KO'],
     ['rol', 'rol_description', 24, 56, 'SEARCH', {'rol_description': 'Descripcion @@@ invalida %%'}, 'rol_description_format_KO'],
-    ['rol', 'rol_description', 24, 57, 'SEARCH', {'rol_description': 'Acceso nivel 2'}, 'rol_description_format_KO']
+    ['rol', 'rol_description', 24, 57, 'SEARCH', {'rol_description': 'Acceso nivel 2'}, 'rol_description_format_KO'],
     ['rol', 'rol_description', 25, 58, 'SEARCH', {'rol_description': ''}, true],
-    ['rol', 'rol_description', 25, 59, 'SEARCH', {'roldescription': 'ABCDE'}, true],
+    ['rol', 'rol_description', 25, 59, 'SEARCH', {'rol_description': 'ABCDE'}, true],
     ['rol', 'rol_description', 25, 60, 'SEARCH', {'rol_description': 'a'.repeat(200)}, true],
     ['rol', 'rol_description', 25, 61, 'SEARCH', {'rol_description': 'Rol ñ, acción.'}, true],
     ['rol', 'rol_description', 25, 62, 'SEARCH', {'rol_description': 'Rol con acceso total al sistema'}, true],
