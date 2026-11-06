@@ -1,3 +1,7 @@
+    /**
+     * Definiciones de test de `persona`. Fila: [entidad, campo, tipo de campo, id, descripción, test, acción, código de error o `true`, mensaje mostrado].
+     * @type {Array<Array<string|number|boolean>>}
+     */
     var persona_def_tests = [
     //Campo dni no necesita tests ya que se valida en la entidad Usuario y en la entidad Persona solo eliges un dni de los existentes en Usuario
     //Campo nombre_persona
@@ -110,6 +114,10 @@
     ['persona', 'foto_persona', 'input', 79, 'Validar max_size de foto_persona en SEARCH', 'max_size', 'SEARCH', 'foto_persona_max_size_KO', 'El filtro de foto_persona no puede superar 20 caracteres'],
     ['persona', 'foto_persona', 'input', 80, 'Validar busqueda parcial de foto_persona en SEARCH', 'valid', 'SEARCH', true, 'Busqueda parcial de foto_persona correcta'],
     ['persona', 'foto_persona', 'input', 81, 'Validar foto_persona correcta en SEARCH', 'valid', 'SEARCH', true, 'foto_persona correcta'],];
+/**
+ * Pruebas de `persona`. Fila: [entidad, campo, id de la definición, id de la prueba, acción, datos de entrada, resultado esperado].
+ * @type {Array<Array<string|number|boolean|Object>>}
+ */
 var persona_pruebas = [
     //nombre_persona
     //ADD

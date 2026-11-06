@@ -1,5 +1,13 @@
+/**
+ * Gestión de la entidad `persona`, con validaciones de DNI, fecha de nacimiento y fichero de foto.
+ * @extends AbstractEntidad
+ */
 class persona extends AbstractEntidad {
 
+	/**
+	 * Crea la gestión de la entidad `persona`. Si `esTest` es distinto de `'test'`, monta también la interfaz.
+	 * @param {string|null} [esTest=null] `'test'` para instanciar sin montar la interfaz
+	 */
 	constructor(esTest = null) {
 
 		super();
@@ -33,6 +41,10 @@ class persona extends AbstractEntidad {
 		}
 	}
 
+	/**
+	 * Envuelve `dom.mostrar_error_campo` para quitar la clase de error del campo antes de mostrar uno nuevo.
+	 * @returns {void}
+	 */
 	instalarLimpiezaMensajesError() {
 		const mostrarError = this.dom.mostrar_error_campo.bind(this.dom);
 		this.dom.mostrar_error_campo = (id, codigoError) => {
@@ -42,8 +54,8 @@ class persona extends AbstractEntidad {
 	}
 
 	/**
-	 * replace the content of section element with a particular entity menu
-	 * @returns 
+	 * Devuelve el HTML de los campos del formulario de la entidad.
+	 * @returns {string}
 	 */
 	manual_form_creation() {
 		var form_content = `
@@ -158,6 +170,10 @@ class persona extends AbstractEntidad {
 		}
 	}
 
+	/**
+	 * Comprueba que el DNI elegido exista en usuario y no esté ya asociado a una persona.
+	 * @returns {true|string} true si está disponible; código de error si no.
+	 */
 	validarDniPersonaDisponible() {
 		if (this.esTest) {
 			return true;
@@ -174,6 +190,11 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Validación personalizada `personalize_fechaNacimiento_persona`, usada cuando no sirven las validaciones estándar de Validations.
+	 * @param {string} fechaNacimiento Valor o identificador del campo a validar
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	personalize_fechaNacimiento_persona(fechaNacimiento) {
 		const partes = /^(0[1-9]|[12]\d|3[01])\/(0[1-9]|1[0-2])\/(\d{4})$/.exec(fechaNacimiento);
 		if (!partes) {
@@ -187,6 +208,11 @@ class persona extends AbstractEntidad {
 		return dia <= diasPorMes[mes - 1];
 	}
 
+	/**
+	 * Validación personalizada `personalize_fechaNacimiento_persona_no_futura`, usada cuando no sirven las validaciones estándar de Validations.
+	 * @param {string} fechaNacimiento Valor o identificador del campo a validar
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	personalize_fechaNacimiento_persona_no_futura(fechaNacimiento) {
 		const partes = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(fechaNacimiento);
 		if (!partes || !this.personalize_fechaNacimiento_persona(fechaNacimiento)) {
@@ -199,21 +225,22 @@ class persona extends AbstractEntidad {
 		return fechaISO <= hoyISO;
 	}
 
+	/**
+	 * Validación personalizada `personalize_telefono_persona`, usada cuando no sirven las validaciones estándar de Validations.
+	 * @param {string} telefono Valor o identificador del campo a validar
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	personalize_telefono_persona(telefono) {
 		return /^[679][0-9]{8}$/.test(telefono);
 	}
 
-	/**
-		@param
-		@return
-			{string} Error code of field value (fieldname_validationfunction_ko)
-			or
-			{bool} true due the field value is correct
-
-	*/
 
 	//ADD
 
+	/**
+	 * Valida el campo `dni` en la acción `ADD`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	ADD_dni_validation() {
 		if (!this.validarDniPersonaDisponible()) {
 			return 'dni_persona_ocupado_KO';
@@ -222,6 +249,10 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Valida el campo `nombre_persona` en la acción `ADD`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	ADD_nombre_persona_validation() {
 		const nombre = document.getElementById('nombre_persona').value;
 		if (nombre.length < 2) {
@@ -240,6 +271,10 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Valida el campo `apellidos_persona` en la acción `ADD`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	ADD_apellidos_persona_validation() {
 		const apellidos = document.getElementById('apellidos_persona').value;
 		if (apellidos.length < 3) {
@@ -258,6 +293,10 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Valida el campo `fechaNacimiento_persona` en la acción `ADD`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	ADD_fechaNacimiento_persona_validation() {
 		const campoFecha = document.getElementById('fechaNacimiento_persona');
 		const esSelectorFecha = campoFecha.type === 'date';
@@ -292,6 +331,10 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Valida el campo `direccion_persona` en la acción `ADD`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	ADD_direccion_persona_validation() {
 		const direccion = document.getElementById('direccion_persona').value;
 		if (direccion.length < 10) {
@@ -310,6 +353,10 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Valida el campo `telefono_persona` en la acción `ADD`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	ADD_telefono_persona_validation() {
 		const telefono = document.getElementById('telefono_persona').value;
 		if (telefono.length < 9) {
@@ -332,6 +379,10 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Valida el campo `email_persona` en la acción `ADD`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	ADD_email_persona_validation() {
 		const email = document.getElementById('email_persona').value;
 		if (email.length < 5) {
@@ -353,6 +404,10 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Valida el campo `nuevo_foto_persona` en la acción `ADD`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	ADD_nuevo_foto_persona_validation() {
 		if (!this.validations.exist_file('nuevo_foto_persona')) {
 			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_exist_file_KO');
@@ -382,6 +437,11 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Validación personalizada `personalize_nuevo_foto_persona__min_name_file_validation`, usada cuando no sirven las validaciones estándar de Validations.
+	 * @param {string} nombreFichero Valor o identificador del campo a validar
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	personalize_nuevo_foto_persona__min_name_file_validation(nombreFichero) {
 		if (nombreFichero.length < 3) {
 			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_min_name_file_KO');
@@ -390,6 +450,11 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Validación personalizada `personalize_nuevo_foto_persona__max_name_file_validation`, usada cuando no sirven las validaciones estándar de Validations.
+	 * @param {string} nombreFichero Valor o identificador del campo a validar
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	personalize_nuevo_foto_persona__max_name_file_validation(nombreFichero) {
 		if (nombreFichero.length > 15) {
 			this.dom.mostrar_error_campo('nuevo_foto_persona', 'nuevo_foto_persona_max_name_file_KO');
@@ -399,11 +464,9 @@ class persona extends AbstractEntidad {
 	}
 
 	/**
-	 
-		@param
-		@return	{bool} true if all fields validations are ok or 
-		@return {object} object with the ids of elements and error code if field validation is not ok and true if field validation is ok
-	*/
+	 * Comprueba todos los campos de la acción `ADD` antes de enviarla al back.
+	 * @returns {true|Object} `true` si todos son correctos; si no, el resultado de cada campo.
+	 */
 	ADD_submit_persona() {
 
 		// object to store de fields validations
@@ -428,36 +491,68 @@ class persona extends AbstractEntidad {
 	//
 	//EDIT
 	//
+	/**
+	 * Valida el campo `dni` en la acción `EDIT`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	EDIT_dni_validation() {
 		return this.ADD_dni_validation();
 	}
 
+	/**
+	 * Valida el campo `nombre_persona` en la acción `EDIT`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	EDIT_nombre_persona_validation() {
 
 		return this.ADD_nombre_persona_validation();
 
 	}
 
+	/**
+	 * Valida el campo `apellidos_persona` en la acción `EDIT`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	EDIT_apellidos_persona_validation() {
 		return this.ADD_apellidos_persona_validation();
 	}
 
+	/**
+	 * Valida el campo `fechaNacimiento_persona` en la acción `EDIT`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	EDIT_fechaNacimiento_persona_validation() {
 		return this.ADD_fechaNacimiento_persona_validation();
 	}
 
+	/**
+	 * Valida el campo `direccion_persona` en la acción `EDIT`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	EDIT_direccion_persona_validation() {
 		return this.ADD_direccion_persona_validation();
 	}
 
+	/**
+	 * Valida el campo `telefono_persona` en la acción `EDIT`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	EDIT_telefono_persona_validation() {
 		return this.ADD_telefono_persona_validation();
 	}
 
+	/**
+	 * Valida el campo `email_persona` en la acción `EDIT`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	EDIT_email_persona_validation() {
 		return this.ADD_email_persona_validation();
 	}
 
+	/**
+	 * Valida el campo `nuevo_foto_persona` en la acción `EDIT`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	EDIT_nuevo_foto_persona_validation() {
 
 		if (!(this.validations.exist_file('nuevo_foto_persona'))) {
@@ -492,11 +587,9 @@ class persona extends AbstractEntidad {
 	}
 
 	/**
-	 
-		@param
-		@return	{bool} true if all fields validations are ok or 
-		@return {object} object with the ids of elements and error code if field validation is not ok and true if field validation is ok
-	*/
+	 * Comprueba todos los campos de la acción `EDIT` antes de enviarla al back.
+	 * @returns {true|Object} `true` si todos son correctos; si no, el resultado de cada campo.
+	 */
 	EDIT_submit_persona() {
 
 		// object to store de fields validations
@@ -520,6 +613,10 @@ class persona extends AbstractEntidad {
 
 	//SEARCH
 
+	/**
+	 * Consulta la entidad en el back y muestra las tuplas que cumplen el filtro.
+	 * @returns {Promise<void>}
+	 */
 	async SEARCH() {
 		const respuesta = await this.access_functions.peticionBackGeneral('', this.nombreentidad, 'SEARCH');
 		let registros;
@@ -561,6 +658,10 @@ class persona extends AbstractEntidad {
 	}
 
 
+	/**
+	 * Valida el campo `nombre_persona` en la acción `SEARCH`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	SEARCH_nombre_persona_validation() {
 		const nombre = document.getElementById('nombre_persona').value;
 		if (nombre.trim() === '') {
@@ -579,6 +680,10 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Valida el campo `apellidos_persona` en la acción `SEARCH`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	SEARCH_apellidos_persona_validation() {
 		const apellidos = document.getElementById('apellidos_persona').value;
 		if (apellidos.trim() === '') {
@@ -597,6 +702,10 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Valida el campo `fechaNacimiento_persona` en la acción `SEARCH`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	SEARCH_fechaNacimiento_persona_validation() {
 		const campoFecha = document.getElementById('fechaNacimiento_persona');
 		const esSelectorFecha = campoFecha.type === 'date';
@@ -631,6 +740,10 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Valida el campo `direccion_persona` en la acción `SEARCH`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	SEARCH_direccion_persona_validation() {
 		const direccion = document.getElementById('direccion_persona').value;
 		if (direccion.trim() === '') {
@@ -649,6 +762,10 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Valida el campo `telefono_persona` en la acción `SEARCH`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	SEARCH_telefono_persona_validation() {
 		const telefono = document.getElementById('telefono_persona').value;
 		if (telefono.trim() === '') {
@@ -667,6 +784,10 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Valida el campo `email_persona` en la acción `SEARCH`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	SEARCH_email_persona_validation() {
 		const email = document.getElementById('email_persona').value;
 		if (email.trim() === '') {
@@ -681,6 +802,10 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Valida el campo `foto_persona` en la acción `SEARCH`.
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	SEARCH_foto_persona_validation() {
 		const foto = document.getElementById('foto_persona').value.trim();
 		if (foto === '') {
@@ -695,6 +820,12 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Validación personalizada `personalize_validar_nombre_foto_persona`, usada cuando no sirven las validaciones estándar de Validations.
+	 * @param {string} id Valor o identificador del campo a validar
+	 * @param {string} [opcional=false] Valor o identificador del campo a validar
+	 * @returns {true|string} `true` si es correcto; código de error si no.
+	 */
 	personalize_validar_nombre_foto_persona(id, opcional = false) {
 		const nombreFichero = document.getElementById(id).value.split(/[\\/]/).pop();
 		if (nombreFichero === '' && opcional) {
@@ -718,6 +849,10 @@ class persona extends AbstractEntidad {
 		return true;
 	}
 
+	/**
+	 * Comprueba todos los campos de la acción `SEARCH` antes de enviarla al back.
+	 * @returns {true|Object} `true` si todos son correctos; si no, el resultado de cada campo.
+	 */
 	SEARCH_submit_persona() {
 		const set_result = {
 			nombre_persona: this.SEARCH_nombre_persona_validation(),
@@ -775,6 +910,11 @@ class persona extends AbstractEntidad {
 
 	}
 
+	/**
+	 * Prepara el formulario modal de la acción `DELETE` sobre la fila indicada.
+	 * @param {Object} fila Tupla de la fila pulsada
+	 * @returns {void}
+	 */
 	createForm_DELETE(fila) {
 		// poner titulo al formulario
 		this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_persona_DELETE');		// limpiar y poner visible el formulario
@@ -803,6 +943,11 @@ class persona extends AbstractEntidad {
 
 	}
 
+	/**
+	 * Prepara el formulario modal de la acción `SHOWCURRENT` sobre la fila indicada.
+	 * @param {Object} fila Tupla de la fila pulsada
+	 * @returns {void}
+	 */
 	createForm_SHOWCURRENT(fila) {
 		// poner titulo al formulario
 		this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_persona_SHOWCURRENT');		// limpiar y poner visible el formulario
@@ -829,6 +974,10 @@ class persona extends AbstractEntidad {
 
 	}
 
+	/**
+	 * Prepara el formulario modal de la acción `ADD`.
+	 * @returns {void}
+	 */
 	createForm_ADD() {
 		// poner titulo al formulario
 		this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_persona_ADD');
@@ -867,6 +1016,10 @@ class persona extends AbstractEntidad {
 		setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
 	}
 
+	/**
+	 * Prepara el formulario modal de la acción `SEARCH`.
+	 * @returns {void}
+	 */
 	createForm_SEARCH() {
 		// poner titulo al formulario
 		this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_persona_SEARCH');
@@ -931,6 +1084,12 @@ class persona extends AbstractEntidad {
 	 * @returns {any} nuevo valor transformado de la columna
 	 */
 
+	/**
+	 * Devuelve el valor a mostrar en la tabla para una columna de `mostrarespecial`, en lugar del valor real de la tupla.
+	 * @param {string} columna Nombre de la columna
+	 * @param {*} valor Valor real de la tupla
+	 * @returns {*}
+	 */
 	cambiarmostrarespecial(columna, valor) {
 		var nuevovalor = valor;
 		switch (columna) {

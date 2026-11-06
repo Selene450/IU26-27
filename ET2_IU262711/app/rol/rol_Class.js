@@ -1,4 +1,12 @@
+/**
+ * Gestión de la entidad `rol`: formularios ADD, EDIT, SEARCH, DELETE y SHOWCURRENT, con sus validaciones.
+ * @extends AbstractEntidad
+ */
 class rol extends AbstractEntidad {
+    /**
+     * Crea la gestión de la entidad `rol`. Si `esTest` es distinto de `'test'`, monta también la interfaz.
+     * @param {string|null} [esTest=null] `'test'` para instanciar sin montar la interfaz
+     */
     constructor(esTest = null) {
         super();
         this.dom = new entity_dom_fields();
@@ -20,6 +28,10 @@ class rol extends AbstractEntidad {
         }
     }
 
+    /**
+     * Envuelve `dom.mostrar_error_campo` para quitar la clase de error del campo antes de mostrar uno nuevo.
+     * @returns {void}
+     */
     instalarLimpiezaMensajesError() {
         const mostrarError = this.dom.mostrar_error_campo.bind(this.dom);
         this.dom.mostrar_error_campo = (id, codigoError) => {
@@ -28,6 +40,11 @@ class rol extends AbstractEntidad {
         };
     }
 
+    /**
+     * Devuelve el HTML de los campos del formulario de la entidad.
+     * @param {boolean} [incluirId=true] Incluir el campo id en el formulario
+     * @returns {string}
+     */
     manual_form_creation(incluirId = true) {
         var forms_content = `
             <form id="form_iu" action="" method="POST" enctype="multipart/form-data" onsubmit="" class="formulario">
@@ -54,6 +71,10 @@ class rol extends AbstractEntidad {
     // ==========================================
     // VALIDACIONES DE ID_ROL
     // ==========================================
+    /**
+     * Valida el campo `id_rol` en la acción `ADD`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     ADD_id_rol_validation() {
         if (!this.validations.min_size('id_rol', 1)) {
             this.dom.mostrar_error_campo('id_rol', 'id_rol_min_size_KO');
@@ -71,10 +92,18 @@ class rol extends AbstractEntidad {
         return true;
     }
 
+    /**
+     * Valida el campo `id_rol` en la acción `EDIT`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     EDIT_id_rol_validation() {
         return this.ADD_id_rol_validation();
     }
 
+    /**
+     * Valida el campo `id_rol` en la acción `SEARCH`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     SEARCH_id_rol_validation() {
         if (!this.validations.max_size('id_rol', 11)) {
             this.dom.mostrar_error_campo('id_rol', 'id_rol_max_size_KO');
@@ -91,6 +120,10 @@ class rol extends AbstractEntidad {
     // ==========================================
     // VALIDACIONES DE ROL_NAME
     // ==========================================
+    /**
+     * Valida el campo `rol_name` en la acción `ADD`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     ADD_rol_name_validation() {
         if (!this.validations.min_size('rol_name', 5)) {
             this.dom.mostrar_error_campo('rol_name', 'rol_name_min_size_KO');
@@ -108,10 +141,18 @@ class rol extends AbstractEntidad {
         return true;
     }
 
+    /**
+     * Valida el campo `rol_name` en la acción `EDIT`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     EDIT_rol_name_validation() {
         return this.ADD_rol_name_validation();
     }
 
+    /**
+     * Valida el campo `rol_name` en la acción `SEARCH`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     SEARCH_rol_name_validation() {
         if (!this.validations.max_size('rol_name', 48)) {
             this.dom.mostrar_error_campo('rol_name', 'rol_name_max_size_KO');
@@ -128,6 +169,10 @@ class rol extends AbstractEntidad {
     // ==========================================
     // VALIDACIONES DE ROL_DESCRIPTION
     // ==========================================
+    /**
+     * Valida el campo `rol_description` en la acción `ADD`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     ADD_rol_description_validation() {
         const descripcion = document.getElementById('rol_description').value;
         if (descripcion.length < 5) {
@@ -146,10 +191,18 @@ class rol extends AbstractEntidad {
         return true;
     }
 
+    /**
+     * Valida el campo `rol_description` en la acción `EDIT`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     EDIT_rol_description_validation() {
         return this.ADD_rol_description_validation();
     }
 
+    /**
+     * Valida el campo `rol_description` en la acción `SEARCH`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     SEARCH_rol_description_validation() {
         const descripcion = document.getElementById('rol_description').value;
         if (descripcion.length > 200) {
@@ -167,6 +220,10 @@ class rol extends AbstractEntidad {
     // ==========================================
     // MÉTODOS DE SUBMIT
     // ==========================================
+    /**
+     * Comprueba todos los campos de la acción `ADD` antes de enviarla al back.
+     * @returns {true|Object} `true` si todos son correctos; si no, el resultado de cada campo.
+     */
     ADD_submit_rol() {
         var set_result = {};
         set_result.rol_name = this.ADD_rol_name_validation();
@@ -179,6 +236,10 @@ class rol extends AbstractEntidad {
         return Boolean(result) === true ? true : set_result;
     }
 
+    /**
+     * Comprueba todos los campos de la acción `EDIT` antes de enviarla al back.
+     * @returns {true|Object} `true` si todos son correctos; si no, el resultado de cada campo.
+     */
     EDIT_submit_rol() {
         var set_result = {};
         set_result.id_rol = this.EDIT_id_rol_validation();
@@ -193,6 +254,10 @@ class rol extends AbstractEntidad {
         return Boolean(result) === true ? true : set_result;
     }
 
+    /**
+     * Comprueba todos los campos de la acción `SEARCH` antes de enviarla al back.
+     * @returns {true|Object} `true` si todos son correctos; si no, el resultado de cada campo.
+     */
     SEARCH_submit_rol() {
         var set_result = {};
         set_result.id_rol = this.SEARCH_id_rol_validation();
@@ -207,6 +272,10 @@ class rol extends AbstractEntidad {
         return Boolean(result) === true ? true : set_result;
     }
 
+    /**
+     * Consulta la entidad en el back y muestra las tuplas que cumplen el filtro.
+     * @returns {Promise<void>}
+     */
     async SEARCH() {
         const respuesta = await this.access_functions.peticionBackGeneral('', this.nombreentidad, 'SEARCH');
         let registros;
@@ -250,6 +319,11 @@ class rol extends AbstractEntidad {
     // ==========================================
     // FORMULARIOS DE ACCIÓN ESPECÍFICOS
     // ==========================================
+    /**
+     * Prepara el formulario modal de la acción `EDIT` sobre la fila indicada.
+     * @param {Object} fila Tupla de la fila pulsada
+     * @returns {void}
+     */
     createForm_EDIT(fila) {
         this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_rol_EDIT');
         document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
@@ -265,6 +339,10 @@ class rol extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Envía la petición DELETE al back y actualiza la tabla si la respuesta es correcta.
+     * @returns {Promise<void>}
+     */
     async DELETE() {
         const respuesta = await this.access_functions.peticionBackGeneral('form_iu', this.nombreentidad, 'DELETE');
         if (respuesta.ok) {
@@ -278,6 +356,11 @@ class rol extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Prepara el formulario modal de la acción `DELETE` sobre la fila indicada.
+     * @param {Object} fila Tupla de la fila pulsada
+     * @returns {void}
+     */
     createForm_DELETE(fila) {
         this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_rol_DELETE');
         document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
@@ -291,6 +374,11 @@ class rol extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Prepara el formulario modal de la acción `SHOWCURRENT` sobre la fila indicada.
+     * @param {Object} fila Tupla de la fila pulsada
+     * @returns {void}
+     */
     createForm_SHOWCURRENT(fila) {
         this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_rol_SHOWCURRENT');
         document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
@@ -301,6 +389,10 @@ class rol extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Prepara el formulario modal de la acción `ADD`.
+     * @returns {void}
+     */
     createForm_ADD() {
         this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_rol_ADD');
         document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation(false);
@@ -314,6 +406,10 @@ class rol extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Prepara el formulario modal de la acción `SEARCH`.
+     * @returns {void}
+     */
     createForm_SEARCH() {
         this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_rol_SEARCH');
         document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
@@ -327,6 +423,12 @@ class rol extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Devuelve el valor a mostrar en la tabla para una columna de `mostrarespecial`, en lugar del valor real de la tupla.
+     * @param {string} columna Nombre de la columna
+     * @param {*} valor Valor real de la tupla
+     * @returns {*}
+     */
     cambiarmostrarespecial(columna, valor) {
         return valor;
     }

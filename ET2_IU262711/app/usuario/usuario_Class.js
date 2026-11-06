@@ -1,4 +1,12 @@
+/**
+ * Gestión de la entidad `usuario`, con validaciones de DNI y contraseña y selector de rol.
+ * @extends AbstractEntidad
+ */
 class usuario extends AbstractEntidad {
+    /**
+     * Crea la gestión de la entidad `usuario`. Si `esTest` es distinto de `'test'`, monta también la interfaz.
+     * @param {string|null} [esTest=null] `'test'` para instanciar sin montar la interfaz
+     */
     constructor(esTest = null) {
         super();
         this.dom = new entity_dom_fields();
@@ -20,6 +28,10 @@ class usuario extends AbstractEntidad {
         }
     }
 
+    /**
+     * Envuelve `dom.mostrar_error_campo` para quitar la clase de error del campo antes de mostrar uno nuevo.
+     * @returns {void}
+     */
     instalarLimpiezaMensajesError() {
         const mostrarError = this.dom.mostrar_error_campo.bind(this.dom);
         this.dom.mostrar_error_campo = (id, codigoError) => {
@@ -28,6 +40,10 @@ class usuario extends AbstractEntidad {
         };
     }
 
+    /**
+     * Devuelve el HTML de los campos del formulario de la entidad.
+     * @returns {string}
+     */
     manual_form_creation() {
         var forms_content = `
             <form id="form_iu" action="" method="POST" enctype="multipart/form-data" onsubmit="" class="formulario">
@@ -57,6 +73,10 @@ class usuario extends AbstractEntidad {
     // ==========================================
     // VALIDACIONES DE DNI
     // ==========================================
+    /**
+     * Valida el campo `dni` en la acción `ADD`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     ADD_dni_validation() {
         if (!this.validations.min_size('dni', 9)) {
             this.dom.mostrar_error_campo('dni', 'dni_min_size_KO');
@@ -78,16 +98,29 @@ class usuario extends AbstractEntidad {
         return true;
     }
 
+    /**
+     * Valida el campo `dni` en la acción `EDIT`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     EDIT_dni_validation() {
         return this.ADD_dni_validation();
     }
 
+    /**
+     * Validación personalizada `personalize_dni`, usada cuando no sirven las validaciones estándar de Validations.
+     * @param {string} id Valor o identificador del campo a validar
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     personalize_dni(id) {
         const dni = document.getElementById(id).value;
         const letras = 'TRWAGMYFPDXBNJZSQVHLCKE';
         return letras[dni.slice(0, 8) % 23] === dni[8];
     }
 
+    /**
+     * Valida el campo `dni` en la acción `SEARCH`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     SEARCH_dni_validation() {
         const campoDni = document.getElementById('dni');
         const dni = campoDni.value;
@@ -111,6 +144,10 @@ class usuario extends AbstractEntidad {
     // ==========================================
     // VALIDACIONES DE USUARIO
     // ==========================================
+    /**
+     * Valida el campo `usuario` en la acción `ADD`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     ADD_usuario_validation() {
         if (!this.validations.min_size('usuario', 5)) {
             this.dom.mostrar_error_campo('usuario', 'usuario_min_size_KO');
@@ -128,10 +165,18 @@ class usuario extends AbstractEntidad {
         return true;
     }
 
+    /**
+     * Valida el campo `usuario` en la acción `EDIT`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     EDIT_usuario_validation() {
         return this.ADD_usuario_validation();
     }
 
+    /**
+     * Valida el campo `usuario` en la acción `SEARCH`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     SEARCH_usuario_validation() {
         if (!this.validations.max_size('usuario', 45)) {
             this.dom.mostrar_error_campo('usuario', 'usuario_max_size_KO');
@@ -148,6 +193,10 @@ class usuario extends AbstractEntidad {
     // ==========================================
     // VALIDACIONES DE CONTRASENA
     // ==========================================
+    /**
+     * Valida el campo `contrasena` en la acción `ADD`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     ADD_contrasena_validation() {
         const contrasena = document.getElementById('contrasena').value;
         if (contrasena.length < 8) {
@@ -166,10 +215,18 @@ class usuario extends AbstractEntidad {
         return true;
     }
 
+    /**
+     * Valida el campo `contrasena` en la acción `EDIT`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     EDIT_contrasena_validation() {
         return this.ADD_contrasena_validation();
     }
 
+    /**
+     * Valida el campo `contrasena` en la acción `SEARCH`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     SEARCH_contrasena_validation() {
         const contrasena = document.getElementById('contrasena').value;
         if (contrasena.length > 45) {
@@ -184,6 +241,11 @@ class usuario extends AbstractEntidad {
         return true;
     }
 
+    /**
+     * Carga los roles del back para el selector id_rol y marca el seleccionado.
+     * @param {string} [idRolSeleccionado=''] Rol que debe quedar seleccionado (opcional)
+     * @returns {Promise<void>}
+     */
     async cargarRoles(idRolSeleccionado = '') {
         const selectRol = document.getElementById('id_rol');
         const idRol = idRolSeleccionado && typeof idRolSeleccionado === 'object'
@@ -219,6 +281,10 @@ class usuario extends AbstractEntidad {
     // ==========================================
     // MÉTODOS DE SUBMIT
     // ==========================================
+    /**
+     * Comprueba todos los campos de la acción `ADD` antes de enviarla al back.
+     * @returns {true|Object} `true` si todos son correctos; si no, el resultado de cada campo.
+     */
     ADD_submit_usuario() {
         var set_result = {};
         set_result.dni = this.ADD_dni_validation();
@@ -233,6 +299,10 @@ class usuario extends AbstractEntidad {
         return Boolean(result) === true ? true : set_result;
     }
 
+    /**
+     * Comprueba todos los campos de la acción `EDIT` antes de enviarla al back.
+     * @returns {true|Object} `true` si todos son correctos; si no, el resultado de cada campo.
+     */
     EDIT_submit_usuario() {
         var set_result = {};
         set_result.dni = this.EDIT_dni_validation();
@@ -247,6 +317,10 @@ class usuario extends AbstractEntidad {
         return Boolean(result) === true ? true : set_result;
     }
 
+    /**
+     * Comprueba todos los campos de la acción `SEARCH` antes de enviarla al back.
+     * @returns {true|Object} `true` si todos son correctos; si no, el resultado de cada campo.
+     */
     SEARCH_submit_usuario() {
         var set_result = {};
         set_result.dni = this.SEARCH_dni_validation();
@@ -261,6 +335,10 @@ class usuario extends AbstractEntidad {
         return Boolean(result) === true ? true : set_result;
     }
 
+    /**
+     * Consulta la entidad en el back y muestra las tuplas que cumplen el filtro.
+     * @returns {Promise<void>}
+     */
     async SEARCH() {
         const respuesta = await this.access_functions.peticionBackGeneral('', this.nombreentidad, 'SEARCH');
         let registros;
@@ -304,6 +382,11 @@ class usuario extends AbstractEntidad {
     // ==========================================
     // FORMULARIOS DE ACCIÓN ESPECÍFICOS
     // ==========================================
+    /**
+     * Prepara el formulario modal de la acción `EDIT` sobre la fila indicada.
+     * @param {Object} fila Tupla de la fila pulsada
+     * @returns {void}
+     */
     createForm_EDIT(fila) {
         this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_usuario_EDIT');
         document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
@@ -320,6 +403,11 @@ class usuario extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Prepara el formulario modal de la acción `DELETE` sobre la fila indicada.
+     * @param {Object} fila Tupla de la fila pulsada
+     * @returns {void}
+     */
     createForm_DELETE(fila) {
         this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_usuario_DELETE');
         document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
@@ -334,6 +422,11 @@ class usuario extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Prepara el formulario modal de la acción `SHOWCURRENT` sobre la fila indicada.
+     * @param {Object} fila Tupla de la fila pulsada
+     * @returns {void}
+     */
     createForm_SHOWCURRENT(fila) {
         this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_usuario_SHOWCURRENT');
         document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
@@ -346,6 +439,10 @@ class usuario extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Prepara el formulario modal de la acción `ADD`.
+     * @returns {void}
+     */
     createForm_ADD() {
         this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_usuario_ADD');
         document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
@@ -361,6 +458,10 @@ class usuario extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Prepara el formulario modal de la acción `SEARCH`.
+     * @returns {void}
+     */
     createForm_SEARCH() {
         this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_usuario_SEARCH');
         document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
@@ -376,6 +477,12 @@ class usuario extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Devuelve el valor a mostrar en la tabla para una columna de `mostrarespecial`, en lugar del valor real de la tupla.
+     * @param {string} columna Nombre de la columna
+     * @param {*} valor Valor real de la tupla
+     * @returns {*}
+     */
     cambiarmostrarespecial(columna, valor) {
         if (columna === 'id_rol' && valor && typeof valor === 'object') {
             return valor.id_rol;

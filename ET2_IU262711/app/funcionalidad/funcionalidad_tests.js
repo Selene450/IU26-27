@@ -1,3 +1,7 @@
+/**
+ * Definiciones de test de `funcionalidad`. Fila: [entidad, campo, tipo de campo, id, descripción, test, acción, código de error o `true`, mensaje mostrado].
+ * @type {Array<Array<string|number|boolean>>}
+ */
 var funcionalidad_def_tests = [
     //SEARCH
     ['funcionalidad', 'id_funcionalidad', 'input', 1, 'Validar max_size de id_funcionalidad en  SEARCH', 'max_size', 'SEARCH', 'id_funcionalidad_max_size_KO', 'El campo id_funcionalidad debe tener como máximo 11 caracteres'],
@@ -35,6 +39,10 @@ var funcionalidad_def_tests = [
     ['funcionalidad', 'descrip_funcionalidad', 'textarea', 25, 'Validar descrip_funcionalidad correcto en SEARCH', 'valid', 'SEARCH', true, 'descrip_funcionalidad correcto']
 ];
 
+/**
+ * Pruebas de `funcionalidad`. Fila: [entidad, campo, id de la definición, id de la prueba, acción, datos de entrada, resultado esperado].
+ * @type {Array<Array<string|number|boolean|Object>>}
+ */
 var funcionalidad_pruebas = [
     //SEARCH
     ['funcionalidad', 'id_funcionalidad', 1, 1, 'SEARCH', { 'id_funcionalidad': '123456789012' }, 'id_funcionalidad_max_size_KO'],

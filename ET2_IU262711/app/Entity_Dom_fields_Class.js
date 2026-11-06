@@ -2,10 +2,17 @@
  * clase para refactorizar los metodos de dom_fields que se consideren necesarios sin modificar su definición y para inclusión de nuevos métodos
  */
 class entity_dom_fields extends dom_fields{
+    /**
+     * Crea la gestión de la entidad `Entity_Dom_fields_Class`. Si `esTest` es distinto de `'test'`, monta también la interfaz.
+     */
     constructor(){
         super();
     }
 
+    /**
+     * Muestra todos los controles de la cabecera de la gestión de la entidad (ADD, SEARCH, TEST).
+     * @returns {void}
+     */
     mostrarControlesEntidad(){
         document.querySelectorAll('#add_search_columns > *').forEach(elemento => {
             elemento.style.display = '';

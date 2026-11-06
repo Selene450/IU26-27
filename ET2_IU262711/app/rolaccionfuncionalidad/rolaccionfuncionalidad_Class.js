@@ -1,4 +1,12 @@
+/**
+ * Gestión de la entidad débil `rolaccionfuncionalidad` como matriz de permisos por rol. Solo muestra SEARCH y TEST.
+ * @extends AbstractEntidad
+ */
 class rolaccionfuncionalidad extends AbstractEntidad {
+    /**
+     * Crea la gestión de la entidad `rolaccionfuncionalidad`. Si `esTest` es distinto de `'test'`, monta también la interfaz.
+     * @param {string|null} [esTest=null] `'test'` para instanciar sin montar la interfaz
+     */
     constructor(esTest = null) {
         super();
         this.dom = new entity_dom_fields();
@@ -27,6 +35,10 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         }
     }
 
+    /**
+     * Devuelve el HTML de los campos del formulario de la entidad.
+     * @returns {string}
+     */
     manual_form_creation() {
         return `
             <section class="relacion-matriz">
@@ -45,6 +57,10 @@ class rolaccionfuncionalidad extends AbstractEntidad {
             </section>`;
     }
 
+    /**
+     * Carga los roles, funcionalidades y acciones del back y prepara el selector de rol.
+     * @returns {Promise<void>}
+     */
     async inicializarVista() {
         try {
             const [respuestaRoles, acciones, funcionalidades] = await Promise.all([
@@ -77,6 +93,12 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         }
     }
 
+    /**
+     * Consulta una entidad en el back, con filtros opcionales, y devuelve sus registros.
+     * @param {string} entidad Nombre de la entidad a consultar
+     * @param {Object} [filtros={}] Filtros de búsqueda (opcional)
+     * @returns {Promise<Array<Object>>}
+     */
     async buscarRegistros(entidad, filtros = {}) {
         const respuesta = await this.access_functions.peticionBackGeneral('', entidad, 'SEARCH', filtros);
         if (respuesta.code === 'RECORDSET_VACIO') {
@@ -88,6 +110,11 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         return respuesta.resource;
     }
 
+    /**
+     * Carga los permisos del rol indicado y dibuja la matriz.
+     * @param {string|number} idRol Identificador del rol
+     * @returns {Promise<void>}
+     */
     async cargarMatrizPermisos(idRol) {
         const selector = document.getElementById('selector_rol');
         const tabla = document.getElementById('tabla_permisos');
@@ -123,6 +150,14 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         }
     }
 
+    /**
+     * Dibuja la matriz de permisos del rol con un checkbox por combinación funcionalidad × acción.
+     * @param {string|number} idRol Rol al que pertenecen los permisos
+     * @param {Array<Object>} permisos Permisos existentes del rol
+     * @param {Array<Object>} [funcionalidades=this.funcionalidades] Funcionalidades a mostrar como filas
+     * @param {Array<Object>} [acciones=this.acciones] Acciones a mostrar como columnas
+     * @returns {void}
+     */
     renderizarMatriz(idRol, permisos, funcionalidades = this.funcionalidades, acciones = this.acciones) {
         const cabecera = document.getElementById('thead_acciones');
         const cuerpo = document.getElementById('tbody_funcionalidades');
@@ -179,10 +214,22 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         });
     }
 
+    /**
+     * Obtiene el identificador de un valor que puede venir como objeto o como escalar.
+     * @param {*} valor Valor de la celda o del registro
+     * @param {string} clave Propiedad a leer si el valor es un objeto
+     * @returns {*}
+     */
     obtenerIdRelacionado(valor, clave) {
         return valor && typeof valor === 'object' ? valor[clave] : valor;
     }
 
+    /**
+     * Gestiona el cambio de un checkbox de permiso: ADD si se marca, DELETE si se desmarca.
+     * @param {HTMLInputElement} checkbox Checkbox que cambió
+     * @param {string|number} idRol Rol al que pertenece el permiso
+     * @returns {Promise<void>}
+     */
     async gestionarCambioPermiso(checkbox, idRol) {
         checkbox.disabled = true;
         this.mostrarEstado(window.traduccion.text_guardando_cambio);
@@ -220,10 +267,20 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         }
     }
 
+    /**
+     * Muestra un mensaje de estado sobre la matriz.
+     * @param {string} mensaje Texto o código de traducción
+     * @returns {void}
+     */
     mostrarEstado(mensaje) {
         document.getElementById('estado_matriz').textContent = mensaje;
     }
 
+    /**
+     * Muestra un error de carga o de guardado sobre la matriz.
+     * @param {Error|string} error Error recibido
+     * @returns {void}
+     */
     mostrarError(error) {
         const mensaje = error.status
             ? `${window.traduccion.text_error_conexion} (${error.status})`
@@ -233,6 +290,13 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         this.dom.abrirModalError(mensaje);
     }
 
+    /**
+     * Aplica el estilo de cabecera, primera columna o celda normal.
+     * @param {HTMLElement} celda Celda a estilizar
+     * @param {boolean} [cabecera=false] Si es celda de cabecera
+     * @param {boolean} [primeraColumna=false] Si es la primera columna
+     * @returns {void}
+     */
     estilizarCelda(celda, cabecera = false, primeraColumna = false) {
         if (cabecera) {
             celda.classList.add('matriz-cabecera');
@@ -243,6 +307,10 @@ class rolaccionfuncionalidad extends AbstractEntidad {
     }
 
     // La matriz admite búsqueda, pero no altas manuales ni selección de columnas.
+    /**
+     * Oculta los iconos de ADD, EDIT, DELETE y SHOWCURRENT, que no aplican a las entidades débiles; deja visible SEARCH y TEST.
+     * @returns {void}
+     */
     ocultarBotonesNoAplicables() {
         document.querySelectorAll('#add_search_columns > *').forEach(elemento => {
             const src = elemento.tagName === 'IMG' ? elemento.getAttribute('src') || '' : '';
@@ -250,6 +318,10 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         });
     }
 
+    /**
+     * Prepara el formulario modal de la acción `SEARCH`.
+     * @returns {void}
+     */
     async createForm_SEARCH() {
         await this.cargaInicial;
         document.getElementById('class_contenido_titulo_form').className =
@@ -297,6 +369,10 @@ class rolaccionfuncionalidad extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Lee el rol seleccionado y los filtros y muestra la matriz de permisos correspondiente.
+     * @returns {Promise<void>}
+     */
     async SEARCH() {
         const idRol = document.getElementById('id_rol')?.value.trim();
         const rol = idRol

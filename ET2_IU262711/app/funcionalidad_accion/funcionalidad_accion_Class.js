@@ -1,4 +1,12 @@
+/**
+ * Gestión de la entidad débil `funcionalidad_accion` como matriz de checkboxes funcionalidad × acción. Solo muestra SEARCH y TEST.
+ * @extends AbstractEntidad
+ */
 class funcionalidad_accion extends AbstractEntidad {
+    /**
+     * Crea la gestión de la entidad `funcionalidad_accion`. Si `esTest` es distinto de `'test'`, monta también la interfaz.
+     * @param {string|null} [esTest=null] `'test'` para instanciar sin montar la interfaz
+     */
     constructor(esTest = null) {
         super();
         this.dom = new entity_dom_fields();
@@ -26,6 +34,10 @@ class funcionalidad_accion extends AbstractEntidad {
         }
     }
 
+    /**
+     * Devuelve el HTML de los campos del formulario de la entidad.
+     * @returns {string}
+     */
     manual_form_creation() {
         return `
             <section class="relacion-matriz">
@@ -40,6 +52,10 @@ class funcionalidad_accion extends AbstractEntidad {
             </section>`;
     }
 
+    /**
+     * Carga acciones, funcionalidades y relaciones del back y renderiza la matriz.
+     * @returns {Promise<void>}
+     */
     async inicializarVista() {
         try {
             const [acciones, funcionalidades, relaciones] = await Promise.all([
@@ -58,6 +74,11 @@ class funcionalidad_accion extends AbstractEntidad {
         }
     }
 
+    /**
+     * Consulta una entidad en el back y devuelve sus registros.
+     * @param {string} entidad Nombre de la entidad a consultar
+     * @returns {Promise<Array<Object>>}
+     */
     async buscarRegistros(entidad) {
         const respuesta = await this.access_functions.peticionBackGeneral('', entidad, 'SEARCH');
         if (respuesta.code === 'RECORDSET_VACIO') {
@@ -69,6 +90,13 @@ class funcionalidad_accion extends AbstractEntidad {
         return respuesta.resource;
     }
 
+    /**
+     * Dibuja la matriz de checkboxes funcionalidad × acción marcando las relaciones existentes.
+     * @param {Array<Object>} relaciones Relaciones funcionalidad_accion a marcar
+     * @param {Array<Object>} [funcionalidades=this.funcionalidades] Funcionalidades a mostrar como filas
+     * @param {Array<Object>} [acciones=this.acciones] Acciones a mostrar como columnas
+     * @returns {void}
+     */
     renderizarMatriz(relaciones, funcionalidades = this.funcionalidades, acciones = this.acciones) {
         const cabecera = document.getElementById('thead_acciones');
         const cuerpo = document.getElementById('tbody_funcionalidades');
@@ -125,10 +153,21 @@ class funcionalidad_accion extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Obtiene el identificador de un valor que puede venir como objeto o como escalar.
+     * @param {*} valor Valor de la celda o del registro
+     * @param {string} clave Propiedad a leer si el valor es un objeto
+     * @returns {*}
+     */
     obtenerIdRelacionado(valor, clave) {
         return valor && typeof valor === 'object' ? valor[clave] : valor;
     }
 
+    /**
+     * Borra en rolaccionfuncionalidad los permisos que dependen de una relación que se desmarca.
+     * @param {Object} datos Relación {id_funcionalidad, id_accion}
+     * @returns {Promise<number>} Número de permisos eliminados.
+     */
     async eliminarPermisosDependientes(datos) {
         let permisosEliminados = 0;
         try {
@@ -181,6 +220,11 @@ class funcionalidad_accion extends AbstractEntidad {
         }
     }
 
+    /**
+     * Gestiona el cambio de un checkbox: ADD si se marca, DELETE si se desmarca.
+     * @param {HTMLInputElement} checkbox Checkbox de la matriz que cambió
+     * @returns {Promise<void>}
+     */
     async gestionarCambioRelacion(checkbox) {
         checkbox.disabled = true;
         this.mostrarEstado(window.traduccion.text_guardando_cambio);
@@ -228,10 +272,20 @@ class funcionalidad_accion extends AbstractEntidad {
         }
     }
 
+    /**
+     * Muestra un mensaje de estado sobre la matriz.
+     * @param {string} mensaje Texto o código de traducción
+     * @returns {void}
+     */
     mostrarEstado(mensaje) {
         document.getElementById('estado_matriz').textContent = mensaje;
     }
 
+    /**
+     * Muestra un error de carga o de guardado sobre la matriz.
+     * @param {Error|string} error Error recibido
+     * @returns {void}
+     */
     mostrarError(error) {
         const mensaje = error.status
             ? `${window.traduccion.text_error_conexion} (${error.status})`
@@ -241,6 +295,13 @@ class funcionalidad_accion extends AbstractEntidad {
         this.dom.abrirModalError(mensaje);
     }
 
+    /**
+     * Aplica el estilo de cabecera, primera columna o celda normal.
+     * @param {HTMLElement} celda Celda a estilizar
+     * @param {boolean} [cabecera=false] Si es celda de cabecera
+     * @param {boolean} [primeraColumna=false] Si es la primera columna
+     * @returns {void}
+     */
     estilizarCelda(celda, cabecera = false, primeraColumna = false) {
         if (cabecera) {
             celda.classList.add('matriz-cabecera');
@@ -251,6 +312,10 @@ class funcionalidad_accion extends AbstractEntidad {
     }
 
     // La matriz admite búsqueda, pero no altas manuales ni selección de columnas.
+    /**
+     * Oculta los iconos de ADD, EDIT, DELETE y SHOWCURRENT, que no aplican a las entidades débiles; deja visible SEARCH y TEST.
+     * @returns {void}
+     */
     ocultarBotonesNoAplicables() {
         document.querySelectorAll('#add_search_columns > *').forEach(elemento => {
             const src = elemento.tagName === 'IMG' ? elemento.getAttribute('src') || '' : '';
@@ -258,6 +323,10 @@ class funcionalidad_accion extends AbstractEntidad {
         });
     }
 
+    /**
+     * Prepara el formulario modal de la acción `SEARCH`.
+     * @returns {void}
+     */
     async createForm_SEARCH() {
         await this.cargaInicial;
         if (!this.datosBusquedaCargados) {
@@ -298,6 +367,10 @@ class funcionalidad_accion extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Aplica el filtro de búsqueda y renderiza la matriz con las relaciones coincidentes.
+     * @returns {void}
+     */
     SEARCH() {
         const filtros = ['id_funcionalidad', 'id_accion'].reduce((resultado, campo) => {
             const valor = document.getElementById(campo)?.value.trim();

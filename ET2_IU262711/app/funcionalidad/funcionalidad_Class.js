@@ -1,4 +1,12 @@
+/**
+ * Gestión de la entidad `funcionalidad`: formularios ADD, EDIT, SEARCH, DELETE y SHOWCURRENT, con sus validaciones.
+ * @extends AbstractEntidad
+ */
 class funcionalidad extends AbstractEntidad {
+    /**
+     * Crea la gestión de la entidad `funcionalidad`. Si `esTest` es distinto de `'test'`, monta también la interfaz.
+     * @param {string|null} [esTest=null] `'test'` para instanciar sin montar la interfaz
+     */
     constructor(esTest = null) {
         super();
         this.dom = new entity_dom_fields();
@@ -20,6 +28,10 @@ class funcionalidad extends AbstractEntidad {
         }
     }
 
+    /**
+     * Envuelve `dom.mostrar_error_campo` para quitar la clase de error del campo antes de mostrar uno nuevo.
+     * @returns {void}
+     */
     instalarLimpiezaMensajesError() {
         const mostrarError = this.dom.mostrar_error_campo.bind(this.dom);
         this.dom.mostrar_error_campo = (id, codigoError) => {
@@ -28,6 +40,11 @@ class funcionalidad extends AbstractEntidad {
         };
     }
 
+    /**
+     * Devuelve el HTML de los campos del formulario de la entidad.
+     * @param {boolean} [incluirId=true] Incluir el campo id en el formulario
+     * @returns {string}
+     */
     manual_form_creation(incluirId = true) {
         var forms_content = `
             <form id="form_iu" action="" method="POST" enctype="multipart/form-data" onsubmit="" class="formulario">
@@ -54,6 +71,10 @@ class funcionalidad extends AbstractEntidad {
     // ==========================================
     // VALIDACIONES DE ID_FUNCIONALIDAD
     // ==========================================
+    /**
+     * Valida el campo `id_funcionalidad` en la acción `ADD`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     ADD_id_funcionalidad_validation() {
         if (!this.validations.min_size('id_funcionalidad', 1)) {
             this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_min_size_KO');
@@ -71,10 +92,18 @@ class funcionalidad extends AbstractEntidad {
         return true;
     }
 
+    /**
+     * Valida el campo `id_funcionalidad` en la acción `EDIT`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     EDIT_id_funcionalidad_validation() {
         return this.ADD_id_funcionalidad_validation();
     }
 
+    /**
+     * Valida el campo `id_funcionalidad` en la acción `SEARCH`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     SEARCH_id_funcionalidad_validation() {
         if (!this.validations.max_size('id_funcionalidad', 11)) {
             this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_max_size_KO');
@@ -91,6 +120,10 @@ class funcionalidad extends AbstractEntidad {
     // ==========================================
     // VALIDACIONES DE NOMBRE_FUNCIONALIDAD
     // ==========================================
+    /**
+     * Valida el campo `nombre_funcionalidad` en la acción `ADD`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     ADD_nombre_funcionalidad_validation() {
         if (!this.validations.min_size('nombre_funcionalidad', 5)) {
             this.dom.mostrar_error_campo('nombre_funcionalidad', 'nombre_funcionalidad_min_size_KO');
@@ -108,10 +141,18 @@ class funcionalidad extends AbstractEntidad {
         return true;
     }
 
+    /**
+     * Valida el campo `nombre_funcionalidad` en la acción `EDIT`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     EDIT_nombre_funcionalidad_validation() {
         return this.ADD_nombre_funcionalidad_validation();
     }
 
+    /**
+     * Valida el campo `nombre_funcionalidad` en la acción `SEARCH`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     SEARCH_nombre_funcionalidad_validation() {
         if (!this.validations.max_size('nombre_funcionalidad', 48)) {
             this.dom.mostrar_error_campo('nombre_funcionalidad', 'nombre_funcionalidad_max_size_KO');
@@ -128,6 +169,10 @@ class funcionalidad extends AbstractEntidad {
     // ==========================================
     // VALIDACIONES DE DESCRIP_FUNCIONALIDAD
     // ==========================================
+    /**
+     * Valida el campo `descrip_funcionalidad` en la acción `ADD`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     ADD_descrip_funcionalidad_validation() {
         const descripcion = document.getElementById('descrip_funcionalidad').value;
         if (descripcion.length < 5) {
@@ -146,10 +191,18 @@ class funcionalidad extends AbstractEntidad {
         return true;
     }
 
+    /**
+     * Valida el campo `descrip_funcionalidad` en la acción `EDIT`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     EDIT_descrip_funcionalidad_validation() {
         return this.ADD_descrip_funcionalidad_validation();
     }
 
+    /**
+     * Valida el campo `descrip_funcionalidad` en la acción `SEARCH`.
+     * @returns {true|string} `true` si es correcto; código de error si no.
+     */
     SEARCH_descrip_funcionalidad_validation() {
         const descripcion = document.getElementById('descrip_funcionalidad').value;
         if (descripcion.length > 200) {
@@ -165,6 +218,10 @@ class funcionalidad extends AbstractEntidad {
         return true;
     }
 
+    /**
+     * Comprueba todos los campos de la acción `ADD` antes de enviarla al back.
+     * @returns {true|Object} `true` si todos son correctos; si no, el resultado de cada campo.
+     */
     ADD_submit_funcionalidad() {
         const resultado = {
             nombre_funcionalidad: this.ADD_nombre_funcionalidad_validation(),
@@ -173,6 +230,10 @@ class funcionalidad extends AbstractEntidad {
         return Object.values(resultado).every(valor => valor === true) ? true : resultado;
     }
 
+    /**
+     * Comprueba todos los campos de la acción `EDIT` antes de enviarla al back.
+     * @returns {true|Object} `true` si todos son correctos; si no, el resultado de cada campo.
+     */
     EDIT_submit_funcionalidad() {
         const resultado = {
             nombre_funcionalidad: this.EDIT_nombre_funcionalidad_validation(),
@@ -181,6 +242,10 @@ class funcionalidad extends AbstractEntidad {
         return Object.values(resultado).every(valor => valor === true) ? true : resultado;
     }
 
+    /**
+     * Comprueba todos los campos de la acción `SEARCH` antes de enviarla al back.
+     * @returns {true|Object} `true` si todos son correctos; si no, el resultado de cada campo.
+     */
     SEARCH_submit_funcionalidad() {
         const resultado = {
             id_funcionalidad: this.SEARCH_id_funcionalidad_validation(),
@@ -190,6 +255,10 @@ class funcionalidad extends AbstractEntidad {
         return Object.values(resultado).every(valor => valor === true) ? true : resultado;
     }
 
+    /**
+     * Consulta la entidad en el back y muestra las tuplas que cumplen el filtro.
+     * @returns {Promise<void>}
+     */
     async SEARCH() {
         const respuesta = await this.access_functions.peticionBackGeneral('', this.nombreentidad, 'SEARCH');
         let registros;
@@ -230,6 +299,10 @@ class funcionalidad extends AbstractEntidad {
         setLang();
     }
 
+    /**
+     * Prepara el formulario modal de la acción `ADD`.
+     * @returns {void}
+     */
     createForm_ADD() {
         this.dom.assign_property_value(
             'class_contenido_titulo_form',
@@ -249,6 +322,10 @@ class funcionalidad extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Prepara el formulario modal de la acción `SEARCH`.
+     * @returns {void}
+     */
     createForm_SEARCH() {
         this.dom.assign_property_value(
             'class_contenido_titulo_form',
@@ -268,6 +345,11 @@ class funcionalidad extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Prepara el formulario modal de la acción `EDIT` sobre la fila indicada.
+     * @param {Object} fila Tupla de la fila pulsada
+     * @returns {void}
+     */
     createForm_EDIT(fila) {
         this.dom.assign_property_value(
             'class_contenido_titulo_form',
@@ -289,6 +371,11 @@ class funcionalidad extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Prepara el formulario modal de la acción `DELETE` sobre la fila indicada.
+     * @param {Object} fila Tupla de la fila pulsada
+     * @returns {void}
+     */
     createForm_DELETE(fila) {
         this.dom.assign_property_value(
             'class_contenido_titulo_form',
@@ -305,6 +392,11 @@ class funcionalidad extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Prepara el formulario modal de la acción `SHOWCURRENT` sobre la fila indicada.
+     * @param {Object} fila Tupla de la fila pulsada
+     * @returns {void}
+     */
     createForm_SHOWCURRENT(fila) {
         this.dom.assign_property_value(
             'class_contenido_titulo_form',
@@ -318,6 +410,12 @@ class funcionalidad extends AbstractEntidad {
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
     }
 
+    /**
+     * Devuelve el valor a mostrar en la tabla para una columna de `mostrarespecial`, en lugar del valor real de la tupla.
+     * @param {string} columna Nombre de la columna
+     * @param {*} valor Valor real de la tupla
+     * @returns {*}
+     */
     cambiarmostrarespecial(columna, valor) {
         return valor;
     }

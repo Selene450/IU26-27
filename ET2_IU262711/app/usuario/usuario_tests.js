@@ -1,3 +1,7 @@
+/**
+ * Definiciones de test de `usuario`. Fila: [entidad, campo, tipo de campo, id, descripción, test, acción, código de error o `true`, mensaje mostrado].
+ * @type {Array<Array<string|number|boolean>>}
+ */
 var usuario_def_tests = [
     //campo dni
     //ADD
@@ -49,6 +53,10 @@ var usuario_def_tests = [
     //campo id_rol
     //Ya se valida todo en la clase Rol
 ];
+/**
+ * Pruebas de `usuario`. Fila: [entidad, campo, id de la definición, id de la prueba, acción, datos de entrada, resultado esperado].
+ * @type {Array<Array<string|number|boolean|Object>>}
+ */
 var usuario_pruebas = [
     //dni
     //ADD

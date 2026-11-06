@@ -2,12 +2,23 @@
  * clase para poder refactorizar los metodos que se considere adecuados manteniendo la definición de los mismos y para inclusión de nuevos métodos
  */
 
+/**
+ * Ventana de resultados de los tests de datos. Hereda de Data_Test; se puede refactorizar o ampliar.
+ * @extends Data_Test
+ */
 class entity_Test_Data extends Data_Test{
+    /**
+     * Crea la gestión de la entidad `Entity_Test_Data_Class`. Si `esTest` es distinto de `'test'`, monta también la interfaz.
+     */
     constructor(entidad){
         super(entidad);
         this.dom = new entity_dom_fields();
     }
 
+    /**
+     * Muestra en una ventana nueva el resultado de los tests de datos de la entidad.
+     * @returns {void}
+     */
     data_test_data(){
         const contenedorOriginal = document.getElementById('contenedor_IU_form');
         if (!contenedorOriginal?.parentNode){
@@ -32,6 +43,10 @@ class entity_Test_Data extends Data_Test{
         }
     }
 
+    /**
+     * Ejecuta las pruebas de la entidad y muestra sus resultados en una tabla.
+     * @returns {void}
+     */
     data_test_class(){
         const ventana = window.open('', '_blank');
         if (!ventana){

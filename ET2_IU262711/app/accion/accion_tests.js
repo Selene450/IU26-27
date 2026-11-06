@@ -1,3 +1,7 @@
+/**
+ * Definiciones de test de `accion`. Fila: [entidad, campo, tipo de campo, id, descripción, test, acción, código de error o `true`, mensaje mostrado].
+ * @type {Array<Array<string|number|boolean>>}
+ */
 var accion_def_tests =  [
     //SEARCH
     ['accion', 'id_accion', 'input', 1, 'Validar max_size de id_accion en  SEARCH', 'max_size', 'SEARCH', 'id_accion_max_size_KO', 'El campo id_accion tiene como máximo 11 caracteres'],
@@ -37,6 +41,10 @@ var accion_def_tests =  [
     ['accion', 'descrip_accion', 'textarea', 25, 'Validar descrip_accion correcto en SEARCH', 'valid', 'SEARCH', true, 'descrip_accion correcto']
 ];
 
+/**
+ * Pruebas de `accion`. Fila: [entidad, campo, id de la definición, id de la prueba, acción, datos de entrada, resultado esperado].
+ * @type {Array<Array<string|number|boolean|Object>>}
+ */
 var accion_pruebas = [
 
     //SEARCH

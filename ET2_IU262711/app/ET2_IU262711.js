@@ -7,7 +7,7 @@ datosgenerales =
     Participante1:
         ['FreireSuarezEva',
             'ET2',
-            8],
+            10],
     Participante2:
         ['CortiñasPerezManuel',
             'ET2',

@@ -1,3 +1,7 @@
+/**
+ * Definiciones de test de `rol`. Fila: [entidad, campo, tipo de campo, id, descripción, test, acción, código de error o `true`, mensaje mostrado].
+ * @type {Array<Array<string|number|boolean>>}
+ */
 var rol_def_tests = [
     //SEARCH
     ['rol', 'id_rol', 'input', 1, 'Validar max_size de id_rol en SEARCH', 'max_size', 'SEARCH', 'id_rol_max_size_KO', 'El campo id_rol debe tener como maximo 11 caracteres'],
@@ -36,6 +40,10 @@ var rol_def_tests = [
     ['rol', 'rol_description', 'input', 24, 'Validar format de rol_description en SEARCH', 'format', 'SEARCH', 'rol_description_format_KO', 'El campo rol_description debe ser alfanumerico incluyendo ñ, acentos, puntos, comas, guiones y espacios'],
     ['rol', 'rol_description', 'input', 25, 'Validar rol_description correcto en SEARCH', 'valid', 'SEARCH', true, 'rol_description correcto']
 ];
+/**
+ * Pruebas de `rol`. Fila: [entidad, campo, id de la definición, id de la prueba, acción, datos de entrada, resultado esperado].
+ * @type {Array<Array<string|number|boolean|Object>>}
+ */
 var rol_pruebas = [
     
     //SEARCH
