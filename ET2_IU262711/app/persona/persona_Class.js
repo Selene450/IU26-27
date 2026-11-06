@@ -238,18 +238,6 @@ class persona extends AbstractEntidad {
 	//ADD
 
 	/**
-	 * Valida el campo `dni` en la acción `ADD`.
-	 * @returns {true|string} `true` si es correcto; código de error si no.
-	 */
-	ADD_dni_validation() {
-		if (!this.validarDniPersonaDisponible()) {
-			return 'dni_persona_ocupado_KO';
-		}
-		this.dom.mostrar_exito_campo('dni');
-		return true;
-	}
-
-	/**
 	 * Valida el campo `nombre_persona` en la acción `ADD`.
 	 * @returns {true|string} `true` si es correcto; código de error si no.
 	 */
@@ -473,7 +461,6 @@ class persona extends AbstractEntidad {
 		var set_result = {};
 
 		// store in key (id element) value (result of field validation method)
-		set_result.dni = this.ADD_dni_validation();
 		set_result.nombre_persona = this.ADD_nombre_persona_validation();
 		set_result.apellidos_persona = this.ADD_apellidos_persona_validation();
 		set_result.fechaNacimiento_persona = this.ADD_fechaNacimiento_persona_validation();
@@ -491,13 +478,6 @@ class persona extends AbstractEntidad {
 	//
 	//EDIT
 	//
-	/**
-	 * Valida el campo `dni` en la acción `EDIT`.
-	 * @returns {true|string} `true` si es correcto; código de error si no.
-	 */
-	EDIT_dni_validation() {
-		return this.ADD_dni_validation();
-	}
 
 	/**
 	 * Valida el campo `nombre_persona` en la acción `EDIT`.
@@ -596,7 +576,6 @@ class persona extends AbstractEntidad {
 		var set_result = {};
 
 		// store in key (id element) value (result of field validation method)
-		set_result.dni = this.EDIT_dni_validation();
 		set_result.nombre_persona = this.EDIT_nombre_persona_validation();
 		set_result.apellidos_persona = this.EDIT_apellidos_persona_validation();
 		set_result.fechaNacimiento_persona = this.EDIT_fechaNacimiento_persona_validation();
@@ -609,6 +588,58 @@ class persona extends AbstractEntidad {
 			? true
 			: set_result;
 
+	}
+
+	/**
+	 * Prepara el formulario para enviar la fecha en formato `dd/mm/aaaa`.
+	 * El input date conserva su valor ISO porque no admite mostrar otro formato.
+	 * @returns {Function} Restaura el formulario tras completar el envío.
+	 */
+	prepararFechaNacimientoParaEnvio() {
+		const formulario = document.getElementById('form_iu');
+		const campoFecha = formulario.elements.namedItem('fechaNacimiento_persona');
+		if (!campoFecha.value) {
+			return () => {};
+		}
+
+		const campoOculto = document.createElement('input');
+		campoOculto.type = 'hidden';
+		campoOculto.name = campoFecha.name;
+		campoOculto.value = this.cambiarformatoFecha(campoFecha.value);
+		const estabaDeshabilitado = campoFecha.disabled;
+		campoFecha.disabled = true;
+		formulario.appendChild(campoOculto);
+
+		return () => {
+			campoOculto.remove();
+			campoFecha.disabled = estabaDeshabilitado;
+		};
+	}
+
+	/**
+	 * Envía el alta con la fecha de nacimiento en formato `dd/mm/aaaa`.
+	 * @returns {Promise<void>}
+	 */
+	async ADD() {
+		const restaurarFormulario = this.prepararFechaNacimientoParaEnvio();
+		try {
+			await super.ADD();
+		} finally {
+			restaurarFormulario();
+		}
+	}
+
+	/**
+	 * Envía la modificación con la fecha de nacimiento en formato `dd/mm/aaaa`.
+	 * @returns {Promise<void>}
+	 */
+	async EDIT() {
+		const restaurarFormulario = this.prepararFechaNacimientoParaEnvio();
+		try {
+			await super.EDIT();
+		} finally {
+			restaurarFormulario();
+		}
 	}
 
 	//SEARCH
@@ -880,10 +911,13 @@ class persona extends AbstractEntidad {
 		this.dom.assign_property_value('class_contenido_titulo_form', 'class', 'text_contenido_titulo_form_persona_EDIT');		// limpiar y poner visible el formulario
 		document.getElementById('contenedor_IU_form').innerHTML = this.manual_form_creation();
 		const inputDni = document.getElementById('dni');
-		const selectDni = document.createElement('select');
-		selectDni.id = 'dni';
-		selectDni.name = 'dni';
-		inputDni.replaceWith(selectDni);
+		const campoDni = document.createElement('input');
+		campoDni.type = 'text';
+		campoDni.id = 'dni';
+		campoDni.name = 'dni';
+		campoDni.value = fila.dni;
+		campoDni.readOnly = true;
+		inputDni.replaceWith(campoDni);
 		this.dom.show_element('Div_IU_form', 'block');
 
 		// rellenar onsubmit y action
@@ -895,10 +929,10 @@ class persona extends AbstractEntidad {
 
 		// rellenar valores
 		this.dom.rellenarvaloresform(fila);
-		this.cargarUsuariosDisponibles(fila.dni);
 
 		// poner las validaciones
 		this.dom.colocarvalidaciones('form_iu', 'EDIT');
+		document.getElementById('dni').removeAttribute('onblur');
 
 		// poner inactivos los campos correspondientes
 		this.dom.assign_property_value('foto_persona', 'readonly', 'true');
@@ -1005,6 +1039,7 @@ class persona extends AbstractEntidad {
 
 		// poner las validaciones
 		this.dom.colocarvalidaciones('form_iu', 'ADD');
+		document.getElementById('dni').removeAttribute('onchange');
 		this.cargarUsuariosDisponibles();
 
 		// poner inactivos los campos correspondientes

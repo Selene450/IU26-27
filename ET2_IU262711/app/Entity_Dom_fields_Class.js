@@ -36,7 +36,7 @@ class entity_dom_fields extends dom_fields{
     }
 
     /**
-     * igual que dom_fields.crearElementoHtml, añadiendo soporte para select y valor inicial en los elementos por defecto
+     * igual que dom_fields.crearElementoHtml, añadiendo soporte para select y date y valor inicial en los elementos por defecto
      */
     crearElementoHtml(contenedor, tag, nombrecampo, valores, extra=null){
         switch (tag){

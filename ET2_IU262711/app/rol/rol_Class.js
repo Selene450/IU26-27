@@ -71,34 +71,6 @@ class rol extends AbstractEntidad {
     // ==========================================
     // VALIDACIONES DE ID_ROL
     // ==========================================
-    /**
-     * Valida el campo `id_rol` en la acción `ADD`.
-     * @returns {true|string} `true` si es correcto; código de error si no.
-     */
-    ADD_id_rol_validation() {
-        if (!this.validations.min_size('id_rol', 1)) {
-            this.dom.mostrar_error_campo('id_rol', 'id_rol_min_size_KO');
-            return 'id_rol_min_size_KO';
-        }
-        if (!this.validations.max_size('id_rol', 11)) {
-            this.dom.mostrar_error_campo('id_rol', 'id_rol_max_size_KO');
-            return 'id_rol_max_size_KO';
-        }
-        if (!this.validations.format('id_rol', '^[0-9]+$')) {
-            this.dom.mostrar_error_campo('id_rol', 'id_rol_format_KO');
-            return 'id_rol_format_KO';
-        }
-        this.dom.mostrar_exito_campo('id_rol');
-        return true;
-    }
-
-    /**
-     * Valida el campo `id_rol` en la acción `EDIT`.
-     * @returns {true|string} `true` si es correcto; código de error si no.
-     */
-    EDIT_id_rol_validation() {
-        return this.ADD_id_rol_validation();
-    }
 
     /**
      * Valida el campo `id_rol` en la acción `SEARCH`.
@@ -183,7 +155,7 @@ class rol extends AbstractEntidad {
             this.dom.mostrar_error_campo('rol_description', 'rol_description_max_size_KO');
             return 'rol_description_max_size_KO';
         }
-        if (!this.validations.format('rol_description', '^[A-Za-z0-9áéíóúÁÉÍÓÚñÑ.,\\-\\s]+$')) {
+        if (!this.validations.format('rol_description', '^[A-Za-záéíóúüñÁÉÍÓÚÜÑ .,;:!?¡¿\'"()\\-]+$')) {
             this.dom.mostrar_error_campo('rol_description', 'rol_description_format_KO');
             return 'rol_description_format_KO';
         }
@@ -209,7 +181,7 @@ class rol extends AbstractEntidad {
             this.dom.mostrar_error_campo('rol_description', 'rol_description_max_size_KO');
             return 'rol_description_max_size_KO';
         }
-        if (document.getElementById('rol_description').value.trim() !== '' && !this.validations.format('rol_description', '^[A-Za-z0-9áéíóúÁÉÍÓÚñÑ.,\\-\\s]+$')) {
+        if (descripcion.trim() !== '' && !this.validations.format('rol_description', '^[A-Za-záéíóúüñÁÉÍÓÚÜÑ .,;:!?¡¿\'"()\\-]+$')) {
             this.dom.mostrar_error_campo('rol_description', 'rol_description_format_KO');
             return 'rol_description_format_KO';
         }
@@ -242,12 +214,10 @@ class rol extends AbstractEntidad {
      */
     EDIT_submit_rol() {
         var set_result = {};
-        set_result.id_rol = this.EDIT_id_rol_validation();
         set_result.rol_name = this.EDIT_rol_name_validation();
         set_result.rol_description = this.EDIT_rol_description_validation();
 
         let result = (
-            (set_result.id_rol) &
             (set_result.rol_name) &
             (set_result.rol_description)
         );
@@ -334,6 +304,7 @@ class rol extends AbstractEntidad {
 
         this.dom.rellenarvaloresform(fila);
         this.dom.colocarvalidaciones('form_iu', 'EDIT');
+        document.getElementById('id_rol').removeAttribute('onblur');
         this.dom.assign_property_value('id_rol', 'readonly', 'true');
         this.dom.colocarboton('EDIT');
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');

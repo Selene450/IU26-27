@@ -17,27 +17,27 @@ var rol_def_tests = [
     //EDIT
     ['rol', 'rol_name', 'input', 8, 'Validar min_size de rol_name en EDIT', 'min_size', 'EDIT', 'rol_name_min_size_KO', 'El campo rol_name debe tener al menos 5 caracteres'],
     ['rol', 'rol_name', 'input', 9, 'Validar max_size de rol_name en EDIT', 'max_size', 'EDIT', 'rol_name_max_size_KO', 'El campo rol_name debe tener como maximo 48 caracteres'],
-    ['rol', 'rol_name', 'input', 10, 'Validar format de rol_name en EDIT', 'format', 'EDIT', 'rol_name_format_KO', 'El campo rol_name debe ser alfabetico incluyendo'],
+    ['rol', 'rol_name', 'input', 10, 'Validar format de rol_name en EDIT', 'format', 'EDIT', 'rol_name_format_KO', 'El campo rol_name debe ser alfabetico'],
     ['rol', 'rol_name', 'input', 11, 'Validar rol_name correcto en EDIT', 'valid', 'EDIT', true, 'rol_name correcto'],
     //SEARCH
     ['rol', 'rol_name', 'input', 12, 'Validar max_size de rol_name en SEARCH', 'max_size', 'SEARCH', 'rol_name_max_size_KO', 'El campo rol_name debe tener como maximo 48 caracteres'],
-    ['rol', 'rol_name', 'input', 13, 'Validar format de rol_name en SEARCH', 'format', 'SEARCH', 'rol_name_format_KO', 'El campo rol_name debe ser alfabetico incluyendo'],
+    ['rol', 'rol_name', 'input', 13, 'Validar format de rol_name en SEARCH', 'format', 'SEARCH', 'rol_name_format_KO', 'El campo rol_name debe ser alfabetico'],
     ['rol', 'rol_name', 'input', 14, 'Validar rol_name correcto en SEARCH', 'valid', 'SEARCH', true, 'rol_name correcto'],
 
     //campo rol_description
     //ADD
     ['rol', 'rol_description', 'input', 15, 'Validar min_size de rol_description en ADD', 'min_size', 'ADD', 'rol_description_min_size_KO', 'El campo rol_description debe tener al menos 5 caracteres'],
     ['rol', 'rol_description', 'input', 16, 'Validar max_size de rol_description en ADD', 'max_size', 'ADD', 'rol_description_max_size_KO', 'El campo rol_description debe tener como maximo 200 caracteres'],
-    ['rol', 'rol_description', 'input', 17, 'Validar format de rol_description en ADD', 'format', 'ADD', 'rol_description_format_KO', 'El campo rol_description debe ser alfanumerico incluyendo ñ, acentos, puntos, comas, guiones y espacios'],
+    ['rol', 'rol_description', 'input', 17, 'Validar format de rol_description en ADD', 'format', 'ADD', 'rol_description_format_KO', 'El campo rol_description debe ser alfabético incluyendo ñ, espacios y signos de puntuación'],
     ['rol', 'rol_description', 'input', 18, 'Validar rol_description correcto en ADD', 'valid', 'ADD', true, 'rol_description correcto'],
     //EDIT
     ['rol', 'rol_description', 'input', 19, 'Validar min_size de rol_description en EDIT', 'min_size', 'EDIT', 'rol_description_min_size_KO', 'El campo rol_description debe tener al menos 5 caracteres'],
     ['rol', 'rol_description', 'input', 20, 'Validar max_size de rol_description en EDIT', 'max_size', 'EDIT', 'rol_description_max_size_KO', 'El campo rol_description debe tener como maximo 200 caracteres'],
-    ['rol', 'rol_description', 'input', 21, 'Validar format de rol_description en EDIT', 'format', 'EDIT', 'rol_description_format_KO', 'El campo rol_description debe ser alfanumerico incluyendo ñ, acentos, puntos, comas, guiones y espacios'],
+    ['rol', 'rol_description', 'input', 21, 'Validar format de rol_description en EDIT', 'format', 'EDIT', 'rol_description_format_KO', 'El campo rol_description debe ser alfabético incluyendo ñ, espacios y signos de puntuación'],
     ['rol', 'rol_description', 'input', 22, 'Validar rol_description correcto en EDIT', 'valid', 'EDIT', true, 'rol_description correcto'],
     //SEARCH
     ['rol', 'rol_description', 'input', 23, 'Validar max_size de rol_description en SEARCH', 'max_size', 'SEARCH', 'rol_description_max_size_KO', 'El campo rol_description debe tener como maximo 200 caracteres'],
-    ['rol', 'rol_description', 'input', 24, 'Validar format de rol_description en SEARCH', 'format', 'SEARCH', 'rol_description_format_KO', 'El campo rol_description debe ser alfanumerico incluyendo ñ, acentos, puntos, comas, guiones y espacios'],
+    ['rol', 'rol_description', 'input', 24, 'Validar format de rol_description en SEARCH', 'format', 'SEARCH', 'rol_description_format_KO', 'El campo rol_description debe ser alfabético incluyendo ñ, espacios y signos de puntuación'],
     ['rol', 'rol_description', 'input', 25, 'Validar rol_description correcto en SEARCH', 'valid', 'SEARCH', true, 'rol_description correcto']
 ];
 /**
@@ -113,5 +113,11 @@ var rol_pruebas = [
     ['rol', 'rol_description', 25, 54, 'SEARCH', {'rol_description': 'ABCDE'}, true],
     ['rol', 'rol_description', 25, 55, 'SEARCH', {'rol_description': 'a'.repeat(200)}, true],
     ['rol', 'rol_description', 25, 56, 'SEARCH', {'rol_description': 'Rol ñ, acción.'}, true],
-    ['rol', 'rol_description', 25, 57, 'SEARCH', {'rol_description': 'Rol con acceso total al sistema'}, true]
+    ['rol', 'rol_description', 25, 57, 'SEARCH', {'rol_description': 'Rol con acceso total al sistema'}, true],
+    ['rol', 'rol_description', 17, 58, 'ADD', {'rol_description': 'Descripción: edición, búsqueda y gestión (niñez).'}, true],
+    ['rol', 'rol_description', 17, 59, 'ADD', {'rol_description': 'Acceso nivel 2'}, 'rol_description_format_KO'],
+    ['rol', 'rol_description', 21, 60, 'EDIT', {'rol_description': 'Descripción: edición, búsqueda y gestión (niñez).'}, true],
+    ['rol', 'rol_description', 21, 61, 'EDIT', {'rol_description': 'Acceso nivel 2'}, 'rol_description_format_KO'],
+    ['rol', 'rol_description', 24, 62, 'SEARCH', {'rol_description': 'Descripción: edición, búsqueda y gestión (niñez).'}, true],
+    ['rol', 'rol_description', 24, 63, 'SEARCH', {'rol_description': 'Acceso nivel 2'}, 'rol_description_format_KO']
 ];

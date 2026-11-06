@@ -129,10 +129,10 @@ var textos_EN = {
     "id_rol_valid_KO": "You must select a role.",
     "rol_name_min_size_KO": "The role name must have at least 5 characters.",
     "rol_name_max_size_KO": "The role name cannot exceed 48 characters.",
-    "rol_name_format_KO": "The role name must be alphabetic (including ñ, accents, spaces and hyphens).",
+    "rol_name_format_KO": "The role name must be alphabetic.",
     "rol_description_min_size_KO": "The description must have at least 5 characters.",
     "rol_description_max_size_KO": "The description cannot exceed 200 characters.",
-    "rol_description_format_KO": "Invalid description format (letters, numbers, accents and punctuation marks are allowed).",
+    "rol_description_format_KO": "Invalid description format (letters, spaces and punctuation marks are allowed).",
 
     // VALIDATION ERRORS - ACCION
     "id_accion_min_size_KO": "The action ID must have at least 1 character.",

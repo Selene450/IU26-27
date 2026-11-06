@@ -129,10 +129,10 @@ var textos_ES = {
     "id_rol_valid_KO": "Debe seleccionar un rol.",
     "rol_name_min_size_KO": "El nombre del rol debe tener al menos 5 caracteres.",
     "rol_name_max_size_KO": "El nombre del rol no puede superar los 48 caracteres.",
-    "rol_name_format_KO": "El nombre del rol debe ser alfabético (incluyendo ñ, acentos, espacios y guiones).",
+    "rol_name_format_KO": "El nombre del rol debe ser alfabético.",
     "rol_description_min_size_KO": "La descripción debe tener al menos 5 caracteres.",
     "rol_description_max_size_KO": "La descripción no puede superar los 200 caracteres.",
-    "rol_description_format_KO": "Formato de descripción inválido (se permiten letras, números, acentos y signos de puntuación).",
+    "rol_description_format_KO": "Formato de descripción inválido (se permiten letras, espacios y signos de puntuación).",
 
     // ERRORES DE VALIDACIÓN - ACCION
     "id_accion_min_size_KO": "El ID de acción debe tener al menos 1 carácter.",

@@ -71,34 +71,6 @@ class accion extends AbstractEntidad {
     // ==========================================
     // VALIDACIONES DE ID_ACCION
     // ==========================================
-    /**
-     * Valida el campo `id_accion` en la acción `ADD`.
-     * @returns {true|string} `true` si es correcto; código de error si no.
-     */
-    ADD_id_accion_validation() {
-        if (!this.validations.min_size('id_accion', 1)) {
-            this.dom.mostrar_error_campo('id_accion', 'id_accion_min_size_KO');
-            return 'id_accion_min_size_KO';
-        }
-        if (!this.validations.max_size('id_accion', 11)) {
-            this.dom.mostrar_error_campo('id_accion', 'id_accion_max_size_KO');
-            return 'id_accion_max_size_KO';
-        }
-        if (!this.validations.format('id_accion', '^[0-9]+$')) {
-            this.dom.mostrar_error_campo('id_accion', 'id_accion_format_KO');
-            return 'id_accion_format_KO';
-        }
-        this.dom.mostrar_exito_campo('id_accion');
-        return true;
-    }
-
-    /**
-     * Valida el campo `id_accion` en la acción `EDIT`.
-     * @returns {true|string} `true` si es correcto; código de error si no.
-     */
-    EDIT_id_accion_validation() {
-        return this.ADD_id_accion_validation();
-    }
 
     /**
      * Valida el campo `id_accion` en la acción `SEARCH`.
@@ -271,6 +243,43 @@ class accion extends AbstractEntidad {
     }
 
     /**
+     * Muestra las acciones de la entidad sin incrustar los datos de las filas en código HTML.
+     * @param {Array<Object>} datos Filas devueltas por la búsqueda
+     * @param {Array<string>} mostrarespecial Campos que requieren transformación para mostrarse
+     * @returns {void}
+     */
+    crearTablaDatos(datos, mostrarespecial) {
+        const filasOriginales = datos.map(fila => ({...fila}));
+        const filasTabla = datos.map(fila => ({...fila}));
+        const acciones = {
+            EDIT: fila => this.createForm_EDIT(fila),
+            DELETE: fila => this.createForm_DELETE(fila),
+            SHOWCURRENT: fila => this.createForm_SHOWCURRENT(fila)
+        };
+
+        filasTabla.forEach((fila, indice) => {
+            mostrarespecial.forEach(campo => {
+                if (Object.prototype.hasOwnProperty.call(fila, campo)) {
+                    fila[campo] = this.cambiarmostrarespecial(campo, fila[campo]);
+                }
+            });
+            fila.EDIT = `<img id="botonEDIT" data-row-action="EDIT" data-row-index="${indice}" src="./iconos/EDIT.png">`;
+            fila.DELETE = `<img id="botonDELETE" data-row-action="DELETE" data-row-index="${indice}" src="./iconos/DELETE.png">`;
+            fila.SHOWCURRENT = `<img id="botonSHOWCURRENT" data-row-action="SHOWCURRENT" data-row-index="${indice}" src="./iconos/SHOWCURRENT.png">`;
+        });
+
+        this.dom.showData('IU_manage_table', filasTabla);
+        document.querySelectorAll('#IU_manage_table [data-row-action]').forEach(boton => {
+            const accion = boton.dataset.rowAction;
+            const indice = Number(boton.dataset.rowIndex);
+            boton.addEventListener('click', () => acciones[accion](filasOriginales[indice]));
+        });
+        this.dom.crearSeleccionablecolumnas(this.columnasamostrar, this.atributos);
+        this.dom.mostrarocultarcolumnas(this.columnasamostrar, this.atributos);
+        setLang();
+    }
+
+    /**
      * Consulta la entidad en el back y muestra las tuplas que cumplen el filtro.
      * @returns {Promise<void>}
      */
@@ -332,6 +341,7 @@ class accion extends AbstractEntidad {
 
         this.dom.rellenarvaloresform(fila);
         this.dom.colocarvalidaciones('form_iu', 'EDIT');
+        document.getElementById('id_accion').removeAttribute('onblur');
         this.dom.assign_property_value('id_accion', 'readonly', 'true');
         this.dom.colocarboton('EDIT');
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');

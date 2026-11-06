@@ -28,3 +28,7 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Se cambió el tipo de dato del formulario de persona fechaNacimiento a date y para la persistencia del formato pedido se usó la función que venía dada en la arquitectura de Rodeiro [05/11/2026]
 - Se ajustaron las validaciones de fecha de nacimiento al formato dd/mm/aaaa, se impidieron fechas futuras y se adaptaron y renumeraron sus pruebas para usar controles date [06/11/2026]
 - Se eliminaron las validaciones de texto innecesarias para los select de DNI y las búsquedas de las entidades funcionalidad_accion y rolaccionfuncionalidad [06/11/2026]
+- Se envía la fecha de nacimiento de persona en formato dd/mm/aaaa en ADD y EDIT, manteniendo el selector de fecha del navegador [06/11/2026]
+- Se impide editar las claves primarias y se eliminan llamadas a validaciones inexistentes de claves primarias y foráneas; se corrigen las comprobaciones de envío EDIT afectadas [06/11/2026]
+- Se corrige el error de sintaxis al abrir la edición de una acción, evitando incrustar los datos de las filas como JavaScript en línea [06/11/2026]
+- Se ajusta el formato de la descripción del rol para permitir texto alfabético con ñ, espacios y signos de puntuación, y se actualizan traducciones y pruebas [06/11/2026]

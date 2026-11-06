@@ -71,34 +71,6 @@ class funcionalidad extends AbstractEntidad {
     // ==========================================
     // VALIDACIONES DE ID_FUNCIONALIDAD
     // ==========================================
-    /**
-     * Valida el campo `id_funcionalidad` en la acción `ADD`.
-     * @returns {true|string} `true` si es correcto; código de error si no.
-     */
-    ADD_id_funcionalidad_validation() {
-        if (!this.validations.min_size('id_funcionalidad', 1)) {
-            this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_min_size_KO');
-            return 'id_funcionalidad_min_size_KO';
-        }
-        if (!this.validations.max_size('id_funcionalidad', 11)) {
-            this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_max_size_KO');
-            return 'id_funcionalidad_max_size_KO';
-        }
-        if (!this.validations.format('id_funcionalidad', '^[0-9]+$')) {
-            this.dom.mostrar_error_campo('id_funcionalidad', 'id_funcionalidad_format_KO');
-            return 'id_funcionalidad_format_KO';
-        }
-        this.dom.mostrar_exito_campo('id_funcionalidad');
-        return true;
-    }
-
-    /**
-     * Valida el campo `id_funcionalidad` en la acción `EDIT`.
-     * @returns {true|string} `true` si es correcto; código de error si no.
-     */
-    EDIT_id_funcionalidad_validation() {
-        return this.ADD_id_funcionalidad_validation();
-    }
 
     /**
      * Valida el campo `id_funcionalidad` en la acción `SEARCH`.
@@ -366,6 +338,7 @@ class funcionalidad extends AbstractEntidad {
         this.dom.assign_property_value('form_iu', 'action', 'javascript:entidad.EDIT();');
         this.dom.rellenarvaloresform(fila);
         this.dom.colocarvalidaciones('form_iu', 'EDIT');
+        document.getElementById('id_funcionalidad').removeAttribute('onblur');
         this.dom.assign_property_value('id_funcionalidad', 'readonly', 'true');
         this.dom.colocarboton('EDIT');
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');

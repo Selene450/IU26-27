@@ -99,14 +99,6 @@ class usuario extends AbstractEntidad {
     }
 
     /**
-     * Valida el campo `dni` en la acción `EDIT`.
-     * @returns {true|string} `true` si es correcto; código de error si no.
-     */
-    EDIT_dni_validation() {
-        return this.ADD_dni_validation();
-    }
-
-    /**
      * Validación personalizada `personalize_dni`, usada cuando no sirven las validaciones estándar de Validations.
      * @param {string} id Valor o identificador del campo a validar
      * @returns {true|string} `true` si es correcto; código de error si no.
@@ -305,12 +297,10 @@ class usuario extends AbstractEntidad {
      */
     EDIT_submit_usuario() {
         var set_result = {};
-        set_result.dni = this.EDIT_dni_validation();
         set_result.usuario = this.EDIT_usuario_validation();
         set_result.contrasena = this.EDIT_contrasena_validation();
 
         let result = (
-            (set_result.dni) &
             (set_result.usuario) &
             (set_result.contrasena)
         );
@@ -398,6 +388,8 @@ class usuario extends AbstractEntidad {
         this.dom.rellenarvaloresform(fila);
         this.cargarRoles(fila.id_rol);
         this.dom.colocarvalidaciones('form_iu', 'EDIT');
+        document.getElementById('dni').readOnly = true;
+        document.getElementById('dni').removeAttribute('onblur');
         document.getElementById('id_rol').removeAttribute('onchange');
         this.dom.colocarboton('EDIT');
         setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
