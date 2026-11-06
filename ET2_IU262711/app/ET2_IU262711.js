@@ -15,6 +15,6 @@ datosgenerales =
     Participante3:
         ['ElGhaliElGhaliHiba',
             'ET2',
-            1],
+            2],
 
 }
