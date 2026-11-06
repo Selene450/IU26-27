@@ -178,15 +178,20 @@ class persona extends AbstractEntidad {
 		if (this.esTest) {
 			return true;
 		}
+		const dni = document.getElementById('dni').value;
+		if (dni === '') {
+			this.dom.mostrar_error_campo('dni', 'dni_es_nulo_KO');
+			return 'dni_es_nulo_KO';
+		}
 		if (this.dnisDisponibles === null) {
 			this.dom.mostrar_error_campo('dni', 'dni_persona_no_verificado_KO');
-			return false;
+			return 'dni_persona_no_verificado_KO';
 		}
-		const dni = document.getElementById('dni').value;
 		if (!this.dnisDisponibles.has(String(dni))) {
 			this.dom.mostrar_error_campo('dni', 'dni_persona_ocupado_KO');
-			return false;
+			return 'dni_persona_ocupado_KO';
 		}
+		this.dom.mostrar_exito_campo('dni');
 		return true;
 	}
 
@@ -461,6 +466,7 @@ class persona extends AbstractEntidad {
 		var set_result = {};
 
 		// store in key (id element) value (result of field validation method)
+		set_result.dni = this.validarDniPersonaDisponible();
 		set_result.nombre_persona = this.ADD_nombre_persona_validation();
 		set_result.apellidos_persona = this.ADD_apellidos_persona_validation();
 		set_result.fechaNacimiento_persona = this.ADD_fechaNacimiento_persona_validation();
@@ -933,6 +939,7 @@ class persona extends AbstractEntidad {
 		// poner las validaciones
 		this.dom.colocarvalidaciones('form_iu', 'EDIT');
 		document.getElementById('dni').removeAttribute('onblur');
+		document.getElementById('foto_persona').removeAttribute('onblur');
 
 		// poner inactivos los campos correspondientes
 		this.dom.assign_property_value('foto_persona', 'readonly', 'true');
@@ -1040,6 +1047,7 @@ class persona extends AbstractEntidad {
 		// poner las validaciones
 		this.dom.colocarvalidaciones('form_iu', 'ADD');
 		document.getElementById('dni').removeAttribute('onchange');
+		document.getElementById('dni').setAttribute('onchange', 'entidad.validarDniPersonaDisponible();');
 		this.cargarUsuariosDisponibles();
 
 		// poner inactivos los campos correspondientes
