@@ -20,6 +20,18 @@ class entity_dom_fields extends dom_fields{
     }
 
     /**
+     * igual que dom_table.showData, pero quita antes la clase RECORDSET_VACIO que deja una busqueda sin resultados;
+     * si no, setLang() volveria a escribir el mensaje de "sin resultados" encima de la tabla
+     * @param {string} idcomponente id del contenedor donde se coloca la tabla
+     * @param {object} test_result datos a mostrar
+     * @param {object} marked columnas a marcar
+     */
+    showData(idcomponente, test_result, marked=null){
+        document.getElementById(idcomponente).removeAttribute('class');
+        super.showData(idcomponente, test_result, marked);
+    }
+
+    /**
      * abre el modal de error. Si el mensaje es un codigo de traduccion se pone como class para que setLang() lo traduzca
      * @param {string} errorMsg codigo de error o texto
      */

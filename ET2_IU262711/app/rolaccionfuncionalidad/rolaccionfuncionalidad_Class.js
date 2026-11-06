@@ -28,6 +28,7 @@ class rolaccionfuncionalidad extends AbstractEntidad {
             document.getElementById('add_search_columns').style.display = '';
             this.ocultarBotonesNoAplicables();
             document.getElementById('contenedor_IU_form').innerHTML = '';
+            document.getElementById('IU_manage_table').className = '';
             document.getElementById('IU_manage_table').innerHTML = this.manual_form_creation();
             this.dom.hide_element('Div_IU_form');
             setLang(window.traduccion === textos_EN ? 'EN' : 'ES');
